@@ -9,11 +9,11 @@ class Cidade extends Model
     //
     public function estado()
     {
-    	return $this->hasOne('App\Estado');
+    	return $this->belongsTo('App\Estado');
     }
-    
+  
     public function tenistas()
     {
-    	return $this->belongsToMany('App\Tenista');
+    	return $this->hasMany('App\Tenista');
     }
 }
