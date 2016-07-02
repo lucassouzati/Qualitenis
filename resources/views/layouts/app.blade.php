@@ -27,7 +27,7 @@
 </head>
 <body id="app-layout">
     <!-- -->
-
+   
     @if(Session::has('flash_message'))
         <div class="container">
             <div class="row">
@@ -39,6 +39,7 @@
             </div>
         </div>
     @endif
+    @include('layouts._includes._nav')
     @yield('content')
 
     <!-- JavaScripts -->
