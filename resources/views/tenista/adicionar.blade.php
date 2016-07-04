@@ -22,30 +22,68 @@ $(document).ready(function(){
 				
 						{{csrf_field()}}
 				<div class="row">
-					<div class="form-group col-md-12">
+					<div class="form-group col-md-12 {{ $errors->has('nome') ? 'has-error' : '' }}">
 						<label for="nome">Nome</label>
 						<input type="text" name="nome">
+						@if($errors->has('nome'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('nome') }}</strong>
+                                </span>
+                            @endif
 					</div>
-					<div class="form-group col-md-6">
+					<div class="form-group col-md-6 {{ $errors->has('login') ? 'has-error' : '' }}">
 						<label for="login">Login</label>
 						<input type="text" name="login">
+						@if($errors->has('login'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('login') }}</strong>
+                                </span>
+                            @endif
 					</div>
-					<div class="form-group col-md-6">
+					<div class="form-group col-md-6 {{ $errors->has('senha') ? 'has-error' : '' }}">
 						<label for="senha">Senha</label>
 						<input type="password" name="senha">
+						@if($errors->has('senha'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('senha') }}</strong>
+                                </span>
+                            @endif
 					</div>
-					<div class="form-group col-md-12">
+					<div class="form-group col-md-12 {{ $errors->has('datadenascimento') ? 'has-error' : '' }}">
 						<label for="DatadeNascimento">Data de Nascimento</label>
-						<input type="text" name="datadenascimento" id="date"></input>
-			
+						<input type="text" name="datadenascimento"></input>
+						@if($errors->has('datadenascimento'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('datadenascimento') }}</strong>
+                                </span>
+                            @endif
 					</div>
-					<div class="form-group col-md-12">
+					<div class="form-group col-md-6 {{ $errors->has('sexo') ? 'has-error' : '' }}">
+						<input type="radio" name="sexo" value="M">Masculino<br>
+	  					<input type="radio" name="sexo" value="F">Feminino<br>
+	  					@if($errors->has('sexo'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('sexo') }}</strong>
+                                </span>
+                            @endif
+	  				</div>
+					<div class="form-group col-md-12 {{ $errors->has('email') ? 'has-error' : '' }}">
 						<label for="email">E-mail</label>
 						<input type="text" name="email">
+						@if($errors->has('email'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                            @endif
 					</div>
-					<div class="form-group col-md-12">
+					<div class="form-group col-md-12 {{ $errors->has('telefone') ? 'has-error' : '' }}">
 						<label for="telefone">Telefone</label>
 						<input type="text" name="telefone" id="phone">
+						@if($errors->has('telefone'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('telefone') }}</strong>
+                                </span>
+                            @endif
 					</div>
 					<div class="form-group col-md-12">
 						<label for="Estado">Estado</label>
@@ -54,7 +92,7 @@ $(document).ready(function(){
 						</select>
 
 					</div>
-					<div class="form-group col-md-12">
+					<div class="form-group col-md-12 {{ $errors->has('cidade') ? 'has-error' : '' }}">
 						<label for="Cidade">Cidade</label>
 						<select name="cidade_id">
 							<?php 
@@ -66,6 +104,11 @@ $(document).ready(function(){
 								}	
 							?>		
 						</select>
+						@if($errors->has('cidade'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('cidade') }}</strong>
+                                </span>
+                            @endif
 					</div>
 					<hr />
   					
