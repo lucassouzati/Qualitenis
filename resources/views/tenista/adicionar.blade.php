@@ -9,6 +9,11 @@ $(document).ready(function(){
 });
 </script>
 <div class="container">
+	<script type="text/javascript">
+		jQuery(function($){
+  			$("#date").mask("99/99/9999",{placeholder:"mm/dd/yyyy"});  
+		});
+	</script>
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
@@ -77,4 +82,5 @@ $(document).ready(function(){
     </div>
 </div>
 <script src="script_jquery.js" type="text/javascript"></script>
+<script src="jquery.js" type="text/javascript"></script>
 @endsection
