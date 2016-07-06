@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Tenista extends Model
 {
     //
-    protected $fillable = ["login", "emailunique", "senha", "nome", "telefone", "cidade", "datadenascimento", "cpf", "statustenista"];
+    protected $fillable = ["login", "email", "senha", "nome", "telefone", "cidade", "datadenascimento", "cpf", "statustenista"];
     public function cidade()
     {
-    	return $this->hasOne('App\Cidade');
+    	return $this->belongsTo('App\Cidade');
     }
 
-    public function statustenistas()
+    public function statustenista()
     {
-    	return $this->hasOne('App\Statustenista');
+    	return $this->belongsTo('App\Statustenista');
     }
 }
