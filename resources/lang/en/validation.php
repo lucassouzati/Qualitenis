@@ -47,21 +47,21 @@ return [
     'max'                  => [
         'numeric' => 'The :attribute may not be greater than :max.',
         'file'    => 'The :attribute may not be greater than :max kilobytes.',
-        'string'  => 'The :attribute may not be greater than :max characters.',
+        'string'  => 'O campo :attribute não deve ter mais de :max caracteres. ',
         'array'   => 'The :attribute may not have more than :max items.',
     ],
     'mimes'                => 'The :attribute must be a file of type: :values.',
     'min'                  => [
         'numeric' => 'The :attribute must be at least :min.',
         'file'    => 'The :attribute must be at least :min kilobytes.',
-        'string'  => 'The :attribute must be at least :min characters.',
+        'string'  => 'O campo :attribute não deve ter menos de :min caracteres.',
         'array'   => 'The :attribute must have at least :min items.',
     ],
     'not_in'               => 'The selected :attribute is invalid.',
     'numeric'              => 'The :attribute must be a number.',
     'present'              => 'The :attribute field must be present.',
     'regex'                => 'The :attribute format is invalid.',
-    'required'             => 'The :attribute field is required.',
+    'required'             => 'O campo de :attribute é requerido.',
     'required_if'          => 'The :attribute field is required when :other is :value.',
     'required_unless'      => 'The :attribute field is required unless :other is in :values.',
     'required_with'        => 'The :attribute field is required when :values is present.',
@@ -95,6 +95,44 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+         'datadenascimento' => [
+            'required' => 'Preencha a data de nascimento.',
+        ],
+        'datadenascimento' => [
+            'date_format' => 'Data inválida.',
+        ],
+        'nome' => [
+            'required' => 'Preencha o nome.',
+        ],
+        'login' => [
+            'required' => 'Preencha o login.',
+        ],
+        'login' => [
+            'unique' => 'Login já está em uso.',
+        ],
+        'email' => [
+            'required' => 'Preencha o e-mail.',
+        ],
+        'email' => [
+            'unique' => 'E-mail já em uso.',
+        ],
+        'email' => [
+            'email' => 'E-mail inválido.',
+        ],
+       
+        'senha' => [
+            'required' => 'Preencha uma senha.',
+        ],
+        'sexo' => [
+            'required' => 'Escolha um sexo.',
+        ],
+        'telefone' => [
+            'required' => 'Preencha um telefone.',
+        ],
+        'telefone' => [
+            'numeric' => 'Ńão pode conter letras.',
+        ],
+
     ],
 
     /*
