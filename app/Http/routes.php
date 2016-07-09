@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+//tenista
 Route::get('/tenista', ['uses'=>'TenistaController@index', 'as'=>'tenista.index']);
 Route::get('/tenista/adicionar', ['uses'=>'TenistaController@adicionar', 'as'=>'tenista.adicionar']);
 Route::post('/tenista/salvar', ['uses'=>'TenistaController@salvar', 'as'=>'tenista.salvar']);
@@ -23,9 +23,37 @@ Route::get('/tenista/editar/{id}', ['uses'=>'TenistaController@editar', 'as'=>'t
 Route::get('/tenista/deletar/{id}', ['uses'=>'TenistaController@deletar', 'as'=>'tenista.deletar']);
 Route::put('/tenista/atualizar/{id}', ['uses'=>'TenistaController@atualizar', 'as'=>'tenista.atualizar']);
 
+<<<<<<< HEAD
 Route::get('/torneio', ['uses'=>'TorneioController@index', 'as'=>'torneio.index']);
 Route::get('/torneio/adicionar', ['uses'=>'TorneioController@adicionar', 'as'=>'torneio.adicionar']);
 Route::post('/torneio/salvar', ['uses'=>'TorneioController@salvar', 'as'=>'torneio.salvar']);
 Route::get('/torneio/editar/{id}', ['uses'=>'TorneioController@editar', 'as'=>'torneio.editar']);
 Route::get('/torneio/deletar/{id}', ['uses'=>'TorneioController@deletar', 'as'=>'torneio.deletar']);
 Route::put('/torneio/atualizar/{id}', ['uses'=>'TorneioController@atualizar', 'as'=>'torneio.atualizar']);
+=======
+//torneio
+Route::get('/Torneio', ['uses'=>'TorneioController@index', 'as'=>'Torneio.index']);
+Route::get('/Torneio/adicionar', ['uses'=>'TorneioController@adicionar', 'as'=>'Torneio.adicionar']);
+Route::post('/Torneio/salvar', ['uses'=>'TorneioController@salvar', 'as'=>'Torneio.salvar']);
+Route::get('/Torneio/editar/{id}', ['uses'=>'TorneioController@editar', 'as'=>'Torneio.editar']);
+Route::get('/Torneio/deletar/{id}', ['uses'=>'TorneioController@deletar', 'as'=>'Torneio.deletar']);
+Route::put('/Torneio/atualizar/{id}', ['uses'=>'TorneioController@atualizar', 'as'=>'Torneio.atualizar']);
+
+//academia
+Route::get('/Academia/index', ['uses'=>'AcademiaController@index', 'as'=>'academia.index']);
+Route::get('/Academia/adicionar', ['uses'=>'AcademiaController@adicionar', 'as'=>'Academia.adicionar']);
+Route::post('/Academia/salvar', ['uses'=>'AcademiaController@salvar', 'as'=>'Academia.salvar']);
+Route::get('/Academia/editar/{id}', ['uses'=>'AcademiaController@editar', 'as'=>'Academia.editar']);
+Route::put('/Academia/atualizar/{id}', ['uses'=>'AcademiaController@atualizar', 'as'=>'Academia.atualizar']);
+
+
+//classe
+Route::get('/Classe/index', ['uses'=>'ClasseController@index', 'as'=>'classe.index']);
+Route::get('/Classe/adicionar', ['uses'=>'ClasseController@adicionar', 'as'=>'Classe.adicionar']);
+Route::post('/Classe/salvar', ['uses'=>'ClasseController@salvar', 'as'=>'Classe.salvar']);
+Route::get('/Classe/editar/{id}', ['uses'=>'ClasseController@editar', 'as'=>'Classe.editar']);
+Route::put('/Classe/atualizar/{id}', ['uses'=>'ClasseController@atualizar', 'as'=>'Classe.atualizar']);
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
+>>>>>>> origin/master

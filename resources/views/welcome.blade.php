@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Laravel</title>
+@extends('layouts.app')
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+@section('content')
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">Welcome</div>
 
+<<<<<<< HEAD
         <style>
             html, body {
                 height: 100%;
@@ -40,11 +43,22 @@
         <div class="container">
             <div class="content">
                 <div class="title">Qualitenis</div>
+=======
+                <div class="panel-body">
+                    Your Application's Landing Page.
+                </div>
+>>>>>>> origin/master
             </div>
             
             @include('layouts._includes._footer')
             
         </div>
+<<<<<<< HEAD
         <div class="panel-footer"></div>
     </body>
 </html>
+=======
+    </div>
+</div>
+@endsection
+>>>>>>> origin/master

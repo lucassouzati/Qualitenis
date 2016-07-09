@@ -20,8 +20,13 @@ class Tenista extends Model
 
     public function classe()
     {
+<<<<<<< HEAD
     	return $this->belongsTo('App\Classe');
     }
 
 
+=======
+        return $this->belongsTo('App\Classe');
+    }
+>>>>>>> origin/master
 }
