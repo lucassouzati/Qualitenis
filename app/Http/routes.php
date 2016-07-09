@@ -38,6 +38,13 @@ Route::post('/Academia/salvar', ['uses'=>'AcademiaController@salvar', 'as'=>'Aca
 Route::get('/Academia/editar/{id}', ['uses'=>'AcademiaController@editar', 'as'=>'Academia.editar']);
 Route::put('/Academia/atualizar/{id}', ['uses'=>'AcademiaController@atualizar', 'as'=>'Academia.atualizar']);
 
+
+//classe
+Route::get('/Classe/index', ['uses'=>'ClasseController@index', 'as'=>'classe.index']);
+Route::get('/Classe/adicionar', ['uses'=>'ClasseController@adicionar', 'as'=>'Classe.adicionar']);
+Route::post('/Classe/salvar', ['uses'=>'ClasseController@salvar', 'as'=>'Classe.salvar']);
+Route::get('/Classe/editar/{id}', ['uses'=>'ClasseController@editar', 'as'=>'Classe.editar']);
+Route::put('/Classe/atualizar/{id}', ['uses'=>'ClasseController@atualizar', 'as'=>'Classe.atualizar']);
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
