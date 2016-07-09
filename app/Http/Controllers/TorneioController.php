@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Input;
 
 class TorneioController extends Controller
 {
+
+    public function index()
+    {   
+        
+        return view('torneio.index');
+    }
+
     //
 
        public function adicionar()
