@@ -13,4 +13,14 @@ class Torneio extends Model
     {
     	return $this->belongsTo('App\Cidade');
     }
+
+    public function chaveamentos()
+    {
+    	return $this->hasMany('App\Chaveamento');
+    }
+
+    public function statustorneio()
+    {
+        return $this->belongsTo('App\Statustorneio');
+    }
 }

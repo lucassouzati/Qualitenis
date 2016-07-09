@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterTenistaTable extends Migration
+class CreateChaveamentoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,14 @@ class AlterTenistaTable extends Migration
      */
     public function up()
     {
-        Schema::table('tenistas', function (Blueprint $table) {
-            //
+        Schema::create('chaveamentos', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('numerodejogadores');
+            $table->integer('torneio_id')->unsigned();
+            $table->foreign('torneio_id')->references('id')->on('torneios');
             $table->integer('classe_id')->unsigned();
             $table->foreign('classe_id')->references('id')->on('classes');
+            $table->timestamps();
         });
     }
 
@@ -26,9 +30,6 @@ class AlterTenistaTable extends Migration
      */
     public function down()
     {
-        Schema::table('tenistas', function (Blueprint $table) {
-            //
-            $table->dropColumn('classe_id');
-        });
+        Schema::drop('chaveamentos');
     }
 }

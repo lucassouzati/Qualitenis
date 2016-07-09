@@ -52,7 +52,10 @@ class TorneioController extends Controller
         $torneio->data = $request->get('data');
         $torneio->precodainscricao = $request->get('precodainscricao');
         $torneio->informacoes = $request->get('informacoes');
-        $torneio->data = $request->get('data');
+        $date = date_create_from_format('j/m/Y', $request->input('datadenascimento'));
+        
+        $torneio->data = date_format($date, 'Y-m-d');
+        $torneio->statustorneio()->associate(\App\Statustorneio::find(1)); //Todo torneio começa como inativo
         $classes = $request->get('classes');
         //echo $torneio->data . " ";
         //echo $request->get('classes');
@@ -64,12 +67,33 @@ class TorneioController extends Controller
 
         $torneio->save();
 
+        foreach ($classes as $key) {
+            # code...
+            $chaveamento = new \App\Chaveamento;
+
+            $classe = \App\Classe::find($key);
+            $chaveamento->torneio()->associate($torneio);
+            $chaveamento->classe()->associate($classe);
+            $chaveamento->numerodejogadores = 0;
+            //\App\Chaveamento::create(['numerodejogadores' => '0' , 'torneio_id' => $torneio->id, 'classe_id' => $classe->id]);
+            $chaveamento->save();
+        }
+
+        
+
         \Session::flash('flash_message',[
             'msg'=>"Torneio criado com Sucesso!",
             'class'=>"alert-success"
         ]);
-
-        return redirect()->route('torneio.detalhe', compact('torneio'));
+        return view('torneio.detalhe',compact('torneio'));
+        //return redirect()->route('torneio.detalhe', compact('torneio'));
     }
+
+    public function detalhe($id)
+    {
+        $torneio = \App\Torneio::find($id);
+        return view('torneio.detalhe',compact('torneio'));
+    }
+
 
 }

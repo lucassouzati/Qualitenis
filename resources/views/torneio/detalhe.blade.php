@@ -27,12 +27,12 @@
                         <tbody>                           
                             @foreach($torneio->chaveamentos as $chaveamento)
                             <tr>
-                                <th scope="row">{{ $telefone->id }}</th>
-                                <td>{{ $telefone->titulo }}</td>
-                                <td>{{ $telefone->telefone }}</td>                                
+                                <th scope="row">{{ $chaveamento->id }}</th>
+                                <td>{{ $chaveamento->classe->nome }}</td>
+                                <td>{{ $chaveamento->numerodejogadores }}</td>                                
                                 <td>
-                                    <a class="btn btn-default" href="{{ route('telefone.editar',$telefone->id) }}">Editar</a>
-                                    <a class="btn btn-danger" href="javascript:(confirm('Deletar esse registro?') ? window.location.href='{{ route('telefone.deletar',$telefone->id) }}' : false)">Deletar</a>
+                                    <a class="btn btn-default" href="{{ route('torneio.chaveamento.editar', ['torneio' => $torneio->id, 'chaveamento' => $chaveamento->id]) }}">Editar</a>
+                                    <a class="btn btn-danger" href="javascript:(confirm('Deletar esse registro?') ? window.location.href='{{ route('chaveamento.deletar', ['torneio' => $torneio->id, 'chaveamento' => $chaveamento->id]) }}' : false)">Deletar</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -42,7 +42,7 @@
                     </table>
 
                     <p>
-                        <a class="btn btn-info" href="{{route('telefone.adicionar',$torneio->id)}}">Adicinar Telefone</a>
+                        <a class="btn btn-info" href="#" disabled="true">Adicionar chaveamento</a>
                     </p>
                     
 

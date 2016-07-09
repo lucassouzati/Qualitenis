@@ -41,7 +41,7 @@ $(document).ready(function(){
 					</div>
 					<div class="form-group col-md-6">
 						{{Form::label('precodainscricao', 'Preço da inscrição')}}
-						{{Form::number('prescodainscricao')}}
+						{{Form::number('precodainscricao')}}
 					</div>
 					
 					<div class="form-group col-md-12 " >

@@ -10,4 +10,9 @@ class Classe extends Model
     {
     	return $this->hasMany('App\Tenista');
     }
+
+    public function chaveamentos()
+    {
+    	return $this->hasMany('App\Chaveamento');
+    }
 }
