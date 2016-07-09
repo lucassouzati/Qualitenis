@@ -3,7 +3,7 @@
 @section('content')	
 <script type="text/javascript">
 $(document).ready(function(){
-	$("input.data").mask("99/99/9999");
+	$("input.datadenascimento").mask("99/99/9999");
         $("input.cpf").mask("999.999.999-99");
         $("input.cep").mask("99.999-999");
 });
@@ -12,14 +12,14 @@ $(document).ready(function(){
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-            <h3 class="page-header">Cadastro de Tenista</h3>
+            <h3 class="page-header">Novo Tenista</h3>
 				<form action="{{ route('tenista.salvar') }}" method="POST">
 				
 						{{csrf_field()}}
 				<div class="row">
 					<div class="form-group col-md-12 {{ $errors->has('nome') ? 'has-error' : '' }}">
 						<label for="nome">Nome</label>
-						<input type="text" name="nome">
+						<input type="text" name="nome" value="{{old('nome')}}">
 						@if($errors->has('nome'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('nome') }}</strong>

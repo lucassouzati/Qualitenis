@@ -95,23 +95,14 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
-         'datadenascimento' => [
+        'datadenascimento' => [
             'required' => 'Preencha a data de nascimento.',
         ],
         'datadenascimento' => [
             'date_format' => 'Data inválida.',
         ],
-        'nome' => [
-            'required' => 'Preencha o nome.',
-        ],
-        'login' => [
-            'required' => 'Preencha o login.',
-        ],
         'login' => [
             'unique' => 'Login já está em uso.',
-        ],
-        'email' => [
-            'required' => 'Preencha o e-mail.',
         ],
         'email' => [
             'unique' => 'E-mail já em uso.',
@@ -119,18 +110,11 @@ return [
         'email' => [
             'email' => 'E-mail inválido.',
         ],
-       
-        'senha' => [
-            'required' => 'Preencha uma senha.',
-        ],
         'sexo' => [
             'required' => 'Escolha um sexo.',
         ],
         'telefone' => [
-            'required' => 'Preencha um telefone.',
-        ],
-        'telefone' => [
-            'numeric' => 'Ńão pode conter letras.',
+            'numeric' => 'Telefone não pode conter letras.',
         ],
 
     ],

@@ -15,6 +15,13 @@ class Tenista extends Model
 
     public function statustenista()
     {
-    	return $this->belongsTo('App\Statustenista');
+        return $this->belongsTo('App\Statustenista');
     }
+
+    public function classe()
+    {
+    	return $this->belongsTo('App\Classe');
+    }
+
+
 }

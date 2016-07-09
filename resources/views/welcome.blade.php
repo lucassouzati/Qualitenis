@@ -36,10 +36,15 @@
         </style>
     </head>
     <body>
+    
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
+                <div class="title">Qualitenis</div>
             </div>
+            
+            @include('layouts._includes._footer')
+            
         </div>
+        <div class="panel-footer"></div>
     </body>
 </html>

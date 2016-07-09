@@ -19,7 +19,19 @@ class TenistaController extends Controller
 
 
     public function atualizar(Request $request, $id)
-    {
+    {   
+        $this->validate($request, [
+            
+            'nome' => 'required',
+            'login' => 'required|unique:tenistas',
+            'senha' => 'required|min:8|max:16',
+            'datadenascimento' => 'required|date_format:j/m/Y',
+            'email' => 'required|email|unique:tenistas',
+            'telefone' => 'required|numeric',
+            'cidade_id' => 'required',
+            'sexo' => 'required'
+            
+        ]);
         \App\Tenista::find($id)->update($request->all());
         
         \Session::flash('flash_message',[
@@ -31,7 +43,7 @@ class TenistaController extends Controller
         
     }
 
-        public function salvar(Request $request)
+        public function salvar(Input $request)
     {   
         $this->validate($request, [
             
