@@ -23,9 +23,21 @@
                     <li><a href="{{ route('cliente.index') }}">Cliente</a></li>
                     @endif
                 </ul>
-
+                
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-th"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{route('tenista.index')}}">Tenista</a></li>
+                                <li><a href="{{route('torneio.index')}}">Torneio</a></li>
+                                <li><a href="{{route('tenista.adicionar')}}">Funcionario</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">About Us</a></li>
+                            </ul>
+                        </div>
+                    </li>
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Entrar</a></li>
@@ -43,5 +55,6 @@
                     @endif
                 </ul>
             </div>
+            
         </div>
     </nav>

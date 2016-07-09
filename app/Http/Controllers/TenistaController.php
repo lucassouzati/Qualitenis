@@ -9,6 +9,15 @@ use App\Http\Requests;
 class TenistaController extends Controller
 {
     //
+    public function index()
+    {   
+        
+        return view('tenista.index');
+    }
+
+
+    
+    //
     public function adicionar()
     {	
     	
