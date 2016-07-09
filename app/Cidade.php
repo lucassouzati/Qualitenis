@@ -16,4 +16,9 @@ class Cidade extends Model
     {
     	return $this->hasMany('App\Tenista');
     }
+
+     public function academias()
+    {
+    	return $this->hasMany('App\Academia');
+    }
 }
