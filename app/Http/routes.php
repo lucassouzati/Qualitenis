@@ -27,11 +27,13 @@ Route::put('/tenista/atualizar/{id}', ['uses'=>'TenistaController@atualizar', 'a
 
 
 
+
 Route::get('/torneio/adicionar', ['uses'=>'TorneioController@adicionar', 'as'=>'torneio.adicionar']);
 Route::post('/torneio/salvar', ['uses'=>'TorneioController@salvar', 'as'=>'torneio.salvar']);
 Route::get('/torneio/editar/{id}', ['uses'=>'TorneioController@editar', 'as'=>'torneio.editar']);
 Route::get('/torneio/deletar/{id}', ['uses'=>'TorneioController@deletar', 'as'=>'torneio.deletar']);
 Route::put('/torneio/atualizar/{id}', ['uses'=>'TorneioController@atualizar', 'as'=>'torneio.atualizar']);
+Route::put('/torneio/trocastatus/{id}', ['uses'=>'TorneioController@trocaStatus', 'as'=>'torneio.trocastatus']);
 Route::get('/torneio/detalhe/{id}', ['uses'=>'TorneioController@detalhe', 'as'=>'torneio.detalhe']);
 
 Route::get('/torneio', ['uses'=>'TorneioController@index', 'as'=>'torneio.index']);

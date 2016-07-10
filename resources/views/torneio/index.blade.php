@@ -37,7 +37,7 @@
                                 
                                 <td>
                                     <a class="btn btn-default" href="{{route('torneio.detalhe', $torneio->id)}}">Detalhe</a>
-                                    <form action="{{route('torneio.atualizar', $torneio->id)}}" method="POST" class="btn">
+                                    <form action="{{route('torneio.trocastatus', $torneio->id)}}" method="POST" class="btn">
                                         {{csrf_field()}}
                                         <input type="hidden" name="_method" value="put" placeholder="">
                                         @if ($torneio->statustorneio->id == 1)

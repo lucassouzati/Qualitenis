@@ -96,7 +96,7 @@ class TorneioController extends Controller
         //return redirect()->route('torneio.detalhe', compact('torneio'));
     }
 
-    public function trocaStatus(Request $request){
+    public function trocaStatus(Request $request, $id){
         $torneio = \App\Torneio::find($id);
         $torneio->statustorneio()->associate(\App\Statustorneio::find($request->input('statustorneio_id')));
         $torneio->update();
