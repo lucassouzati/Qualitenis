@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use Auth;
+
 class TenistaController extends Controller
 {
     //
@@ -20,24 +22,25 @@ class TenistaController extends Controller
     {
         $validator = validator($request->all(), [
                 'email' => 'required',
-                'senha' => 'required',
+                'password' => 'required',
             ]);
         //dd($validator->errors());
         if($validator->fails()){
-            dd($validator->fails());
+          //  dd($validator->fails());
             return redirect('/tenista/login')->withErrors($validator)->withInput();
 
         }
 
-        $credentials = ['email' => $request->get('email'), 'senha' => $request->get('senha')];
-        dd(auth()->guard('tenista')->attempt($credentials));
+        $credentials = ['email' => $request->get('email'), 'password' => $request->get('password')];
+        //dd($credentials);
+//        dd(Auth::guard('tenista')->attempt($credentials));
         if(auth()->guard('tenista')->attempt($credentials)){
-            dd($credentials);
+  //          dd($credentials);
             return view('tenista.index');
 
         } else {
             //dd($credentials);
-            return redirect('/tenista/login')->withErrors(['errors' => 'Login ou senha inválidos!'])->withInput();
+            return redirect('/tenista/login')->withErrors(['errors' => 'Login ou password inválidos!'])->withInput();
         }
 
         
@@ -46,7 +49,7 @@ class TenistaController extends Controller
     public function logout()
     {
         auth()->guard('tenista')->logout();
-        return redirect('auth.login-tenista');
+        return redirect('/tenista/login');
     }
 
 
@@ -76,7 +79,7 @@ class TenistaController extends Controller
             
             'nome' => 'required',
             'login' => 'required|unique:tenistas',
-            'senha' => 'required|min:8|max:16',
+            'password' => 'required|min:8|max:16',
             'datadenascimento' => 'required|date_format:j/m/Y',
             'email' => 'required|email|unique:tenistas',
             'telefone' => 'required|numeric',
@@ -91,7 +94,7 @@ class TenistaController extends Controller
         $tenista = new \App\Tenista;
         $tenista->nome = $request->input('nome');
         $tenista->login = $request->input('login');
-        $tenista->senha = $request->bcrypt(input('senha'));
+        $tenista->password = bcrypt(input('password'));
         $tenista->email = $request->input('email');
         $tenista->telefone = $request->input('telefone');
         $cidade = \App\Cidade::find($request->input('cidade_id'));
@@ -119,11 +122,12 @@ class TenistaController extends Controller
 
         public function salvar(Request $request)
     {   
+        //dd($request);
         $this->validate($request, [
             
             'nome' => 'required',
             'login' => 'required|unique:tenistas',
-            'senha' => 'required|min:8|max:16',
+            'password' => 'required|min:8|max:16',
             'datadenascimento' => 'required|date_format:j/m/Y',
             'email' => 'required|email|unique:tenistas',
             'telefone' => 'required|numeric',
@@ -135,7 +139,7 @@ class TenistaController extends Controller
         $tenista = new \App\Tenista;
         $tenista->nome = $request->input('nome');
         $tenista->login = $request->input('login');
-        $tenista->senha = bcrypt($request->input('senha'));
+        $tenista->password = bcrypt($request->input('password'));
         $tenista->email = $request->input('email');
         $tenista->telefone = $request->input('telefone');
         $cidade = \App\Cidade::find($request->input('cidade_id'));
@@ -147,7 +151,7 @@ class TenistaController extends Controller
         $tenista->sexo = $request->input('sexo');
         $statustenista = \App\Statustenista::find($request->input('statustenista_id'));
         $tenista->statustenista()->associate($statustenista);
-
+//          dd($tenista);
         //\App\Cliente::find($id)->addTenista($tenista);
         $tenista->save();
 

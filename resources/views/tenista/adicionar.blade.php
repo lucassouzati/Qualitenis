@@ -40,12 +40,12 @@ $(document).ready(function(){
                                 </span>
                             @endif
 					</div>
-					<div class="form-group col-md-6 {{ $errors->has('senha') ? 'has-error' : '' }}">
-						<label for="senha">Senha</label>
-						<input type="password" name="senha">
-						@if($errors->has('senha'))
+					<div class="form-group col-md-6 {{ $errors->has('password') ? 'has-error' : '' }}">
+						<label for="password">Senha</label>
+						<input type="password" name="password">
+						@if($errors->has('password'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('senha') }}</strong>
+                                    <strong>{{ $errors->first('password') }}</strong>
                                 </span>
                             @endif
 					</div>

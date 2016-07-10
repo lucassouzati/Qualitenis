@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Tenista extends Authenticatable
 {
     //
-    protected $fillable = ["login", "email", "senha", "nome", "telefone", "cidade", "datadenascimento", "cpf", "statustenista"];
+    protected $fillable = ["login", "email", "password", "nome", "telefone", "cidade", "datadenascimento", "cpf", "statustenista"];
     public function cidade()
     {
     	return $this->belongsTo('App\Cidade');
@@ -33,7 +33,7 @@ class Tenista extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'senha', 'remember_token',
+        'password', 'remember_token',
     ];
 
 

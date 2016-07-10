@@ -42,7 +42,7 @@ return [
         ],
         'tenista' => [
             'driver' => 'session',
-            'provider' => 'tenistas',
+            'provider' => 'tenista',
         ],
 
         'api' => [
@@ -73,7 +73,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-        'tenistas' => [
+        'tenista' => [
             'driver' => 'eloquent',
             'model' => App\Tenista::class,
         ],
@@ -110,6 +110,7 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
         ],
+        
     ],
 
 ];

@@ -16,7 +16,7 @@ class CreateTenistasTable extends Migration
             $table->increments('id');
             $table->string('login')->unique();
             $table->string('email')->unique();
-            $table->string('senha');
+            $table->string('password');
             $table->string('nome');
             $table->string('telefone');
             $table->integer('cidade_id')->unsigned();
@@ -28,6 +28,7 @@ class CreateTenistasTable extends Migration
             $table->foreign('classe_id')->references('id')->on('classes');
             $table->integer('statustenista_id')->unsigned();
             $table->foreign('statustenista_id')->references('id')->on('statustenistas');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -37,6 +38,7 @@ class CreateTenistasTable extends Migration
      *
      * @return void
      */
+    
     public function down()
     {
         Schema::drop('tenistas');
