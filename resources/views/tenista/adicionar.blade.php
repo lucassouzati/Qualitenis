@@ -110,6 +110,16 @@ $(document).ready(function(){
                                 </span>
                             @endif
 					</div>
+					<div class="form-group col-md-12 " >
+						{{Form::label('classes', 'Classes')}}
+						{{Form::select('classe_id', ['1' => 'Classe A', '2' => 'Classe B', '3' => 'Classe C', '4' => 'Feminino'], '3')}}
+						<!--Form::select('cat[]', $cats, null, ['multiple' => true, 'class' => 'form-control margin']) !!}-->
+						@if($errors->has('classe'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('classe') }}</strong>
+                                </span>
+                            @endif
+					</div>	
 					<hr />
   					
     					<div class="col-md-12">

@@ -9,6 +9,48 @@ use App\Http\Requests;
 class TenistaController extends Controller
 {
     //
+
+    
+    public function login()
+    {
+        return view('auth.login-tenista');
+    }
+
+    public function postLogin(Request $request)
+    {
+        $validator = validator($request->all(), [
+                'email' => 'required',
+                'senha' => 'required',
+            ]);
+        //dd($validator->errors());
+        if($validator->fails()){
+            dd($validator->fails());
+            return redirect('/tenista/login')->withErrors($validator)->withInput();
+
+        }
+
+        $credentials = ['email' => $request->get('email'), 'senha' => $request->get('senha')];
+        dd(auth()->guard('tenista')->attempt($credentials));
+        if(auth()->guard('tenista')->attempt($credentials)){
+            dd($credentials);
+            return view('tenista.index');
+
+        } else {
+            //dd($credentials);
+            return redirect('/tenista/login')->withErrors(['errors' => 'Login ou senha inválidos!'])->withInput();
+        }
+
+        
+    }
+
+    public function logout()
+    {
+        auth()->guard('tenista')->logout();
+        return redirect('auth.login-tenista');
+    }
+
+
+
     public function index()
     {   
         
@@ -29,6 +71,7 @@ class TenistaController extends Controller
 
     public function atualizar(Request $request, $id)
     {   
+
         $this->validate($request, [
             
             'nome' => 'required',
@@ -41,7 +84,29 @@ class TenistaController extends Controller
             'sexo' => 'required'
             
         ]);
-        \App\Tenista::find($id)->update($request->all());
+        
+
+       
+
+        $tenista = new \App\Tenista;
+        $tenista->nome = $request->input('nome');
+        $tenista->login = $request->input('login');
+        $tenista->senha = $request->bcrypt(input('senha'));
+        $tenista->email = $request->input('email');
+        $tenista->telefone = $request->input('telefone');
+        $cidade = \App\Cidade::find($request->input('cidade_id'));
+        $tenista->cidade()->associate($cidade);
+        $classe = \App\Classe::find($request->input('classe_id'));
+        $tenista->classe()->associate($classe);
+        $date = date_create_from_format('j/m/Y', $request->input('datadenascimento'));
+        $tenista->datadenascimento = date_format($date, 'Y-m-d');
+        $tenista->sexo = $request->input('sexo');
+        $statustenista = \App\Statustenista::find($request->input('statustenista_id'));
+        $tenista->statustenista()->associate($statustenista);
+
+        //\App\Cliente::find($id)->addTenista($tenista);
+        $tenista->update();
+
         
         \Session::flash('flash_message',[
             'msg'=>"Tenista atualizado com Sucesso!",
@@ -70,11 +135,13 @@ class TenistaController extends Controller
         $tenista = new \App\Tenista;
         $tenista->nome = $request->input('nome');
         $tenista->login = $request->input('login');
-        $tenista->senha = $request->input('senha');
+        $tenista->senha = bcrypt($request->input('senha'));
         $tenista->email = $request->input('email');
         $tenista->telefone = $request->input('telefone');
         $cidade = \App\Cidade::find($request->input('cidade_id'));
         $tenista->cidade()->associate($cidade);
+        $classe = \App\Classe::find($request->input('classe_id'));
+        $tenista->classe()->associate($classe);
         $date = date_create_from_format('j/m/Y', $request->input('datadenascimento'));
         $tenista->datadenascimento = date_format($date, 'Y-m-d');
         $tenista->sexo = $request->input('sexo');

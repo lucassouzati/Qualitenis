@@ -1,0 +1,1 @@
+{{auth()->guard('tenista')->user()->nome}}

@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'tenista' => [
+            'driver' => 'session',
+            'provider' => 'tenistas',
+        ],
 
         'api' => [
             'driver' => 'token',
@@ -68,6 +72,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+        'tenistas' => [
+            'driver' => 'eloquent',
+            'model' => App\Tenista::class,
         ],
 
         // 'users' => [

@@ -25,6 +25,18 @@ Route::put('/tenista/atualizar/{id}', ['uses'=>'TenistaController@atualizar', 'a
 
 
 
+Route::group(['middleware' => 'tenista'], function(){
+	
+	Route::group(['middleware' => 'auth:tenista'], function(){
+		Route::get('/tenista', 'TenistaController@index');
+	});
+	
+	
+	Route::get('/tenista/login', ['uses'=> 'TenistaController@login', 'as' => 'tenista.login']);
+	Route::post('/tenista/login', 'TenistaController@postLogin');
+	Route::get('/tenista/logout', "TenistaController@logout");
+});
+
 
 
 

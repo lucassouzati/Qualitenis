@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Tenista extends Model
+class Tenista extends Authenticatable
 {
     //
     protected $fillable = ["login", "email", "senha", "nome", "telefone", "cidade", "datadenascimento", "cpf", "statustenista"];
@@ -24,6 +24,17 @@ class Tenista extends Model
     	return $this->belongsTo('App\Classe');
     }
 
+       
+
+    
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'senha', 'remember_token',
+    ];
 
 
 }
