@@ -13,8 +13,8 @@ class TorneioController extends Controller
 
     public function index()
     {   
-        
-        return view('torneio.index');
+        $torneios = \App\Torneio::paginate(10);
+        return view('torneio.index', compact('torneios'));
     }
 
     //
@@ -30,20 +30,27 @@ class TorneioController extends Controller
 
     public function atualizar(Request $request, $id)
     {
-        \App\Torneio::find($id)->update($request->all());
-        
+        $this->validar($request);
+        $torneio = \App\Torneio::find($id);
+        //$torneio->update($request->all());
+        $torneio->precodainscricao = $request->get('precodainscricao');
+        $torneio->informacoes = $request->get('informacoes');
+        $cidade = \App\Cidade::find($request->get('cidade_id'));
+        $torneio->cidade()->associate($cidade);
+        $torneio->statustorneio()->associate(\App\Statustorneio::find($request->input('statustorneio_id')));
+        $torneio->update();
         \Session::flash('flash_message',[
             'msg'=>"Torneio atualizado com Sucesso!",
             'class'=>"alert-success"
         ]);
 
-        return redirect()->route('torneio.adicionar');        
+        return redirect()->route('torneio.detalhe', compact('torneio'));        
         
     }
 
-     public function salvar(Input $request){
+     public function salvar(Request $request){
         //\App\Torneio::create($request->all());
-
+        $this->validar($request);
         $torneio = new \App\Torneio;
 
         //print_r(array_keys($request->get('cidade_id')));
@@ -89,11 +96,32 @@ class TorneioController extends Controller
         //return redirect()->route('torneio.detalhe', compact('torneio'));
     }
 
+    public function trocaStatus(Request $request){
+        $torneio = \App\Torneio::find($id);
+        $torneio->statustorneio()->associate(\App\Statustorneio::find($request->input('statustorneio_id')));
+        $torneio->update();
+        return redirect()->route('torneio.detalhe', compact('torneio')); 
+    }
+
     public function detalhe($id)
     {
         $torneio = \App\Torneio::find($id);
         return view('torneio.detalhe',compact('torneio'));
+
     }
 
+    public function validar(Request $request){
+         $this->validate($request, [
+            
+            'precodainscricao' => 'required',
+            'informacoes' => 'required',
+            'data' => 'required|date_format:j/m/Y',
+            
+            
+            
+            
+            
+        ]);
+    }
 
 }

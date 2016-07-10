@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 //tenista
-Route::get('/tenista', ['uses'=>'TenistaController@index', 'as'=>'tenista.index']);
+//Route::get('/tenista', ['uses'=>'TenistaController@index', 'as'=>'tenista.index']);
 Route::get('/tenista/adicionar', ['uses'=>'TenistaController@adicionar', 'as'=>'tenista.adicionar']);
 Route::post('/tenista/salvar', ['uses'=>'TenistaController@salvar', 'as'=>'tenista.salvar']);
 Route::get('/tenista/editar/{id}', ['uses'=>'TenistaController@editar', 'as'=>'tenista.editar']);
@@ -24,7 +24,9 @@ Route::get('/tenista/deletar/{id}', ['uses'=>'TenistaController@deletar', 'as'=>
 Route::put('/tenista/atualizar/{id}', ['uses'=>'TenistaController@atualizar', 'as'=>'tenista.atualizar']);
 
 
-Route::get('/torneio', ['uses'=>'TorneioController@index', 'as'=>'torneio.index']);
+
+
+
 Route::get('/torneio/adicionar', ['uses'=>'TorneioController@adicionar', 'as'=>'torneio.adicionar']);
 Route::post('/torneio/salvar', ['uses'=>'TorneioController@salvar', 'as'=>'torneio.salvar']);
 Route::get('/torneio/editar/{id}', ['uses'=>'TorneioController@editar', 'as'=>'torneio.editar']);
@@ -32,6 +34,8 @@ Route::get('/torneio/deletar/{id}', ['uses'=>'TorneioController@deletar', 'as'=>
 Route::put('/torneio/atualizar/{id}', ['uses'=>'TorneioController@atualizar', 'as'=>'torneio.atualizar']);
 Route::get('/torneio/detalhe/{id}', ['uses'=>'TorneioController@detalhe', 'as'=>'torneio.detalhe']);
 
+Route::get('/torneio', ['uses'=>'TorneioController@index', 'as'=>'torneio.index']);
+Route::get('/torneio/{id?}', ['uses'=>'TorneioController@detalhe', 'as'=>'torneio.index']);
 
 //torneio
 /*
@@ -51,8 +55,9 @@ Route::group(['prefix' => 'torneio/{torneio}'], function(){
 	Route::post('/chaveamento/salvar', ['uses'=>'ChaveamentoController@salvar', 'as'=>'chaveamento.salvar']);
 	Route::get('/chaveamento/editar/{chaveamento}', ['uses'=>'ChaveamentoController@editar', 'as'=>'torneio.chaveamento.editar']);
 	Route::get('/chaveamento/deletar/{id}', ['uses'=>'ChaveamentoController@deletar', 'as'=>'chaveamento.deletar']);
-	Route::put('/chaveamento/atualizar/{id}', ['uses'=>'ChaveamentoController@atualizar', 'as'=>'chaveamento.atualizar']);	
+	
 	Route::get('/chaveamento/detalhe/{id}', ['uses'=>'ChaveamentoController@editar', 'as'=>'chaveamento.detalhe']);
+	Route::post('/chaveamento/atualizar/{id}', ['uses'=>'ChaveamentoController@atualizar', 'as'=>'chaveamento.atualizar']);	
 });
 
 

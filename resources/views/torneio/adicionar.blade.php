@@ -33,27 +33,45 @@ $(document).ready(function(){
 								//}	
 							?>	
 							{{Form::select('cidade_id', $cidades, null)}}	
-						
+							
 					</div>
 					<div class="form-group col-md-12 " >
 						{{Form::label('data', 'Data')}}
 						{{Form::date('data')}}
+						@if($errors->has('data'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('data') }}</strong>
+                                </span>
+                            @endif
 					</div>
 					<div class="form-group col-md-6">
 						{{Form::label('precodainscricao', 'Preço da inscrição')}}
 						{{Form::number('precodainscricao')}}
+						@if($errors->has('precodainscricao'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('precodainscricao') }}</strong>
+                                </span>
+                            @endif
 					</div>
 					
 					<div class="form-group col-md-12 " >
 						{{Form::label('informacoes', 'Informações')}}
 						{{Form::text('informacoes')}}
-
+						@if($errors->has('informacoes'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('informacoes') }}</strong>
+                                </span>
+                            @endif
 					</div>
 					<div class="form-group col-md-12 " >
 						{{Form::label('classes', 'Classes')}}
 						{{Form::select('classes[]', ['1' => 'Classe A', '2' => 'Classe B', '3' => 'Classe C', '4' => 'Feminino'], null, ['multiple' => 'multiple'])}}
 						<!--Form::select('cat[]', $cats, null, ['multiple' => true, 'class' => 'form-control margin']) !!}-->
-						
+						@if($errors->has('classe'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('classe') }}</strong>
+                                </span>
+                            @endif
 					</div>					
 					
 					<hr />
