@@ -37,7 +37,7 @@ $(document).ready(function(){
 					</div>
 					<div class="form-group col-md-12 " >
 						{{Form::label('data', 'Data')}}
-						{{Form::date('data')}}
+						{{Form::text('data')}}
 						@if($errors->has('data'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('data') }}</strong>
@@ -48,7 +48,7 @@ $(document).ready(function(){
 						{{Form::label('precodainscricao', 'Preço da inscrição')}}
 						{{Form::number('precodainscricao')}}
 						@if($errors->has('precodainscricao'))
-                                <span class="help-block">
+                                <span class="help-block">	
                                     <strong>{{ $errors->first('precodainscricao') }}</strong>
                                 </span>
                             @endif
@@ -93,6 +93,7 @@ $(document).ready(function(){
 
 				<div class="row">
 					<div class="form-group col-md-12">
+					<?php /*
 						{{Form::label('"Cidade">Cidade</label>
 						<select name="cidade_id">
 							<?php 
@@ -145,7 +146,8 @@ $(document).ready(function(){
   					
 				</div>
 				</form>
-				-->
+				*/
+				?>-->
             </div>
         </div>
     </div>

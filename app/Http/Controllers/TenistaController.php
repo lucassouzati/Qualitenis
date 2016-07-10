@@ -52,7 +52,7 @@ class TenistaController extends Controller
         
     }
 
-        public function salvar(Input $request)
+        public function salvar(Request $request)
     {   
         $this->validate($request, [
             

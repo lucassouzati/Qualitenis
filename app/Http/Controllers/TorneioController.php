@@ -59,7 +59,7 @@ class TorneioController extends Controller
         $torneio->data = $request->get('data');
         $torneio->precodainscricao = $request->get('precodainscricao');
         $torneio->informacoes = $request->get('informacoes');
-        $date = date_create_from_format('j/m/Y', $request->input('datadenascimento'));
+        $date = date_create_from_format('j/m/Y', $request->input('data'));
         
         $torneio->data = date_format($date, 'Y-m-d');
         $torneio->statustorneio()->associate(\App\Statustorneio::find(1)); //Todo torneio começa como inativo
@@ -114,7 +114,7 @@ class TorneioController extends Controller
          $this->validate($request, [
             
             'precodainscricao' => 'required',
-            'informacoes' => 'required',
+                
             'data' => 'required|date_format:j/m/Y',
             
             
