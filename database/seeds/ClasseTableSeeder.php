@@ -5,17 +5,21 @@ use Illuminate\Database\Seeder;
 // composer require laracasts/testdummy
 use Laracasts\TestDummy\Factory as TestDummy;
 
-class StatustenistasTableSeeder extends Seeder
+class ClasseTableSeeder extends Seeder
 {
     public function run()
     {
         // TestDummy::times(20)->create('App\Post');
-            DB::table('statustenistas')->insert([
-            ['nome' => "Ativo"],
-            ['nome' => "Inativo"],
+         DB::table('classes')->insert([
+            ['nome' => "Classe A"],
+            ['nome' => "Classe B"],
+            ['nome' => "Classe C"],
+            ['nome' => "Feminino"],
             
             
         ]);
     }
 }
+
+
 

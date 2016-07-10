@@ -22,7 +22,10 @@ class CreateTenistasTable extends Migration
             $table->integer('cidade_id')->unsigned();
             $table->foreign('cidade_id')->references('id')->on('cidades');
             $table->date('datadenascimento');
+            $table->char('sexo', 1);
             $table->integer('cpf')->unique()->nullable();
+            $table->integer('classe_id')->unsigned();
+            $table->foreign('classe_id')->references('id')->on('classes');
             $table->integer('statustenista_id')->unsigned();
             $table->foreign('statustenista_id')->references('id')->on('statustenistas');
             $table->timestamps();
