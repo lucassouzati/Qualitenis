@@ -45,6 +45,7 @@
                         <li><a href="{{ url('/tenista/adicionar') }}">Registrar</a></li>
 
                     @elseif (Auth::guard('tenista')->check())
+                    <li><a href="{{ url('/register') }}">Registrar</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::guard('tenista')-> user()->nome }} <span class="caret"></span>
@@ -55,6 +56,7 @@
                             </ul>
                         </li>
                     @else 
+                        <li><a href="">Registrar</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
