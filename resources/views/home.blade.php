@@ -9,6 +9,16 @@
 
                 <div class="panel-body">
                     You are logged in!
+                    <ul>
+                       <li>
+                           <a href="{{route('torneio.index')}}" "email me">Torneios</a>
+                       </li>
+                       <li>
+                           <a href="{{route('academia.index')}}" "email me">Academias</a>
+                       </li>
+
+                    </ul>   
+                    
                 </div>
             </div>
         </div>

@@ -20,7 +20,7 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     @if (!Auth::guest())
-                    <li><a href="{{ route('cliente.index') }}">Cliente</a></li>
+                    <li><a href="{{ url('tenista') }}">Tenista</a></li>
                     @endif
                 </ul>
                 
@@ -30,7 +30,7 @@
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-th"></span></button>
                             <ul class="dropdown-menu">
-                                <li><a href="{{route('tenista.index')}}">Tenista</a></li>
+                                <li><a href="#">Tenista</a></li>
                                 <li><a href="{{route('torneio.index')}}">Torneio</a></li>
                                 <li><a href="{{route('tenista.adicionar')}}">Funcionario</a></li>
                                 <li class="divider"></li>
@@ -39,10 +39,22 @@
                         </div>
                     </li>
                     <!-- Authentication Links -->
+
                     @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Entrar</a></li>
-                        <li><a href="{{ url('/register') }}">Registrar</a></li>
-                    @else
+                        <li><a href="{{ url('/tenista/login') }}">Entrar</a></li>
+                        <li><a href="{{ url('/tenista/adicionar') }}">Registrar</a></li>
+
+                    @elseif (Auth::guard('tenista')->check())
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                {{ Auth::guard('tenista')-> user()->nome }} <span class="caret"></span>
+                            </a>
+
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/tenista/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                            </ul>
+                        </li>
+                    @else 
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>

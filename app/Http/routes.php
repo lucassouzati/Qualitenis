@@ -15,12 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 //tenista
 //Route::get('/tenista', ['uses'=>'TenistaController@index', 'as'=>'tenista.index']);
 Route::get('/tenista/adicionar', ['uses'=>'TenistaController@adicionar', 'as'=>'tenista.adicionar']);
 Route::post('/tenista/salvar', ['uses'=>'TenistaController@salvar', 'as'=>'tenista.salvar']);
-Route::get('/tenista/editar/{id}', ['uses'=>'TenistaController@editar', 'as'=>'tenista.editar']);
-Route::get('/tenista/deletar/{id}', ['uses'=>'TenistaController@deletar', 'as'=>'tenista.deletar']);
+
+//Route::get('/tenista/deletar/{id}', ['uses'=>'TenistaController@deletar', 'as'=>'tenista.deletar']);
 Route::put('/tenista/atualizar/{id}', ['uses'=>'TenistaController@atualizar', 'as'=>'tenista.atualizar']);
 
 
@@ -28,14 +29,19 @@ Route::put('/tenista/atualizar/{id}', ['uses'=>'TenistaController@atualizar', 'a
 Route::group(['middleware' => 'tenista'], function(){
 	
 	Route::group(['middleware' => 'auth:tenista'], function(){
+
 		Route::get('/tenista', 'TenistaController@index');
+
+		Route::put('/tenista/trocastatus/{id}', ['uses'=>'TenistaController@trocaStatus', 'as'=>'tenista.trocastatus']);
+		Route::get('/tenista/editar/{id}', ['uses'=>'TenistaController@editar', 'as'=>'tenista.editar']);
 	});
 	
-	
+	Route::get('/tenista/login', ['uses'=> 'TenistaController@login', 'as' => 'tenista.index']);
 	Route::get('/tenista/login', ['uses'=> 'TenistaController@login', 'as' => 'tenista.login']);
 	Route::post('/tenista/login', 'TenistaController@postLogin');
 	Route::get('/tenista/logout', "TenistaController@logout");
 });
+
 
 
 

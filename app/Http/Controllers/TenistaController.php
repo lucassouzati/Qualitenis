@@ -52,7 +52,12 @@ class TenistaController extends Controller
         return redirect('/tenista/login');
     }
 
-
+    public function trocaStatus(Request $request, $id){
+        $tenista = \App\Tenista::find($id);
+        $tenista->statustenista()->associate(\App\Statustenista::find($request->input('statustenista_id')));
+        $tenista->update();
+        return redirect()->route('tenista.detalhe', compact('tenista')); 
+    }
 
     public function index()
     {   
@@ -78,10 +83,8 @@ class TenistaController extends Controller
         $this->validate($request, [
             
             'nome' => 'required',
-            'login' => 'required|unique:tenistas',
-            'password' => 'required|min:8|max:16',
             'datadenascimento' => 'required|date_format:j/m/Y',
-            'email' => 'required|email|unique:tenistas',
+            
             'telefone' => 'required|numeric',
             'cidade_id' => 'required',
             'sexo' => 'required'
@@ -91,21 +94,18 @@ class TenistaController extends Controller
 
        
 
-        $tenista = new \App\Tenista;
+        $tenista = \App\Tenista::find($id);
         $tenista->nome = $request->input('nome');
-        $tenista->login = $request->input('login');
-        $tenista->password = bcrypt(input('password'));
-        $tenista->email = $request->input('email');
+        
+        
         $tenista->telefone = $request->input('telefone');
         $cidade = \App\Cidade::find($request->input('cidade_id'));
         $tenista->cidade()->associate($cidade);
-        $classe = \App\Classe::find($request->input('classe_id'));
-        $tenista->classe()->associate($classe);
-        $date = date_create_from_format('j/m/Y', $request->input('datadenascimento'));
-        $tenista->datadenascimento = date_format($date, 'Y-m-d');
+              
+        
         $tenista->sexo = $request->input('sexo');
-        $statustenista = \App\Statustenista::find($request->input('statustenista_id'));
-        $tenista->statustenista()->associate($statustenista);
+        
+        
 
         //\App\Cliente::find($id)->addTenista($tenista);
         $tenista->update();
@@ -116,7 +116,7 @@ class TenistaController extends Controller
             'class'=>"alert-success"
         ]);
 
-        return redirect()->route('tenista.adicionar');        
+        return view('tenista.index');
         
     }
 

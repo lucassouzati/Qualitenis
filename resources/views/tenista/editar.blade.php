@@ -3,8 +3,15 @@
 @section('content')	
 <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-12">
             <div class="panel panel-default">
+                <ol class="breadcrumb panel-heading">
+                    <li><a href="{{ url('/tenista') }}">Tenista {{auth()->guard('tenista')->user()->nome}}</a></li>
+                    <li class="active">Editar</li>
+                </ol>
+
+                <div class="panel-body">
+
             <h3 class="page-header">Dados do Tenista</h3>
 				<form action="{{ route('tenista.atualizar', $tenista->id) }}" method="POST">
 					{{csrf_field()}}
@@ -19,24 +26,7 @@
 	        </span>
 	    @endif
 	</div>
-	<div class="{{ $errors->has('login') ? 'has-error' : '' }} form-group col-md-12">
-		<label for="login">Login</label>
-		<input type="text" name="login" value="{{$tenista->login}}">
-		@if($errors->has('login'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('login') }}</strong>
-                                </span>
-                            @endif
-	</div>
-	<div class="{{ $errors->has('senha') ? 'has-error' : '' }} form-group col-md-12">
-		<label for="senha">Senha</label>
-		<input type="password" name="senha" value="{{$tenista->senha}}">
-		@if($errors->has('senha'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('senha') }}</strong>
-                                </span>
-                            @endif
-	</div>
+		
 	<div class="form-group col-md-6 {{ $errors->has('sexo') ? 'has-error' : '' }}">
 		<input type="radio" name="sexo" value="M">Masculino<br>
 			<input type="radio" name="sexo" value="F">Feminino<br>
@@ -46,15 +36,7 @@
                 </span>
             @endif
 	</div>
-	<div class="{{ $errors->has('email') ? 'has-error' : '' }} form-group col-md-12">
-		<label for="email">E-mail</label>
-		<input type="text" name="email" value="{{$tenista->email}}">
-		@if($errors->has('email'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('email') }}</strong>
-                                </span>
-                            @endif
-	</div>
+	
 	<div class="{{ $errors->has('telefone') ? 'has-error' : '' }} form-group col-md-12">
 		<label for="telefone">Telefone</label>
 		<input type="text" name="telefone" value="{{$tenista->telefone}}" id="phone">
@@ -103,7 +85,7 @@
 		<a href="#" class="btn btn-default">Cancelar</a>
 	</div>
 </form>
-
+  </div>
             </div>
         </div>
     </div>
