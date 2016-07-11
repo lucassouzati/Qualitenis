@@ -16,7 +16,8 @@
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
 
-                                @if ($errors->has('email'))
+                                
+                                @if($errors->has('email'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
@@ -30,7 +31,7 @@
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control" name="password">
 
-                                @if ($errors->has('password'))
+                                @if($errors->has('password'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
@@ -62,5 +63,6 @@
             </div>
         </div>
     </div>
+
 </div>
 @endsection

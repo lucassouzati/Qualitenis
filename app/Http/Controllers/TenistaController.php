@@ -20,13 +20,14 @@ class TenistaController extends Controller
 
     public function postLogin(Request $request)
     {
+
         $validator = validator($request->all(), [
                 'email' => 'required',
                 'password' => 'required',
             ]);
         //dd($validator->errors());
         if($validator->fails()){
-          //  dd($validator->fails());
+            //  dd($validator->errors());
             return redirect('/tenista/login')->withErrors($validator)->withInput();
 
         }
@@ -40,7 +41,7 @@ class TenistaController extends Controller
 
         } else {
             //dd($credentials);
-            return redirect('/tenista/login')->withErrors(['errors' => 'Login ou password inválidos!'])->withInput();
+            return redirect('/tenista/login')->withErrors(['email' => 'Login ou senha inválidos!'])->withInput();
         }
 
         

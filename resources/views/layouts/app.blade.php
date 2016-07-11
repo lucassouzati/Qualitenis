@@ -47,7 +47,7 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/tenista') }}">Home</a></li>
+                    <li><a href="{{ url('/tenista') }}">Área do Tenista</a></li>
                 </ul>
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/login') }}">Área Administrativa</a></li>
