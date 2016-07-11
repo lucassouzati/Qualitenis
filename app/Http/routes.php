@@ -16,6 +16,10 @@ Route::get('/', function () {
 });
 
 
+Route::get('/home', function(){
+	return view('home');
+});
+
 //tenista
 //Route::get('/tenista', ['uses'=>'TenistaController@index', 'as'=>'tenista.index']);
 Route::get('/tenista/adicionar', ['uses'=>'TenistaController@adicionar', 'as'=>'tenista.adicionar']);
@@ -96,5 +100,5 @@ Route::get('/Classe/editar/{id}', ['uses'=>'ClasseController@editar', 'as'=>'Cla
 Route::put('/Classe/atualizar/{id}', ['uses'=>'ClasseController@atualizar', 'as'=>'Classe.atualizar']);
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
+
 
