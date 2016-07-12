@@ -23,7 +23,7 @@ class AcademiaController extends Controller
     }
 
 
-	public function salvar(Request $request)
+	public function salvar(\App\Http\Requests\AcademiaRequest $request)
 	{	
 		$academia = new \App\Academia;
 		$academia->nome = $request->input('nome');
@@ -38,7 +38,7 @@ class AcademiaController extends Controller
 			'msg'=>"Academia adicionada com Sucesso!",
 			'class'=>"alert-success"
 			]);
-		return redirect()->route('Academia.adicionar');
+		return redirect()->route('Academia.index');
 	}
 
 	 public function editar($id)
@@ -64,7 +64,7 @@ class AcademiaController extends Controller
             'class'=>"alert-success"
         ]);
 
-        return redirect()->route('Academia.adicionar');        
+        return redirect()->route('Academia.index');        
         
     }
 
