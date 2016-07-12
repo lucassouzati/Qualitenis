@@ -2,12 +2,9 @@
 
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading">Welcome</div>
 
+
+    <head>   
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
@@ -53,43 +50,37 @@
         </style>
     </head>
     <body>
-
-    
-        <div class="container">
-            <div class="content">
-                <div class="title">Qualitenis</div>
-
-                <div class="panel-body">
-                    Your Application's Landing Page.
-                </div>
-
-            </div>
-            
-            @include('layouts._includes._footer')
-            
-        </div>
-
-        <div class="panel-footer"></div>
-
-        @include('layouts._includes._nav')
+       
+                   
         
             
         <section class="container">
             <div class="content">
-                <div class="title">Qualitenis</div>
+                <!-- <div class="title">Qualitenis</div> -->
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" style="text-align: left;">Welcome</div>
+    
+                        <!-- <div class="container">
+                        <div class="content"> -->
+                            <div class="title">Qualitenis</div>
+
+                            <div class="panel-body">Your Application's Landing Page.</div>
+                        </div>            
+                    <!-- @include('layouts._includes._footer')             -->
+                    </div>
+                <!-- <div class="panel-footer"></div> -->
+                </div>
             </div>
         </section>
 
-    <!-- JavaScripts -->
-    <script src="script_jquery.js" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+            <!-- JavaScripts -->
+            <script src="script_jquery.js" type="text/javascript"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+            {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 
     </body>
 </html>
-
-    </div>
-</div>
 @endsection
-
