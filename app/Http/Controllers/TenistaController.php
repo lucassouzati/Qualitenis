@@ -19,7 +19,9 @@ class TenistaController extends Controller
     }
 
     public function postLogin(Request $request)
-    {
+    {    
+        
+        
 
         $validator = validator($request->all(), [
                 'email' => 'required',
@@ -41,7 +43,13 @@ class TenistaController extends Controller
 
         } else {
             //dd($credentials);
-            return redirect('/tenista/login')->withErrors(['email' => 'Login ou senha inválidos!'])->withInput();
+           
+            $result = app('App\Http\Controllers\Auth\AuthController')->login($request);
+            if(!Auth::check()){
+                return redirect('/tenista/login')->withErrors(['email' => 'Login ou senha inválidos!'])->withInput();    
+            }else {
+                return redirect('/home');
+            }
         }
 
         
