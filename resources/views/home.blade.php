@@ -16,6 +16,9 @@
                        <li>
                            <a href="{{route('academia.index')}}" "email me">Academias</a>
                        </li>
+                       <li>
+                           <a href="{{route('auth.index')}}" "email me">Funcionarios</a>
+                       </li>
 
                     </ul>   
                     
