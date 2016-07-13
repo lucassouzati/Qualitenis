@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 
 
@@ -49,16 +49,7 @@ Route::group(['middleware' => 'tenista'], function(){
 
 
 
-Route::get('/torneio/adicionar', ['uses'=>'TorneioController@adicionar', 'as'=>'torneio.adicionar']);
-Route::post('/torneio/salvar', ['uses'=>'TorneioController@salvar', 'as'=>'torneio.salvar']);
-Route::get('/torneio/editar/{id}', ['uses'=>'TorneioController@editar', 'as'=>'torneio.editar']);
-Route::get('/torneio/deletar/{id}', ['uses'=>'TorneioController@deletar', 'as'=>'torneio.deletar']);
-Route::put('/torneio/atualizar/{id}', ['uses'=>'TorneioController@atualizar', 'as'=>'torneio.atualizar']);
-Route::put('/torneio/trocastatus/{id}', ['uses'=>'TorneioController@trocaStatus', 'as'=>'torneio.trocastatus']);
-Route::get('/torneio/detalhe/{id}', ['uses'=>'TorneioController@detalhe', 'as'=>'torneio.detalhe']);
 
-Route::get('/torneio', ['uses'=>'TorneioController@index', 'as'=>'torneio.index']);
-Route::get('/torneio/{id?}', ['uses'=>'TorneioController@detalhe', 'as'=>'torneio.index']);
 
 //torneio
 /*
@@ -71,34 +62,74 @@ Route::put('/Torneio/atualizar/{id}', ['uses'=>'TorneioController@atualizar', 'a
 */
 //chaveamento
 
-Route::group(['prefix' => 'torneio/{torneio}'], function(){
-	
-	Route::get('/chaveamento', ['uses'=>'ChaveamentoController@index', 'as'=>'chaveamento.index']);
-	Route::get('/chaveamento/adicionar', ['uses'=>'ChaveamentoController@adicionar', 'as'=>'chaveamento.adicionar']);
-	Route::post('/chaveamento/salvar', ['uses'=>'ChaveamentoController@salvar', 'as'=>'chaveamento.salvar']);
-	Route::get('/chaveamento/editar/{chaveamento}', ['uses'=>'ChaveamentoController@editar', 'as'=>'torneio.chaveamento.editar']);
-	Route::get('/chaveamento/deletar/{id}', ['uses'=>'ChaveamentoController@deletar', 'as'=>'chaveamento.deletar']);
-	
-	Route::get('/chaveamento/detalhe/{id}', ['uses'=>'ChaveamentoController@editar', 'as'=>'chaveamento.detalhe']);
-	Route::post('/chaveamento/atualizar/{id}', ['uses'=>'ChaveamentoController@atualizar', 'as'=>'chaveamento.atualizar']);	
-});
-
-
 //academia
+/*
 Route::get('/Academia/index', ['uses'=>'AcademiaController@index', 'as'=>'academia.index']);
 Route::get('/Academia/adicionar', ['uses'=>'AcademiaController@adicionar', 'as'=>'Academia.adicionar']);
 Route::post('/Academia/salvar', ['uses'=>'AcademiaController@salvar', 'as'=>'Academia.salvar']);
 Route::get('/Academia/editar/{id}', ['uses'=>'AcademiaController@editar', 'as'=>'Academia.editar']);
 Route::put('/Academia/atualizar/{id}', ['uses'=>'AcademiaController@atualizar', 'as'=>'Academia.atualizar']);
+*/
 
 
-//classe
-Route::get('/Classe/index', ['uses'=>'ClasseController@index', 'as'=>'classe.index']);
-Route::get('/Classe/adicionar', ['uses'=>'ClasseController@adicionar', 'as'=>'Classe.adicionar']);
-Route::post('/Classe/salvar', ['uses'=>'ClasseController@salvar', 'as'=>'Classe.salvar']);
-Route::get('/Classe/editar/{id}', ['uses'=>'ClasseController@editar', 'as'=>'Classe.editar']);
-Route::put('/Classe/atualizar/{id}', ['uses'=>'ClasseController@atualizar', 'as'=>'Classe.atualizar']);
+
+
+
 Route::auth();
 
 
+Route::group(['middleware' => 'auth'], function () {
 
+	Route::get('register', 'Auth\AuthController@showRegistrationForm');
+	Route::post('register', 'Auth\AuthController@register');
+
+	//academia
+	Route::get('/Academia/index', ['uses'=>'AcademiaController@index', 'as'=>'academia.index']);
+	Route::get('/Academia/adicionar', ['uses'=>'AcademiaController@adicionar', 'as'=>'Academia.adicionar']);
+	Route::post('/Academia/salvar', ['uses'=>'AcademiaController@salvar', 'as'=>'Academia.salvar']);
+	Route::get('/Academia/editar/{id}', ['uses'=>'AcademiaController@editar', 'as'=>'Academia.editar']);
+	Route::put('/Academia/atualizar/{id}', ['uses'=>'AcademiaController@atualizar', 'as'=>'Academia.atualizar']);
+
+	////classe
+	Route::get('/Classe/index', ['uses'=>'ClasseController@index', 'as'=>'classe.index']);
+	Route::get('/Classe/adicionar', ['uses'=>'ClasseController@adicionar', 'as'=>'Classe.adicionar']);
+	Route::post('/Classe/salvar', ['uses'=>'ClasseController@salvar', 'as'=>'Classe.salvar']);
+	Route::get('/Classe/editar/{id}', ['uses'=>'ClasseController@editar', 'as'=>'Classe.editar']);
+	Route::put('/Classe/atualizar/{id}', ['uses'=>'ClasseController@atualizar', 'as'=>'Classe.atualizar']);
+
+
+
+
+
+		//torneios
+	Route::group(['prefix' => 'torneio/{torneio}'], function(){
+
+		Route::get('/chaveamento', ['uses'=>'ChaveamentoController@index', 'as'=>'chaveamento.index']);
+		Route::get('/chaveamento/adicionar', ['uses'=>'ChaveamentoController@adicionar', 'as'=>'chaveamento.adicionar']);
+		Route::post('/chaveamento/salvar', ['uses'=>'ChaveamentoController@salvar', 'as'=>'chaveamento.salvar']);
+		Route::get('/chaveamento/editar/{chaveamento}', ['uses'=>'ChaveamentoController@editar', 'as'=>'torneio.chaveamento.editar']);
+		Route::get('/chaveamento/deletar/{id}', ['uses'=>'ChaveamentoController@deletar', 'as'=>'chaveamento.deletar']);
+
+		Route::get('/chaveamento/detalhe/{id}', ['uses'=>'ChaveamentoController@editar', 'as'=>'chaveamento.detalhe']);
+		Route::post('/chaveamento/atualizar/{id}', ['uses'=>'ChaveamentoController@atualizar', 'as'=>'chaveamento.atualizar']);	
+	});
+
+
+
+	Route::get('/torneio/adicionar', ['uses'=>'TorneioController@adicionar', 'as'=>'torneio.adicionar']);
+	Route::post('/torneio/salvar', ['uses'=>'TorneioController@salvar', 'as'=>'torneio.salvar']);
+	Route::get('/torneio/editar/{id}', ['uses'=>'TorneioController@editar', 'as'=>'torneio.editar']);
+	Route::get('/torneio/deletar/{id}', ['uses'=>'TorneioController@deletar', 'as'=>'torneio.deletar']);
+	Route::put('/torneio/atualizar/{id}', ['uses'=>'TorneioController@atualizar', 'as'=>'torneio.atualizar']);
+	Route::put('/torneio/trocastatus/{id}', ['uses'=>'TorneioController@trocaStatus', 'as'=>'torneio.trocastatus']);
+	Route::get('/torneio/detalhe/{id}', ['uses'=>'TorneioController@detalhe', 'as'=>'torneio.detalhe']);
+
+	Route::get('/torneio', ['uses'=>'TorneioController@index', 'as'=>'torneio.index']);
+	Route::get('/torneio/{id?}', ['uses'=>'TorneioController@detalhe', 'as'=>'torneio.index']);
+});
+
+
+
+
+//email
+Route::get('Academia/sendEmail', ['uses'=>'AcademiaController@sendEmail', 'as'=>'Academia.email']);
