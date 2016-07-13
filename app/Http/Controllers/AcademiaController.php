@@ -68,5 +68,23 @@ class AcademiaController extends Controller
         
     }
 
+     public function sendEmail()
+    {
+        $user = \App\User::find(1);
+        $data = array(
+        'name' => $user->name,
+        'token' => $user->token,
+        'user' => $user
+        );
+        \Mail::send('auth\emails.password', $data, function ($m) {
+            $m->from('othogar@gmail.com', 'Your Application');
+
+            $m->to('othogar@gmail.com')->subject('Your Reminder!');
+
+
+        });
+
+        return redirect()->route('Academia.adicionar');
+    }
 	
 }
