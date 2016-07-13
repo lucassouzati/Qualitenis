@@ -34,4 +34,6 @@
         </div>
     </div>
 </div>
+{{Html::script('js/jquery.maskedinput.js')}}
+{{Html::script('js/jquery.js')}}
 @endsection

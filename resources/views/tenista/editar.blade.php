@@ -90,5 +90,6 @@
         </div>
     </div>
 </div>
-<script src="script_jquery.js" type="text/javascript"></script>
+{{Html::script('js/jquery.maskedinput.js')}}
+{{Html::script('js/jquery.js')}}
 @endsection

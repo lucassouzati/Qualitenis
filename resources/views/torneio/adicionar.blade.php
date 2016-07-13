@@ -1,13 +1,7 @@
 @extends('layouts.app')
 
 @section('content')	
-<script type="text/javascript">
-$(document).ready(function(){
-	$("input.data").mask("99/99/9999");
-        $("input.cpf").mask("999.999.999-99");
-        $("input.cep").mask("99.999-999");
-});
-</script>
+
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -152,5 +146,5 @@ $(document).ready(function(){
         </div>
     </div>
 </div>
-<script src="script_jquery.js" type="text/javascript"></script>
+
 @endsection
