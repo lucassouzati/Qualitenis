@@ -37,7 +37,14 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware($this->guestMiddleware(), ['except' => ['logout','register','showRegistrationForm']]);
+        $this->middleware($this->guestMiddleware(), ['except' => ['logout','register','showRegistrationForm','index']]);
+    }
+
+    public function index()
+    {
+       $funcionarios = \App\User::paginate(15);
+
+       return view('auth.index',compact('funcionarios'));
     }
 
     /**
@@ -70,6 +77,7 @@ class AuthController extends Controller
             'email' => $data['email'],
             'CPF' => $data['CPF'],
             'password' => bcrypt($data['password']),
+            'cidade_id' => $data['cidade_id'],
         ]);
     }
 
