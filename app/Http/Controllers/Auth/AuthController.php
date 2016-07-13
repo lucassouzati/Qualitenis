@@ -37,7 +37,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware($this->guestMiddleware(), ['except' => ['logout','register']]);
+        $this->middleware($this->guestMiddleware(), ['except' => ['logout','register','showRegistrationForm']]);
     }
 
     /**
@@ -51,6 +51,7 @@ class AuthController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
+            'telefone' => 'required|max:255',
             'CPF' => 'required|max:255',
             'password' => 'required|min:6|confirmed',
         ]);
