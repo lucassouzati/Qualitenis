@@ -17,7 +17,7 @@ class CreateAcademiasTable extends Migration
             $table->string('nome');
             $table->integer('cidade_id')->unsigned();
             $table->foreign('cidade_id')->references('id')->on('cidades');
-            $table->string('CNPJ');
+            $table->string('CNPJ')->unique();
             $table->integer('numQuadras');
             $table->timestamps();
         });

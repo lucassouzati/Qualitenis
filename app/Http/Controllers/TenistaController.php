@@ -96,6 +96,7 @@ class TenistaController extends Controller
             
             'telefone' => 'required|numeric',
             'cidade_id' => 'required',
+            'academia' => 'required',
             'sexo' => 'required'
             
         ]);
@@ -141,6 +142,7 @@ class TenistaController extends Controller
             'email' => 'required|email|unique:tenistas',
             'telefone' => 'required|numeric',
             'cidade_id' => 'required',
+            'academia_id' => 'required',
             'sexo' => 'required'
             
         ]);
@@ -153,6 +155,8 @@ class TenistaController extends Controller
         $tenista->telefone = $request->input('telefone');
         $cidade = \App\Cidade::find($request->input('cidade_id'));
         $tenista->cidade()->associate($cidade);
+        $academia = \App\Academia::find($request->input('academia_id'));
+        $tenista->academia()->associate($academia);
         $classe = \App\Classe::find($request->input('classe_id'));
         $tenista->classe()->associate($classe);
         $date = date_create_from_format('j/m/Y', $request->input('datadenascimento'));

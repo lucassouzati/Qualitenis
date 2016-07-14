@@ -85,7 +85,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/Auth/index', ['uses'=>'Auth\AuthController@index', 'as'=>'auth.index']);
 
 	//academia
-	Route::get('/Academia/index', ['uses'=>'AcademiaController@index', 'as'=>'academia.index']);
+	Route::get('/Academia/index', ['uses'=>'AcademiaController@index', 'as'=>'Academia.index']);
 	Route::get('/Academia/adicionar', ['uses'=>'AcademiaController@adicionar', 'as'=>'Academia.adicionar']);
 	Route::post('/Academia/salvar', ['uses'=>'AcademiaController@salvar', 'as'=>'Academia.salvar']);
 	Route::get('/Academia/editar/{id}', ['uses'=>'AcademiaController@editar', 'as'=>'Academia.editar']);
