@@ -86,5 +86,6 @@ class AcademiaController extends Controller
 
         return redirect()->route('Academia.adicionar');
     }
+    
 	
 }
