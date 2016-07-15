@@ -72,6 +72,7 @@
                     @elseif (Auth::guest())
                         <li><a href="{{ url('/tenista/login') }}">Entrar</a></li>
                         <li><a href="{{ url('/tenista/adicionar') }}">Registrar</a></li>
+                        
                     @else 
                      <li><a href="{{ url('/register') }}">Registrar</a></li>
                         <li class="dropdown">
