@@ -37,6 +37,7 @@ Route::group(['middleware' => 'tenista'], function(){
 		Route::get('/tenista', 'TenistaController@index');
 
 		Route::put('/tenista/trocastatus/{id}', ['uses'=>'TenistaController@trocaStatus', 'as'=>'tenista.trocastatus']);
+		
 		Route::get('/tenista/editar/{id}', ['uses'=>'TenistaController@editar', 'as'=>'tenista.editar']);
 	});
 	
@@ -127,6 +128,18 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/torneio', ['uses'=>'TorneioController@index', 'as'=>'torneio.index']);
 	Route::get('/torneio/{id?}', ['uses'=>'TorneioController@detalhe', 'as'=>'torneio.index']);
+
+
+	//adminsitrador trocando status do tenista
+
+	Route::get('/tenista/lista', ['uses'=>'TenistaController@lista', 'as'=>'tenista.lista']);
+	Route::get('/tenista/detalhe/{id}', ['uses'=>'TenistaController@detalhe', 'as'=>'tenista.detalhe']);
+	Route::put('/tenista/trocastatus/{id}', ['uses'=>'TenistaController@trocaStatusPorAdm', 'as'=>'tenista.trocastatusporadmin']);
+
+
+	//detalhe tenista para administrador
+
+
 });
 
 

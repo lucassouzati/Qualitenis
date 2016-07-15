@@ -68,6 +68,13 @@ class TenistaController extends Controller
         return redirect()->route('tenista.detalhe', compact('tenista')); 
     }
 
+    public function trocaStatusPorAdm(Request $request, $id){
+        $tenista = \App\Tenista::find($id);
+        $tenista->statustenista()->associate(\App\Statustenista::find($request->input('statustenista_id')));
+        $tenista->update();
+        return redirect()->route('tenista.lista'); 
+    }
+
     public function index()
     {   
         
@@ -204,6 +211,19 @@ class TenistaController extends Controller
 
         return redirect()->route('tenista.adicionar'); 
     }
+
+     public function lista()
+    {   
+        $tenistas = \App\Tenista::paginate(10);
+        return view('tenista.lista', compact('tenistas'));
+    }
+     
+    public function detalhe($id)
+    {   
+        $tenista = \App\Tenista::find($id);
+        return view('tenista.detalhe', compact('tenista'));
+    }
+
 }
 
 
