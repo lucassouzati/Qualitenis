@@ -38,14 +38,22 @@ class TenistaController extends Controller
         //dd($credentials);
 //        dd(Auth::guard('tenista')->attempt($credentials));
         if(auth()->guard('tenista')->attempt($credentials)){
-  //          dd($credentials);
-            return view('tenista.index');
+  //          dd($credentials);, 'statustenista_id' => 1
+            $credentials = array_add($credentials, 'statustenista_id', 1);
+            if(auth()->guard('tenista')->attempt($credentials)){
+                return view('tenista.index');    
+            }
+            else{
+                Auth::guard('tenista')->logout();
+                return redirect('/tenista/login')->withErrors(['email' => 'Desculpe, mas esta conta está desativada! Entre em contato com um administrador'])->withInput();    
+            }
 
         } else {
             //dd($credentials);
            
             $result = app('App\Http\Controllers\Auth\AuthController')->login($request);
             if(!Auth::check()){
+//                  if(auth()->guard('tenista')->)
                 return redirect('/tenista/login')->withErrors(['email' => 'Login ou senha inválidos!'])->withInput();    
             }else {
                 return redirect('/home');
@@ -65,7 +73,15 @@ class TenistaController extends Controller
         $tenista = \App\Tenista::find($id);
         $tenista->statustenista()->associate(\App\Statustenista::find($request->input('statustenista_id')));
         $tenista->update();
-        return redirect()->route('tenista.detalhe', compact('tenista')); 
+        //return redirect()->route('tenista.detalhe', compact('tenista')); 
+        return redirect('/tenista/logout');
+    }
+
+    public function trocaStatusPorAdm(Request $request, $id){
+        $tenista = \App\Tenista::find($id);
+        $tenista->statustenista()->associate(\App\Statustenista::find($request->input('statustenista_id')));
+        $tenista->update();
+        return redirect()->route('tenista.lista'); 
     }
 
     public function index()
@@ -96,6 +112,7 @@ class TenistaController extends Controller
             
             'telefone' => 'required|numeric',
             'cidade_id' => 'required',
+            'academia' => 'required',
             'sexo' => 'required'
             
         ]);
@@ -141,6 +158,7 @@ class TenistaController extends Controller
             'email' => 'required|email|unique:tenistas',
             'telefone' => 'required|numeric',
             'cidade_id' => 'required',
+            'academia_id' => 'required',
             'sexo' => 'required'
             
         ]);
@@ -153,6 +171,8 @@ class TenistaController extends Controller
         $tenista->telefone = $request->input('telefone');
         $cidade = \App\Cidade::find($request->input('cidade_id'));
         $tenista->cidade()->associate($cidade);
+        $academia = \App\Academia::find($request->input('academia_id'));
+        $tenista->academia()->associate($academia);
         $classe = \App\Classe::find($request->input('classe_id'));
         $tenista->classe()->associate($classe);
         $date = date_create_from_format('j/m/Y', $request->input('datadenascimento'));
@@ -200,6 +220,19 @@ class TenistaController extends Controller
 
         return redirect()->route('tenista.adicionar'); 
     }
+
+     public function lista()
+    {   
+        $tenistas = \App\Tenista::paginate(10);
+        return view('tenista.lista', compact('tenistas'));
+    }
+     
+    public function detalhe($id)
+    {   
+        $tenista = \App\Tenista::find($id);
+        return view('tenista.detalhe', compact('tenista'));
+    }
+
 }
 
 

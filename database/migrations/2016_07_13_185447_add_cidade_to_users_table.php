@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAcademiasTable extends Migration
+class AddCidadeToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,9 @@ class CreateAcademiasTable extends Migration
      */
     public function up()
     {
-        Schema::create('academias', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nome');
+        Schema::table('users', function (Blueprint $table) {
             $table->integer('cidade_id')->unsigned();
             $table->foreign('cidade_id')->references('id')->on('cidades');
-            $table->string('CNPJ')->unique();
-            $table->integer('numQuadras');
-            $table->timestamps();
         });
     }
 
@@ -30,6 +25,9 @@ class CreateAcademiasTable extends Migration
      */
     public function down()
     {
-        Schema::drop('academias');
+        Schema::table('users', function (Blueprint $table) {
+              $table->dropForeign('users_cidade_id_foreign');
+              $table->dropColumn('cidade_id');
+        });
     }
 }

@@ -24,7 +24,10 @@ class Tenista extends Authenticatable
     	return $this->belongsTo('App\Classe');
     }
 
-       
+    public function academia()
+    {
+        return $this->belongsTo('App\Academia');
+    }
 
     
     /**
@@ -33,7 +36,7 @@ class Tenista extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+    'password', 'remember_token',
     ];
 
 

@@ -28,7 +28,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new authentication controller instance.
@@ -37,7 +37,14 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware($this->guestMiddleware(), ['except' => ['logout','register']]);
+        $this->middleware($this->guestMiddleware(), ['except' => ['logout','register','showRegistrationForm','index']]);
+    }
+
+    public function index()
+    {
+       $funcionarios = \App\User::paginate(15);
+
+       return view('auth.index',compact('funcionarios'));
     }
 
     /**
@@ -51,6 +58,7 @@ class AuthController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
+            'telefone' => 'required|max:255',
             'CPF' => 'required|max:255',
             'password' => 'required|min:6|confirmed',
         ]);
@@ -69,6 +77,7 @@ class AuthController extends Controller
             'email' => $data['email'],
             'CPF' => $data['CPF'],
             'password' => bcrypt($data['password']),
+            'cidade_id' => $data['cidade_id'],
         ]);
     }
 

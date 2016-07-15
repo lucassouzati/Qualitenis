@@ -28,6 +28,8 @@ class CreateTenistasTable extends Migration
             $table->foreign('classe_id')->references('id')->on('classes');
             $table->integer('statustenista_id')->unsigned();
             $table->foreign('statustenista_id')->references('id')->on('statustenistas');
+            $table->string('token')->index();
+            $table->boolean('activated')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

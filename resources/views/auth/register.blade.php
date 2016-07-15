@@ -17,23 +17,43 @@
                                 <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
 
                                 @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('name') }}</strong>
+                                </span>
                                 @endif
                             </div>
                         </div>
 
-                         <div class="form-group{{ $errors->has('CPF') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('CPF') ? ' has-error' : '' }}">
                             <label for="CPF" class="col-md-4 control-label">CPF</label>
 
                             <div class="col-md-6">
                                 <input id="CPF" type="CPF" class="form-control" name="CPF" value="{{ old('CPF') }}">
 
                                 @if ($errors->has('CPF'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('CPF') }}</strong>
-                                    </span>
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('CPF') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group{{ $errors->has('cidade') ? 'has-error' : '' }}">
+                            <label for="cidade_id" class="col-md-4 control-label">Cidade</label>
+                            <div class="col-md-6">
+                                <select name="cidade_id">
+                                    <?php 
+                                    $estado = \App\Estado::find(19);
+                                    $cidades = $estado->cidades; 
+                                    foreach ($cidades as $cidade) {
+                                # code...
+                                        echo ('<option value="'.$cidade->id.'">'.$cidade->nome.'</option>');
+                                    }   
+                                    ?>      
+                                </select>
+                                @if($errors->has('cidade'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('cidade') }}</strong>
+                                </span>
                                 @endif
                             </div>
                         </div>
@@ -45,9 +65,9 @@
                                 <input id="telefone" type="telefone" class="form-control" name="telefone" value="{{ old('telefone') }}">
 
                                 @if ($errors->has('telefone'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('telefone') }}</strong>
-                                    </span>
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('telefone') }}</strong>
+                                </span>
                                 @endif
                             </div>
                         </div>
@@ -59,9 +79,9 @@
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
 
                                 @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
                                 @endif
                             </div>
                         </div>
@@ -73,9 +93,9 @@
                                 <input id="password" type="password" class="form-control" name="password">
 
                                 @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                </span>
                                 @endif
                             </div>
                         </div>
@@ -87,9 +107,9 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
 
                                 @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                </span>
                                 @endif
                             </div>
                         </div>

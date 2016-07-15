@@ -14,7 +14,13 @@
                            <a href="{{route('torneio.index')}}" "email me">Torneios</a>
                        </li>
                        <li>
-                           <a href="{{route('academia.index')}}" "email me">Academias</a>
+                           <a href="{{route('Academia.index')}}" "email me">Academias</a>
+                       </li>
+                       <li>
+                           <a href="{{route('auth.index')}}" "email me">Funcionarios</a>
+                       </li>
+                       <li>
+                           <a href="{{route('tenista.lista')}}" "email me">Tenistas</a>
                        </li>
 
                     </ul>   

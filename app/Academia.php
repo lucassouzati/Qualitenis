@@ -11,5 +11,10 @@ class Academia extends Model
 	{
 		return $this->belongsTo('App\Cidade');
 	}
+	public function tenistas()
+    {
+    	return $this->hasMany('App\Tenista');
+    }
+  
 	
 }
