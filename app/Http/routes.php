@@ -134,7 +134,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/tenista/lista', ['uses'=>'TenistaController@lista', 'as'=>'tenista.lista']);
 	Route::get('/tenista/detalhe/{id}', ['uses'=>'TenistaController@detalhe', 'as'=>'tenista.detalhe']);
-	Route::put('/tenista/trocastatus/{id}', ['uses'=>'TenistaController@trocaStatusPorAdm', 'as'=>'tenista.trocastatusporadmin']);
+	Route::put('/tenista/trocastatusporadmin/{id}', ['uses'=>'TenistaController@trocaStatusPorAdm', 'as'=>'tenista.trocastatusporadmin']);
 
 
 	//detalhe tenista para administrador
