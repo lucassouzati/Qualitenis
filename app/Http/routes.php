@@ -27,7 +27,7 @@ Route::post('/tenista/salvar', ['uses'=>'TenistaController@salvar', 'as'=>'tenis
 
 //Route::get('/tenista/deletar/{id}', ['uses'=>'TenistaController@deletar', 'as'=>'tenista.deletar']);
 Route::put('/tenista/atualizar/{id}', ['uses'=>'TenistaController@atualizar', 'as'=>'tenista.atualizar']);
-
+Route::get('tenista/activation/{token}', 'TenistaController@activateTenista')->name('tenista.activate');
 
 
 Route::group(['middleware' => 'tenista'], function(){
