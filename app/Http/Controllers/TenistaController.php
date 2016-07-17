@@ -121,6 +121,13 @@ class TenistaController extends Controller
         return redirect()->route('tenista.lista'); 
     }
 
+    public function trocaClasse(Request $request, $id){
+        $tenista = \App\Tenista::find($id);
+        $tenista->classe()->associate(\App\Classe::find($request->input('classe_id')));
+        $tenista->update();
+        return redirect()->route('tenista.lista'); 
+    }
+
     public function index()
     {   
         
