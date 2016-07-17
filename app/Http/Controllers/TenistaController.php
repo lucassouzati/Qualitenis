@@ -74,7 +74,7 @@ class TenistaController extends Controller
                     $this->activationService->sendActivationMail(auth()->guard('tenista')->user());
 
                     Auth::guard('tenista')->logout();
-                    return back()->with('warning', 'Você precisa confirmar sua conta. Nós estamos enviando um código de ativação, confira seu e-mail por favor.');
+                    return back()->with('warning', 'Você precisa confirmar sua conta. Nós enviamos um código de ativação, confira seu e-mail por favor.');
                 }
                 else{
                     return view('tenista.index');        
@@ -156,7 +156,7 @@ class TenistaController extends Controller
             
             'telefone' => 'required|numeric',
             'cidade_id' => 'required',
-            'academia' => 'required',
+            'academia_id' => 'required',
             'sexo' => 'required'
             
         ]);
@@ -171,7 +171,10 @@ class TenistaController extends Controller
         $tenista->telefone = $request->input('telefone');
         $cidade = \App\Cidade::find($request->input('cidade_id'));
         $tenista->cidade()->associate($cidade);
-              
+
+
+        $academia = \App\Academia::find($request->input('academia_id'));
+        $tenista->academia()->associate($academia);              
         
         $tenista->sexo = $request->input('sexo');
         
