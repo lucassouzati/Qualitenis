@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'from' => ['address' => null, 'name' => null],
+    'from' => ['address' => 'iffsi.ita@gmail.com', 'name' => 'Turma 6º Período do curso de Bacharelado em Sistemas de Informação'],
 
     /*
     |--------------------------------------------------------------------------

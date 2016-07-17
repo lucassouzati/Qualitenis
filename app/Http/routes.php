@@ -74,7 +74,7 @@ Route::put('/Academia/atualizar/{id}', ['uses'=>'AcademiaController@atualizar', 
 
 
 
-
+//dd(Config::Get('mail'));
 
 Route::auth();
 
