@@ -79,6 +79,33 @@
                             @endif
 			
 	</div>
+	<div class="form-group col-md-12 {{ $errors->has('cidade') ? 'has-error' : '' }}">
+							<label for="academia_id">Academia</label>
+							
+								<?php 
+								
+								$academias = DB::table('academias')->get();
+								$valido = sizeof($academias);
+								if ($valido > 0) {
+									
+									echo '<select name="academia_id">';
+									foreach ($academias as $academia) {
+										echo ('<option value="'.$academia->id.'">'.$academia->nome.'</option>');
+									}
+									echo '</select>';
+
+								}else{
+									echo ('<label for="academia_id">: O administrador deve cadastrar Academia</label>');
+								}	
+
+								?>		
+							
+							@if($errors->has('cidade'))
+							<span class="help-block">
+								<strong>{{ $errors->first('cidade') }}</strong>
+							</span>
+							@endif
+						</div>
 	<div class="form-group col-md-12">
 		<input type="hidden" name="statustenista_id" value=" value="{{$tenista->statustenista->id}}"">
 		<button class="btn btn-info">Salvar</button>

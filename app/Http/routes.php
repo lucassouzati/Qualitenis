@@ -27,7 +27,7 @@ Route::post('/tenista/salvar', ['uses'=>'TenistaController@salvar', 'as'=>'tenis
 
 //Route::get('/tenista/deletar/{id}', ['uses'=>'TenistaController@deletar', 'as'=>'tenista.deletar']);
 Route::put('/tenista/atualizar/{id}', ['uses'=>'TenistaController@atualizar', 'as'=>'tenista.atualizar']);
-
+Route::get('tenista/activation/{token}', 'TenistaController@activateTenista')->name('tenista.activate');
 
 
 Route::group(['middleware' => 'tenista'], function(){
@@ -37,6 +37,7 @@ Route::group(['middleware' => 'tenista'], function(){
 		Route::get('/tenista', 'TenistaController@index');
 
 		Route::put('/tenista/trocastatus/{id}', ['uses'=>'TenistaController@trocaStatus', 'as'=>'tenista.trocastatus']);
+		
 		Route::get('/tenista/editar/{id}', ['uses'=>'TenistaController@editar', 'as'=>'tenista.editar']);
 	});
 	
@@ -73,7 +74,7 @@ Route::put('/Academia/atualizar/{id}', ['uses'=>'AcademiaController@atualizar', 
 
 
 
-
+//dd(Config::Get('mail'));
 
 Route::auth();
 
@@ -127,6 +128,19 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('/torneio', ['uses'=>'TorneioController@index', 'as'=>'torneio.index']);
 	Route::get('/torneio/{id?}', ['uses'=>'TorneioController@detalhe', 'as'=>'torneio.index']);
+
+
+	//adminsitrador trocando status do tenista
+
+	Route::get('/tenista/lista', ['uses'=>'TenistaController@lista', 'as'=>'tenista.lista']);
+	Route::get('/tenista/detalhe/{id}', ['uses'=>'TenistaController@detalhe', 'as'=>'tenista.detalhe']);
+	Route::put('/tenista/trocastatusporadmin/{id}', ['uses'=>'TenistaController@trocaStatusPorAdm', 'as'=>'tenista.trocastatusporadmin']);
+	Route::put('/tenista/troclasse/{id}', ['uses'=>'TenistaController@trocaClasse', 'as'=>'tenista.trocaclasse']);
+
+
+	//detalhe tenista para administrador
+
+
 });
 
 

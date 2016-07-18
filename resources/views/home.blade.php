@@ -19,6 +19,9 @@
                        <li>
                            <a href="{{route('auth.index')}}" "email me">Funcionarios</a>
                        </li>
+                       <li>
+                           <a href="{{route('tenista.lista')}}" "email me">Tenistas</a>
+                       </li>
 
                     </ul>   
                     

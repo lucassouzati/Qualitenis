@@ -1,4 +1,4 @@
-{{auth()->guard('tenista')->user()->nome}}
+
 
 @extends('layouts.app')
 
@@ -24,8 +24,13 @@
                    <p><b>Classe: {{auth()->guard('tenista')->user()->classe->nome}}</b></p>
                     
                      <a class="btn btn-default" href="{{ route('tenista.editar', auth()->guard('tenista')->user()->id ) }}" {{ auth()->guard('tenista')->user()->statustenista->id == 1 ? '' : 'disabled="true"' }}>Editar</a>
-                                    <a class="btn btn-danger" href="javascript:(confirm('Deletar esse registro?') ? window.location.href='{{ route('tenista.trocastatus', auth()->guard('tenista')->user()->id) }}' : false)" {{ auth()->guard('tenista')->user()->statustenista->id == 1 ? '' : 'disabled="true"' }}>Desativar Conta</a>
-                    
+                     <form action="{{route('tenista.trocastatus', auth()->guard('tenista')->user()  ->id)}}" method="POST" onsubmit="return confirm('Deseja realmente desativar essa conta? Você não poderá logar de novo até que um administrador ative seu usuário novamente.');" class="btn">
+                     {{csrf_field()}}
+                         <input type="hidden" name="statustenista_id" value="2">
+                         <input type="hidden" name="_method" value="put" placeholder="">
+                       
+                                    <input type="submit" name="" class="btn btn-danger" value="Desativar Conta" placeholder="">
+                    </form>
                    
                         
                     
