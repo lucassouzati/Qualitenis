@@ -21,7 +21,14 @@
                    <p><b>Status: {{ $tenista->statustenista->nome }}</b></p>
                    <p><b>E-mail: {{$tenista->email }}</b></p>
                    <p><b>Telefone: {{$tenista->telefone }}</b></p>
-                   <p><b>Classe: {{$tenista->classe->nome}}</b></p>
+                   <form action="{{route('tenista.trocaclasse', $tenista->id)}}" method="POST" accept-charset="utf-8">
+                   {{csrf_field()}}
+                   <input type="hidden" name="_method" value="put" placeholder="">
+                   <p><b>Classe: 
+                    {{Form::select('classe_id', ['1' => 'Classe A', '2' => 'Classe B', '3' => 'Classe C', '4' => 'Feminino'], $tenista->classe->id)}}
+                    <input type="submit" class="btn btn-info btn-default" name="" value="Trocar Classe" placeholder="">
+                    </form>
+                   </b></p>
                     
 
                     

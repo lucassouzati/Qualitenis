@@ -18,6 +18,10 @@ class PasswordController extends Controller
     |
     */
 
+    protected $guard = 'tenista';
+    protected $broker = 'tenista';
+    protected $redirectTo = '/tenista';
+
     use ResetsPasswords;
 
     /**

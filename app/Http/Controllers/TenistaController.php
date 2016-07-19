@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\ActivationService;
 
 use Auth;
 
@@ -12,11 +13,32 @@ class TenistaController extends Controller
 {
     //
 
+
+
+    /*
+    Configuração de ativação por e-mail ok. Ainda não sei porque o método guestMiddleware() não funciona com esse controller. Devo estudar a fundo melhor esses métodos do middleware. 
+
+    */
+    protected $activationService;
+
+    public function __construct(ActivationService $activationService)
+    {
+        //$this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->activationService = $activationService;
+    }
+
+ 
     
     public function login()
     {
         return view('auth.login-tenista');
     }
+
+
+    /*
+    Login funcionando ok, porém ainda está permitindo que logue de uma vez.
+
+    */
 
     public function postLogin(Request $request)
     {    
@@ -35,25 +57,40 @@ class TenistaController extends Controller
         }
 
         $credentials = ['email' => $request->get('email'), 'password' => $request->get('password')];
-        //dd($credentials);
-//        dd(Auth::guard('tenista')->attempt($credentials));
+        
+        //Primeiro o sistema confere o login e a senha
+
         if(auth()->guard('tenista')->attempt($credentials)){
-  //          dd($credentials);, 'statustenista_id' => 1
+    
             $credentials = array_add($credentials, 'statustenista_id', 1);
+
+            //Depois, ele confere se o status do tenista é 1
+
             if(auth()->guard('tenista')->attempt($credentials)){
-                return view('tenista.index');    
+
+                //Depois ele confere o status dele é activated (email confirmado)
+
+                if(!auth()->guard('tenista')->user()->activated){
+                    $this->activationService->sendActivationMail(auth()->guard('tenista')->user());
+
+                    Auth::guard('tenista')->logout();
+                    return back()->with('warning', 'Você precisa confirmar sua conta. Nós enviamos um código de ativação, confira seu e-mail por favor.');
+                }
+                else{
+                    return view('tenista.index');        
+                }
+                
             }
             else{
                 Auth::guard('tenista')->logout();
-                return redirect('/tenista/login')->withErrors(['email' => 'Desculpe, mas esta conta está desativada! Entre em contato com um administrador'])->withInput();    
+                return back()->with(['warning' => 'Desculpe, mas esta conta está desativada! Entre em contato com um administrador'])->withInput();    
             }
 
         } else {
-            //dd($credentials);
            
             $result = app('App\Http\Controllers\Auth\AuthController')->login($request);
             if(!Auth::check()){
-//                  if(auth()->guard('tenista')->)
+
                 return redirect('/tenista/login')->withErrors(['email' => 'Login ou senha inválidos!'])->withInput();    
             }else {
                 return redirect('/home');
@@ -80,6 +117,13 @@ class TenistaController extends Controller
     public function trocaStatusPorAdm(Request $request, $id){
         $tenista = \App\Tenista::find($id);
         $tenista->statustenista()->associate(\App\Statustenista::find($request->input('statustenista_id')));
+        $tenista->update();
+        return redirect()->route('tenista.lista'); 
+    }
+
+    public function trocaClasse(Request $request, $id){
+        $tenista = \App\Tenista::find($id);
+        $tenista->classe()->associate(\App\Classe::find($request->input('classe_id')));
         $tenista->update();
         return redirect()->route('tenista.lista'); 
     }
@@ -112,7 +156,7 @@ class TenistaController extends Controller
             
             'telefone' => 'required|numeric',
             'cidade_id' => 'required',
-            'academia' => 'required',
+            'academia_id' => 'required',
             'sexo' => 'required'
             
         ]);
@@ -127,7 +171,10 @@ class TenistaController extends Controller
         $tenista->telefone = $request->input('telefone');
         $cidade = \App\Cidade::find($request->input('cidade_id'));
         $tenista->cidade()->associate($cidade);
-              
+
+
+        $academia = \App\Academia::find($request->input('academia_id'));
+        $tenista->academia()->associate($academia);              
         
         $tenista->sexo = $request->input('sexo');
         
@@ -146,7 +193,7 @@ class TenistaController extends Controller
         
     }
 
-        public function salvar(Request $request)
+    public function salvar(Request $request)
     {   
         //dd($request);
         $this->validate($request, [
@@ -184,8 +231,10 @@ class TenistaController extends Controller
         //\App\Cliente::find($id)->addTenista($tenista);
         $tenista->save();
 
+         $this->activationService->sendActivationMail($tenista);
+
         \Session::flash('flash_message',[
-            'msg'=>"Tenista adicionado com Sucesso!",
+            'msg'=>"Cadastrado realizado com Sucesso! Antes de logar, confirme seu e-mail pelo link enviado.",
             'class'=>"alert-success"
         ]);
 
@@ -231,6 +280,19 @@ class TenistaController extends Controller
     {   
         $tenista = \App\Tenista::find($id);
         return view('tenista.detalhe', compact('tenista'));
+    }
+
+   
+
+
+
+    public function activateTenista($token)
+    {
+    if ($tenista = $this->activationService->activateUser($token)) {
+        auth()->guard('tenista')->login($tenista);
+        return view('tenista.index');
+    }
+    abort(404);
     }
 
 }
