@@ -37,6 +37,7 @@
                                 @endif
                             </div>
                         </div>
+
                         <div class="form-group{{ $errors->has('cidade') ? 'has-error' : '' }}">
                             <label for="cidade_id" class="col-md-4 control-label">Cidade</label>
                             <div class="col-md-6">
@@ -57,7 +58,39 @@
                                 @endif
                             </div>
                         </div>
+                        {{-- ACADEMIA --}}
+                        <div class="form-group {{ $errors->has('cidade') ? 'has-error' : '' }}">
+                            <label for="academia_id" class="col-md-4 control-label">Academia</label>
+                            <div class="col-md-6">
+                                <?php 
+                                
+                                $academias = DB::table('academias')->get();
+                                $valido = sizeof($academias);
+                                if ($valido > 0) {
 
+                                    echo '<select name="academia_id">';
+                                    foreach ($academias as $academia) {
+                                        echo ('<option value="'.$academia->id.'">'.$academia->nome.'</option>');
+                                    }
+                                    echo '</select>';
+
+                                }else{
+                                    ?>
+                                        <a class="btn btn-default" href="{{route('Academia.adicionar')}}">Adicionar</a>
+                                    <?php
+                                         
+                                    
+                                }   
+
+                                ?>      
+
+                                @if($errors->has('cidade'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('cidade') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group{{ $errors->has('telefone') ? ' has-error' : '' }}">
                             <label for="telefone" class="col-md-4 control-label">Telefone</label>
 
