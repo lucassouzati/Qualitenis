@@ -57,8 +57,37 @@ class AcademiaController extends Controller
 
      public function atualizar(Request $request, $id)
     {
-        \App\Academia::find($id)->update($request->all());
+       $this->validate($request, [
+            
+            'nome' => 'required',         
+            'cidade_id' => 'required',
+            'CNPJ' => 'required',
+            'numQuadras' => 'required'
+            
+        ]);
         
+
+       
+
+        $academia = \App\Academia::find($id);
+        $academia->nome = $request->input('nome');
+        $cidade = \App\Cidade::find($request->input('cidade_id'));
+        $academia->cidade()->associate($cidade);
+        
+        $academia->CNPJ = $request->input('CNPJ');
+        $academia->numQuadras = $request->input('numQuadras');
+
+
+               
+        
+        
+        
+        
+
+        //\App\Cliente::find($id)->addTenista($academia);
+        $academia->update();
+        
+
         \Session::flash('flash_message',[
             'msg'=>"Academia atualizada com Sucesso!",
             'class'=>"alert-success"
