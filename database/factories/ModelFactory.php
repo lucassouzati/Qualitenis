@@ -15,7 +15,21 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->safeEmail,
+       
         'password' => bcrypt(str_random(10)),
+        'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(App\Tenista::class, function (Faker\Generator $faker) {
+    return [
+        'nome' => $faker->name,
+        'email' => $faker->safeEmail,
+        'password' => bcrypt(str_random(10)),
+        'e164PhoneNumber' => $faker->phoneNumber,
+         'datadenascimento' => $faker->date($format = 'Y-m-d', $max = 'now') ,
+        'sexo' => 'M',
+        
         'remember_token' => str_random(10),
     ];
 });

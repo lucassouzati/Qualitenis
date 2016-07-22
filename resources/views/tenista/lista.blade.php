@@ -10,6 +10,15 @@
                 </ol>
 
                 <div class="panel-body">
+
+                    <div class="row">    
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                                                
+                                {!! Form::text('search_text', null, array('placeholder' => 'Search Text','class' => 'form-control','id'=>'search_text')) !!}
+                            </div>
+                        </div>
+                    </div>
                     
                     
                     <table class="table table-bordered">
@@ -63,4 +72,29 @@
         </div>
     </div>
 </div>
+<script>
+   $(document).ready(function() {
+    src = "{{ route('searchajax') }}";
+     $("#search_text").autocomplete({
+        source: function(request, response) {
+            $.ajax({
+                url: src,
+                dataType: "json",
+                data: {
+                    term : request.term
+                },
+                success: function(data) {
+                    response(data);
+                    
+                }
+            });
+        },
+        select: function( event, ui ) {
+            window.location.href = ui.item.url;
+        },
+        min_length: 3,
+       
+    });
+});
+</script>
 @endsection
