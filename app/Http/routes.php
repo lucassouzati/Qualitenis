@@ -29,7 +29,8 @@ Route::post('/tenista/salvar', ['uses'=>'TenistaController@salvar', 'as'=>'tenis
 Route::put('/tenista/atualizar/{id}', ['uses'=>'TenistaController@atualizar', 'as'=>'tenista.atualizar']);
 Route::get('tenista/activation/{token}', 'TenistaController@activateTenista')->name('tenista.activate');
 
-Route::get('autocomplete',array('as'=>'autocomplete','uses'=>'AutoCompleteController@index'));
+//pesquisa ajax pra tenista
+//Route::get('autocomplete',array('as'=>'autocomplete','uses'=>'AutoCompleteController@index'));
 Route::get('searchajax',array('as'=>'searchajax','uses'=>'AutoCompleteController@autoComplete'));
 
 
