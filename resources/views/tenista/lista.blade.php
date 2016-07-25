@@ -39,7 +39,7 @@
                                 <td>{{ $tenista->statustenista->nome }}</td>
                                 <td>
                                     <a class="btn btn-default" href="{{route('tenista.detalhe', $tenista->id)}}">Detalhe</a>
-                                    <form action="{{route('tenista.trocastatusporadmin', $tenista->id)}}" method="POST" class="btn">
+                                    <form action="{{route('tenista.trocastatusporadmin', $tenista->id)}}" method="POST" class="btn" onsubmit="return confirm('Deseja realmente desativar essa conta? O usuário não poderá logar até que um administrador ative-o novamente.');">
                                         {{csrf_field()}}
                                         <input type="hidden" name="_method" value="put" placeholder="">
                                         @if ($tenista->statustenista->id == 2)
