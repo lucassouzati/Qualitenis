@@ -18,7 +18,7 @@ class AutoCompleteController extends Controller
     public function autoComplete(Request $request) {
         $query = $request->get('term','');
         
-        $tenistas=Tenista::where('nome','LIKE','%'.$query.'%')->get();
+        $tenistas=Tenista::where('nome','LIKE',$query.'%')->get();
         
         $data=array();
         foreach ($tenistas as $tenista) {
