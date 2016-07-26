@@ -93,7 +93,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 	Route::get('register', 'Auth\AuthController@showRegistrationForm');
-	Route::post('register', 'Auth\AuthController@register');
+	Route::post('register', 'Auth\AuthController@registrar');
 	Route::get('/Auth/index', ['uses'=>'Auth\AuthController@index', 'as'=>'auth.index']);
 
 	//academia

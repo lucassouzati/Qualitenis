@@ -39,7 +39,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware($this->guestMiddleware(), ['except' => ['logout','register','showRegistrationForm','index','editar','atualizar','desativar']]);
+        $this->middleware($this->guestMiddleware(), ['except' => ['logout','register','showRegistrationForm','index','editar','atualizar','desativar','registrar']]);
     }
 
     public function index()
@@ -83,6 +83,36 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
            
         ]);
+    }
+
+    public function registrar(Request $request)
+    {
+        
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        $user = new \App\User;
+        $user->name = $request->input('name');
+       
+        $user->telefone = $request->input('telefone');
+        $user->CPF = $request->input('CPF');
+        $cidade = \App\Cidade::find($request->input('cidade_id'));
+        $user->cidade()->associate($cidade);
+        $academia = \App\Academia::find($request->input('academia_id'));
+        $user->academia()->associate($academia);
+        $user->email = $request->input('email');
+        $user->password =  bcrypt($request->input('password'));
+        $user->ativo = true;
+        $user->save();
+        
+        return redirect()->route('auth.index');
+
+
     }
 
 
