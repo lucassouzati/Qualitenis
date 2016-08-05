@@ -29,6 +29,10 @@ Route::post('/tenista/salvar', ['uses'=>'TenistaController@salvar', 'as'=>'tenis
 Route::put('/tenista/atualizar/{id}', ['uses'=>'TenistaController@atualizar', 'as'=>'tenista.atualizar']);
 Route::get('tenista/activation/{token}', 'TenistaController@activateTenista')->name('tenista.activate');
 
+//pesquisa ajax pra tenista
+//Route::get('autocomplete',array('as'=>'autocomplete','uses'=>'AutoCompleteController@index'));
+Route::get('searchajax',array('as'=>'searchajax','uses'=>'AutoCompleteController@autoComplete'));
+
 
 Route::group(['middleware' => 'tenista'], function(){
 	
@@ -81,8 +85,15 @@ Route::auth();
 
 Route::group(['middleware' => 'auth'], function () {
 
+	//DESATIVAR FUNCIONARIO
+	Route::get('/Auth/desativar/{id}', ['uses'=>'Auth\AuthController@desativar', 'as'=>'Auth.desativar']);
+	//EDITAR FUNCIONARIO
+	Route::get('/Auth/editar/{id}', ['uses'=>'Auth\AuthController@editar', 'as'=>'Auth.editar']);
+	Route::put('/Auth/atualizar/{id}', ['uses'=>'Auth\AuthController@atualizar', 'as'=>'Auth.atualizar']);
+
+
 	Route::get('register', 'Auth\AuthController@showRegistrationForm');
-	Route::post('register', 'Auth\AuthController@register');
+	Route::post('register', 'Auth\AuthController@registrar');
 	Route::get('/Auth/index', ['uses'=>'Auth\AuthController@index', 'as'=>'auth.index']);
 
 	//academia

@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name','CPF', 'email', 'password', 
+        'name','CPF', 'email', 'password','telefone', 
     ];
 
     public function telefones()
@@ -22,6 +22,10 @@ class User extends Authenticatable
     public function cidade()
     {
         return $this->belongsTo('App\Cidade');
+    }
+    public function academia()
+    {
+        return $this->belongsTo('App\Academia');
     }
 
     /**
