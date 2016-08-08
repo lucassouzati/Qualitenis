@@ -103,6 +103,7 @@ class TenistaController extends Controller
     public function logout()
     {
         auth()->guard('tenista')->logout();
+        \Session::flush();
         return redirect('/tenista/login');
     }
 
