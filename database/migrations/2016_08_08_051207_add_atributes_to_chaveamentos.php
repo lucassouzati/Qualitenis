@@ -13,9 +13,10 @@ class AddAtributesToChaveamentos extends Migration
     public function up()
     {
         Schema::table('chaveamentos', function (Blueprint $table) {
-            $table->integer('minutosestimadosdepartida')->unsigned();
-            $table->integer('qtdset')->unsigned();
-            $table->integer('qtdgameporset')->unsigned();
+            $table->boolean('dupla');
+            $table->integer('minutosestimadosdepartida');
+            $table->integer('qtdset');
+            $table->integer('qtdgameporset');
             
         });
     }
@@ -28,6 +29,7 @@ class AddAtributesToChaveamentos extends Migration
     public function down()
     {
         Schema::table('chaveamentos', function (Blueprint $table) {
+            $table->dropColumn('dupla');
             $table->dropColumn('minutosestimadosdepartida');
             $table->dropColumn('qtdset');
             $table->dropColumn('qtdgameporset');

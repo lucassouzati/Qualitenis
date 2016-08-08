@@ -99,6 +99,18 @@
                                 </span>
                                 @endif
                             </div>
+                    <div class="form-group col-md-12 {{ $errors->has('dupla') ? ' has-error' : '' }}">
+                            <label class="col-md-3 control-label">Dupla</label>
+
+                            <div class="col-md-2">
+                                <input type="checkbox" value="1" name="dupla">
+
+                                @if ($errors->has('dupla'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('dupla') }}</strong>
+                                </span>
+                                @endif
+                            </div>
                     </div>
                         <br>
                         <input type="hidden" name="torneio_id" value="{{$torneio->id}}">

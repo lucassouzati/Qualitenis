@@ -37,6 +37,7 @@ class ChaveamentoController extends Controller
       $this->validar($request);
 
    		$chaveamento = \App\Chaveamento::find($id);
+      $chaveamento->dupla = $request->get('dupla');
       $chaveamento->numerodejogadores = $request->get('numerodejogadores');
       $chaveamento->minutosestimadosdepartida = $request->get('minutosestimadosdepartida');
       $chaveamento->qtdset = $request->get('qtdset');

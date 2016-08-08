@@ -19,10 +19,6 @@ class CreateChaveamentoTable extends Migration
             $table->foreign('torneio_id')->references('id')->on('torneios');
             $table->integer('classe_id')->unsigned();
             $table->foreign('classe_id')->references('id')->on('classes');
-            $table->integer('dupla');
-            $table->integer('minutosestimadosdepartida');
-            $table->integer('qtdset');
-            $table->integer('qtdgameporset');
             $table->timestamps();
         });
     }
