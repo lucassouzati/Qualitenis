@@ -14,7 +14,7 @@
                     <form action="{{route('chaveamento.salvar' , $torneio->id)}}" method="post">
                     {{csrf_field()}}
                     
-                    <div class="form-group">
+                    <div class="form-group {{ $errors->has('classe_id') ? ' has-error' : '' }}">
                         <label for="classe">Classe</label>
                         <?php 
                         $classes = \App\Classe::lists('nome', 'id');
@@ -43,13 +43,75 @@
                         */
                         ?>
                         {{Form::select('classe_id', $classes, null)}}
+                        @if ($errors->has('classe_id'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('classe_id') }}</strong>
+                                </span>
+                                @endif
                     </div>    
-                    <div class="form-group">
-                        <label for="numerodejogadores">Número de jogadores</label>
-                    
-                        <input type="number" name="numerodejogadores" class="form-control" placeholder="Número de jogadores">
+                    <div class="form-group col-md-12 {{ $errors->has('numerodejogadores') ? ' has-error' : '' }}">
+                        <label class="col-md-3 control-label" for="numerodejogadores">Número de jogadores</label>
+                        <div class="col-md-2">                    
+                        <input type="number" name="numerodejogadores" min="0" class="form-control">
+                        @if ($errors->has('numerodejogadores'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('numerodejogadores') }}</strong>
+                                </span>
+                                @endif
                         </div>
-                    <div>
+                    </div>
+                    
+                    <div class="form-group col-md-12 {{ $errors->has('minutosestimadosdepartida') ? ' has-error' : '' }}">
+                            <label class="col-md-3 control-label">Tempo Estimado de Partida (Minutos)</label>
+
+                            <div class="col-md-2">
+                                <input id="minutosestimadosdepartida" min="0" type="number" class="form-control" name="minutosestimadosdepartida">
+
+                                @if ($errors->has('minutosestimadosdepartida'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('minutosestimadosdepartida') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                    </div>
+                    <div class="form-group col-md-12 {{ $errors->has('qtdset') ? ' has-error' : '' }}">
+                            <label class="col-md-3 control-label">Quantidade de Sets</label>
+
+                            <div class="col-md-2">
+                                <input id="qtdset" type="number" min="0" class="form-control" name="qtdset">
+
+                                @if ($errors->has('qtdset'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('qtdset') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                    </div>
+                    <div class="form-group col-md-12 {{ $errors->has('qtdgameporset') ? ' has-error' : '' }}">
+                            <label class="col-md-3 control-label">Quantidade de Games por set</label>
+
+                            <div class="col-md-2">
+                                <input id="qtdgameporset" min="0" type="number" class="form-control" name="qtdgameporset">
+
+                                @if ($errors->has('qtdgameporset'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('qtdgameporset') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                    <div class="form-group col-md-12 {{ $errors->has('dupla') ? ' has-error' : '' }}">
+                            <label class="col-md-3 control-label">Dupla</label>
+
+                            <div class="col-md-2">
+                                <input type="checkbox" value="1" name="dupla">
+
+                                @if ($errors->has('dupla'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('dupla') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                    </div>
                         <br>
                         <input type="hidden" name="torneio_id" value="{{$torneio->id}}">
                         <button class="btn btn-info">Adicionar</button>

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Chaveamento extends Model
 {
     //
-    protected $fillable = ["numeredejogadores", "torneio", "classe"];
+    protected $fillable = ["numerodejogadores", "torneio_id", "classe_id", "minutosestimadosdepartida", "qtdset", "qtdgameporset", "dupla"];
 
     public function torneio()
     {

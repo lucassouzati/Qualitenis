@@ -82,6 +82,9 @@ class TorneioController extends Controller
             $chaveamento->torneio()->associate($torneio);
             $chaveamento->classe()->associate($classe);
             $chaveamento->numerodejogadores = 0;
+            $chaveamento->minutosestimadosdepartida = 0;
+            $chaveamento->qtdset = 0;
+            $chaveamento->qtdgameporset = 0;
             //\App\Chaveamento::create(['numerodejogadores' => '0' , 'torneio_id' => $torneio->id, 'classe_id' => $classe->id]);
             $chaveamento->save();
         }
@@ -112,14 +115,9 @@ class TorneioController extends Controller
 
     public function validar(Request $request){
          $this->validate($request, [
-            
             'precodainscricao' => 'required',
-                
             'data' => 'required|date_format:j/m/Y',
-            
-            
-            
-            
+            'classes' => 'required',
             
         ]);
     }

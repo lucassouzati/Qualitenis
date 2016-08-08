@@ -92,6 +92,27 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'minutosestimadosdepartida' => [
+            'required' => 'Tempo estimado de partida é obrigatório.',
+            'integer' => 'Tempo estimado deve conter somente números.',
+            'min' => 'Tempo estimado deve ser no mínimo 1.',
+        ],
+        'qtdset' => [
+            'required' => 'Quantidade de set é obrigatório.',
+            'integer' => 'Quantidade de set deve conter somente números.',
+            'min' => 'Quantidade de set deve conter no mínimo 1.',
+        ],
+        'qtdgameporset' => [
+            'required' => 'Quantidade de game por set é obrigatório.',
+            'integer' => 'Quantidade de game por set deve conter somente números.',
+            'min' => 'Quantidade de game por set deve conter no mínimo 1.',
+        ],
+        'numerodejogadores' => [
+            'required' => 'Número de jogadores é obrigatório.',
+            'integer' => 'Número de jogadores deve conter somente números.',
+            'min' => 'Número de jogadores deve conter no mínimo 2.',
+        ],
+        
     ],
 
     /*

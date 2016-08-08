@@ -176,6 +176,8 @@ class TenistaController extends Controller
 
         $academia = \App\Academia::find($request->input('academia_id'));
         $tenista->academia()->associate($academia);              
+        $date = date_create_from_format('j/m/Y', $request->input('datadenascimento'));
+        $tenista->datadenascimento = date_format($date, 'Y-m-d');
         
         $tenista->sexo = $request->input('sexo');
         
