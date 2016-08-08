@@ -13,19 +13,64 @@
                 <div class="panel-body">
                     <form action="{{route('chaveamento.atualizar' , ['torneio' => $torneio->id, 'chaveamento' => $chaveamento->id])}}" method="post">
                     {{csrf_field()}}
-                    
+                    <input type="hidden" name="classe_id" class="form-control" value="{{$chaveamento->classe->id}}">
                     <div class="form-group">
                         <label for="classe">{{$chaveamento->classe->nome}}</label>
                     </div>    
-                    <div class="form-group">
-                        <label for="numerodejogadores">Número de jogadores</label>
-                    
-                        <input type="number" name="numerodejogadores" class="form-control" placeholder="Número de jogadores">
+                    <div class="form-group col-md-12 {{ $errors->has('numerodejogadores') ? ' has-error' : '' }}">
+                        <label class="col-md-3 control-label" for="numerodejogadores">Número de jogadores</label>
+                        <div class="col-md-2">                    
+                        <input type="number" name="numerodejogadores" min="0" class="form-control" value="{{$chaveamento->numerodejogadores}}">
+                        @if ($errors->has('numerodejogadores'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('numerodejogadores') }}</strong>
+                                </span>
+                                @endif
                         </div>
-                    <div>
+                    </div>
+                    
+                    <div class="form-group col-md-12 {{ $errors->has('minutosestimadosdepartida') ? ' has-error' : '' }}">
+                            <label class="col-md-3 control-label">Tempo Estimado de Partida (Minutos)</label>
+
+                            <div class="col-md-2">
+                                <input id="minutosestimadosdepartida" min="0" type="number" class="form-control" name="minutosestimadosdepartida" value="{{$chaveamento->minutosestimadosdepartida}}">
+
+                                @if ($errors->has('minutosestimadosdepartida'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('minutosestimadosdepartida') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                    </div>
+                    <div class="form-group col-md-12 {{ $errors->has('qtdset') ? ' has-error' : '' }}">
+                            <label class="col-md-3 control-label">Quantidade de Sets</label>
+
+                            <div class="col-md-2">
+                                <input id="qtdset" type="number" min="0" class="form-control" name="qtdset" value="{{$chaveamento->qtdset}}">
+
+                                @if ($errors->has('qtdset'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('qtdset') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                    </div>
+                    <div class="form-group col-md-12 {{ $errors->has('qtdgameporset') ? ' has-error' : '' }}">
+                            <label class="col-md-3 control-label">Quantidade de Games por set</label>
+
+                            <div class="col-md-2">
+                                <input id="qtdgameporset" min="0" type="number" class="form-control" name="qtdgameporset" value="{{$chaveamento->qtdgameporset}}">
+
+                                @if ($errors->has('qtdgameporset'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('qtdgameporset') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                    </div>
                         <br>
                         <button class="btn btn-info">Atualizar</button>
-                    </div>
+                    
                     </form>
                     
 

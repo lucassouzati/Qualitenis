@@ -22,19 +22,23 @@ class ChaveamentoController extends Controller
     }
 
     public function salvar(Request $request){
-        //$chaveamento = \App\Chaveamento::create($request->all());
-       $chaveamento = new \App\Chaveamento;
-        $chaveamento->numerodejogadores = $request->get('numerodejogadores');
-        $chaveamento->classe()->associate(\App\Classe::find($request->get('classe_id')));
-        $chaveamento->torneio()->associate(\App\Torneio::find($request->get('torneio_id')));
-        $chaveamento->save();
-        return redirect()->route('torneio.detalhe', $chaveamento->torneio->id);        
+       
+      $this->validar($request);
+      $chaveamento = \App\Chaveamento::create($request->all());
+
+      return redirect()->route('torneio.detalhe', $chaveamento->torneio->id);        
     }
 
    public function atualizar(Request $request, $torneio_id,   $id) 	{
+      $this->validar($request);
+
    		$chaveamento = \App\Chaveamento::find($id);
       $chaveamento->numerodejogadores = $request->get('numerodejogadores');
+      $chaveamento->minutosestimadosdepartida = $request->get('minutosestimadosdepartida');
+      $chaveamento->qtdset = $request->get('qtdset');
+      $chaveamento->qtdgameporset = $request->get('qtdgameporset');
       $chaveamento->update();
+      
    		\Session::flash('flash_message',[
             'msg'=>"Chaveamento atualizado com Sucesso!",
             'class'=>"alert-success"
@@ -55,4 +59,15 @@ class ChaveamentoController extends Controller
 
         return redirect()->route('torneio.detalhe', $chaveamento->torneio->id);
    }
+
+  public function validar(Request $request){
+         $this->validate($request, [
+            'classe_id' => 'required|numeric',
+            'numerodejogadores' => 'required|integer|min:2',
+            'minutosestimadosdepartida' => 'required|integer|min:1',
+            'qtdset' => 'required|integer|min:1',
+            'qtdgameporset' => 'required|integer|min:1',
+            
+        ]);
+    }
 }
