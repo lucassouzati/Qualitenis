@@ -26,6 +26,10 @@ class ChaveamentoController extends Controller
       $this->validar($request);
       $chaveamento = \App\Chaveamento::create($request->all());
 
+      $torneio = \App\Torneio::find($chaveamento->torneio->id);
+      $torneio->numerodechaveamentos++;
+      $torneio->update();
+
       return redirect()->route('torneio.detalhe', $chaveamento->torneio->id);        
     }
 
@@ -38,7 +42,7 @@ class ChaveamentoController extends Controller
       $chaveamento->qtdset = $request->get('qtdset');
       $chaveamento->qtdgameporset = $request->get('qtdgameporset');
       $chaveamento->update();
-      
+
    		\Session::flash('flash_message',[
             'msg'=>"Chaveamento atualizado com Sucesso!",
             'class'=>"alert-success"
@@ -48,9 +52,13 @@ class ChaveamentoController extends Controller
    }
 
    public function deletar($torneio_id, $id){
-        $chaveamento = \App\Chaveamento::find($id);
+      $chaveamento = \App\Chaveamento::find($id);
 
-        $chaveamento->delete();
+      $torneio = \App\Torneio::find($chaveamento->torneio->id);
+      $torneio->numerodechaveamentos--;
+      $torneio->update();
+
+      $chaveamento->delete();
 
         \Session::flash('flash_message',[
             'msg'=>"Chaveamento excluído com Sucesso!",
