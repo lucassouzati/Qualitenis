@@ -122,4 +122,8 @@ class TorneioController extends Controller
         ]);
     }
 
+    public function ver($id){
+
+    }
+
 }
