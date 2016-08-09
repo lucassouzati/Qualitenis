@@ -82,7 +82,7 @@
                       </table>
                      </div>         
                       
-                  <div align="center">
+                  <div class="col-md-2" align="center">
 
                         {!! $torneios->links() !!}
                     </div>

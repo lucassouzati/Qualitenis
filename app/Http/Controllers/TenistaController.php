@@ -132,8 +132,7 @@ class TenistaController extends Controller
     public function index()
     {   
         $torneios = \App\Torneio::where('statustorneio_id', '1')->orWhere('statustorneio_id', '4')->orderBy('data', 'desc')->paginate(5);
-//        $torneios = collect(\App\Torneio::where('statustorneio_id', '1')->orWhere('statustorneio_id', '4')->paginate(5));
-        //$torneios = $collection->take(-5);
+
         return view('tenista.index', compact('torneios'));
     }
 

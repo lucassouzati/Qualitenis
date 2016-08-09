@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Inscricao;
 
 class InscricaoController extends Controller
 {
@@ -37,6 +38,23 @@ class InscricaoController extends Controller
     public function store(Request $request)
     {
         //
+        $torneio = \App\Torneio::find($request->get('torneio_id'));
+        $data = new \DateTime($torneio->data);
+		$data->modify('-3 day');
+        //$prazodepagamento = $data->format('Y-m-d');
+       $dados = $request->all();
+       $dados = array_add($dados, 'prazodepagamento', $data->format('Y-m-d'));
+       $dados = array_add($dados, 'pago', 0);
+       $dados = array_add($dados, 'status', 'Aguardando Pagamento');
+       //dd($dados);
+       Inscricao::create($dados);
+
+       \Session::flash('flash_message',[
+            'msg'=>"Inscrição realizada com sucesso! Para confirmá-la, realize o pagamento do valor com um administrador.",
+            'class'=>"alert-success"
+        ]);
+
+        return redirect()->route('torneio.ver', $torneio->id);
     }
 
     /**

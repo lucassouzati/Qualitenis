@@ -37,7 +37,8 @@ Route::get('searchajax',array('as'=>'searchajax','uses'=>'AutoCompleteController
 Route::resource('inscricao', 'InscricaoController');
 //Route::get('/inscrever', ['uses'=>'InscricaoController@adicionar', 'as'=>'inscricao.lancar']);
 
-Route::get('/torneios', ['uses'=>'TorneioController@ver', 'as'=>'torneio.ver']);
+Route::get('/torneios/{id}', ['uses'=>'TorneioController@ver', 'as'=>'torneio.ver']);
+
 
 
 Route::group(['middleware' => 'tenista'], function(){

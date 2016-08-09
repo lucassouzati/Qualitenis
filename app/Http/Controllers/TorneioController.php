@@ -122,8 +122,9 @@ class TorneioController extends Controller
         ]);
     }
 
-    public function ver($id){
-
+    public function ver($id){   
+        $torneio = \App\Torneio::find($id);
+        return view('torneio.vertorneio', compact('torneio'));
     }
 
 }
