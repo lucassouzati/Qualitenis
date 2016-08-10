@@ -77,7 +77,7 @@ class TenistaController extends Controller
                     return back()->with('warning', 'Você precisa confirmar sua conta. Nós enviamos um código de ativação, confira seu e-mail por favor.');
                 }
                 else{
-                    return view('tenista.index');        
+                    return $this->index();        
                 }
                 
             }
@@ -132,6 +132,8 @@ class TenistaController extends Controller
     public function index()
     {   
         $torneios = \App\Torneio::where('statustorneio_id', '1')->orWhere('statustorneio_id', '4')->orderBy('data', 'desc')->paginate(5);
+
+        
 
         return view('tenista.index', compact('torneios'));
     }

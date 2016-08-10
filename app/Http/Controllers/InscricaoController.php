@@ -109,4 +109,17 @@ class InscricaoController extends Controller
     public function editar($id){
 
     }
+
+    public function cancela($id){
+    	$inscricao = \App\Inscricao::find($id);
+    	$inscricao->status = 'Cancelada';
+    	$inscricao->update();
+
+    	\Session::flash('flash_message',[
+            'msg'=>"Inscrição cancelada com sucesso! Você ainda pode se inscrever no torneio.",
+            'class'=>"alert-success"
+        ]);
+
+    	return redirect()->route('torneio.ver', $inscricao->torneio->id);
+    }
 }

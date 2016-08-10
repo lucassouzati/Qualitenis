@@ -39,6 +39,8 @@ Route::resource('inscricao', 'InscricaoController');
 
 Route::get('/torneios/{id}', ['uses'=>'TorneioController@ver', 'as'=>'torneio.ver']);
 
+Route::put('/inscricao/cancela/{id}', ['uses'=>'InscricaoController@cancela', 'as'=>'inscricao.cancela']);
+
 
 
 Route::group(['middleware' => 'tenista'], function(){

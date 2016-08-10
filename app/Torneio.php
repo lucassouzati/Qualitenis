@@ -16,7 +16,12 @@ class Torneio extends Model
 
     public function chaveamentos()
     {
-    	return $this->hasMany('App\Chaveamento');
+        return $this->hasMany('App\Chaveamento');
+    }
+
+    public function inscricoes()
+    {
+    	return $this->hasMany('App\Inscricao');
     }
 
     public function statustorneio()

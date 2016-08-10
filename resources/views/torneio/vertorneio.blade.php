@@ -21,7 +21,8 @@
                    <p><b>Cidade: {{$torneio->cidade->nome}}</b></p>
                    <p><b>Status: {{ $torneio->statustorneio->nome }}</b></p>
                    <p><b>Informações: {{$torneio->informacoes }}</b></p>
-                    
+
+                  @if(collect($inscricao)->isEmpty())  
                   @foreach($torneio->chaveamentos as $chaveamento)
                   <div class="col-md-8">
                     <div class="panel panel-default">
@@ -52,7 +53,29 @@
                       </div>
                     </div>
                   </div>
-                  @endforeach    
+                  @endforeach
+                  @else
+                  <div class="col-md-8">
+                    <div class="panel panel-default">
+                      <ol class="breadcrumb panel-heading">
+                          
+                         <li class="active">Inscrição Realizada</li>
+                      </ol>
+
+                      <div class="panel-body">
+                      <p><b>Chaveamento: {{ $inscricao->chaveamento->classe->nome}}</b></p>      
+                      <p><b>Status: {{ $inscricao->status }}</b></p>       
+                      <p><b>Realizada em: {{ $inscricao->created_at}}</b></p>      
+                      <form action="{{route('inscricao.cancela', $inscricao->id)}}" method="post" onsubmit="return confirm('Deseja realmente cancelar sua inscrição?');">
+                          {{csrf_field()}}
+                          <input type="hidden" name="_method" value="put">
+                           
+                           <input type="submit" class="btn btn-danger" value="Cancelar Inscrição" >
+                         </form>
+                      </div>
+                    </div>
+                  </div>
+                  @endif
             </div>
         </div>
     </div>
