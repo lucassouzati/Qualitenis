@@ -296,7 +296,7 @@ class TenistaController extends Controller
     {
     if ($tenista = $this->activationService->activateUser($token)) {
         auth()->guard('tenista')->login($tenista);
-        return view('tenista.index');
+        return $this->index();
     }
     abort(404);
     }
