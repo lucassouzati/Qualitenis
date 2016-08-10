@@ -82,6 +82,9 @@ class TorneioController extends Controller
             $chaveamento->torneio()->associate($torneio);
             $chaveamento->classe()->associate($classe);
             $chaveamento->numerodejogadores = 0;
+            $chaveamento->minutosestimadosdepartida = 0;
+            $chaveamento->qtdset = 0;
+            $chaveamento->qtdgameporset = 0;
             //\App\Chaveamento::create(['numerodejogadores' => '0' , 'torneio_id' => $torneio->id, 'classe_id' => $classe->id]);
             $chaveamento->save();
         }
@@ -112,16 +115,21 @@ class TorneioController extends Controller
 
     public function validar(Request $request){
          $this->validate($request, [
-            
             'precodainscricao' => 'required',
-                
             'data' => 'required|date_format:j/m/Y',
-            
-            
-            
-            
+            'classes' => 'required',
             
         ]);
+    }
+
+    public function ver($id){   
+        $torneio = \App\Torneio::find($id);
+
+        //$inscricoes = $torneio->inscricoes()->where('tenista_id', \Auth::guard('tenista')->user()->id);
+        $inscricao = \App\Inscricao::where('tenista_id', \Auth::guard('tenista')->user()->id)->where('torneio_id', $torneio->id)->where('status', '<>', 'Cancelada')->first();
+
+        //dd($inscricoes);
+        return view('torneio.vertorneio', compact('torneio'), compact('inscricao'));
     }
 
 }

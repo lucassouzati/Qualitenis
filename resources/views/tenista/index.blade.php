@@ -31,14 +31,66 @@
                        
                                     <input type="submit" name="" class="btn btn-danger" value="Desativar Conta" placeholder="">
                     </form>
-                   
-                        
-                    
 
-                </div>
+                
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <ol class="breadcrumb panel-heading">
+                    
+                    <li class="active">Torneios</li>
+                </ol>
+
+                <div class="panel-body">
+                  <div class="col-md-10" align="center">
+                    <table class="table table-bordered">
+                          <thead>
+                              <tr>
+                                  <th>#</th>
+                                  <th>Data</th>
+                                  <th>Status</th>
+                                  <th>Cidade</th>
+                                  <th>Número de chaveamentos</th>
+                                  <th>Ação</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              @if(!$torneios->isEmpty())
+                              @foreach($torneios as $torneio)
+                                                          <tr>
+                                  <td scope="row">{{ $torneio->id }}</td  >
+                                  <td>{{date_format(date_create_from_format('Y-m-d',  $torneio->data), 'd/m/Y')}}</td>
+                                  <td>{{ $torneio->statustorneio->nome }}</td>
+                                  <td>{{ $torneio->cidade->nome }}</td>
+                                  <td>{{ $torneio->numerodechaveamentos }}</td>
+                                  
+                                  <td>
+                                      <a class="btn btn-default" href="{{route('torneio.ver', $torneio->id)}}">Ver</a>
+                                                                          
+                                  </td>
+                              </tr>                            
+
+                              @endforeach
+                              @else
+                              <tr><td colspan='6'>{{'Não há torneios ativos.'}}</td></tr>
+                              @endif
+                          </tbody>
+                          
+                      </table>
+                     </div>         
+                      
+                  <div class="col-md-2" align="center">
+
+                        {!! $torneios->links() !!}
+                    </div>
+                  </div>
+                </div>
+            </div>    
+        </div>    
+    </div>    
 </div>
 {{Html::script('js/jquery.maskedinput.js')}}
 {{Html::script('js/jquery.js')}}

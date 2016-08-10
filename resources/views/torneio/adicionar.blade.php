@@ -77,9 +77,9 @@
 					<div class="form-group col-md-10 " >
 						{{Form::select('classes[]', ['1' => 'Classe A', '2' => 'Classe B', '3' => 'Classe C', '4' => 'Feminino'], null, ['multiple' => 'multiple'])}}*
 						<!--Form::select('cat[]', $cats, null, ['multiple' => true, 'class' => 'form-control margin']) !!}-->
-						@if($errors->has('classe'))
+						@if($errors->has('classes'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('classe') }}</strong>
+                                    <strong>{{ $errors->first('classes') }}</strong>
                                 </span>
                             @endif
 					</div>	
