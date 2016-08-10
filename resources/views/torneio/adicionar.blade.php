@@ -3,19 +3,20 @@
 @section('content')	
 
 <div class="container">
-    <div class="row">
+    <div class="row form-horizontal">
         <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
+            <div class="panel panel-default ">
             <h3 class="page-header">Cadastro de Torneio</h3>
             	{{Form::open(array('route' => 'torneio.salvar'))}}
             	{{Form::token()}}
 
 
 				<div class="row">
-					<div class="form-group col-md-12">
+					<div class="control-label col-md-offset-1 col-md-1">
 						{{Form::label('cidade', 'Cidade')}}
 
-						
+					</div>
+					<div class="form-group col-md-10 " >	
 							<?php 
 								$estado = \App\Estado::find(19);
 								$cidades = $estado->cidades->lists('nome', 'id');
@@ -26,54 +27,76 @@
 								//{{Form::select('cidade_id[]', $cidades, null, ['multiple'=>'multiple'])}}	
 								//}	
 							?>	
-							{{Form::select('cidade_id', $cidades, null)}}	
+							{{Form::select('cidade_id', $cidades, null)}}*	
 							
 					</div>
-					<div class="form-group col-md-12 " >
+				</div>
+				<div class="row">
+					<div class="control-label col-md-offset-1 col-md-1">
 						{{Form::label('data', 'Data')}}
-						{{Form::text('data')}}
+					</div>
+					<div class="form-group col-md-10 " >
+						{{Form::text('data')}}*
 						@if($errors->has('data'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('data') }}</strong>
                                 </span>
                             @endif
 					</div>
-					<div class="form-group col-md-6">
+				</div>
+				<div class="row">
+					<div class="control-label col-md-offset-0 col-md-2">
 						{{Form::label('precodainscricao', 'Preço da inscrição')}}
-						{{Form::number('precodainscricao')}}
+					</div>
+					<div class="form-group col-md-10 " >
+						{{Form::number('precodainscricao')}}*
 						@if($errors->has('precodainscricao'))
                                 <span class="help-block">	
                                     <strong>{{ $errors->first('precodainscricao') }}</strong>
                                 </span>
                             @endif
 					</div>
-					
-					<div class="form-group col-md-12 " >
+				</div>
+				<div class="row">
+					<div class="control-label col-md-offset-1 col-md-1">
 						{{Form::label('informacoes', 'Informações')}}
-						{{Form::text('informacoes')}}
+					</div>
+					<div class="form-group col-md-10 " >
+						{{Form::text('informacoes')}}*
 						@if($errors->has('informacoes'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('informacoes') }}</strong>
                                 </span>
                             @endif
 					</div>
-					<div class="form-group col-md-12 " >
+				</div>
+				<div class="row">
+					<div class="control-label col-md-offset-1 col-md-1">
 						{{Form::label('classes', 'Classes')}}
-						{{Form::select('classes[]', ['1' => 'Classe A', '2' => 'Classe B', '3' => 'Classe C', '4' => 'Feminino'], null, ['multiple' => 'multiple'])}}
+					</div>
+					<div class="form-group col-md-10 " >
+						{{Form::select('classes[]', ['1' => 'Classe A', '2' => 'Classe B', '3' => 'Classe C', '4' => 'Feminino'], null, ['multiple' => 'multiple'])}}*
 						<!--Form::select('cat[]', $cats, null, ['multiple' => true, 'class' => 'form-control margin']) !!}-->
 						@if($errors->has('classe'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('classe') }}</strong>
                                 </span>
                             @endif
-					</div>					
-					
+					</div>	
+					<div class="row">
+						<div class="col-md-offset-1 col-md-11">
+							<p class="help-block">* Campo Obrigatório</p>	
+						</div>									
+					</div>
+				</div>
+				<div class="row">
 					<hr />
   					
-    					<div class="col-md-12">
+    					<div class="col-md-offset-1 col-md-1">
 							{{Form::submit('Adicionar')}}
-							
-							<a href="#" class="btn btn-default">Cancelar</a>
+						</div>
+						<div class="col-md-10">
+							<a href="{{route('torneio.index')}}" class="btn btn-default">Cancelar</a>
 						</div>
   					
 				</div>

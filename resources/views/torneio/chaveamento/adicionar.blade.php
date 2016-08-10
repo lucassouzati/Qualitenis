@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
+    <div class="row form-horizontal">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <ol class="breadcrumb panel-heading">
@@ -14,8 +14,10 @@
                     <form action="{{route('chaveamento.salvar' , $torneio->id)}}" method="post">
                     {{csrf_field()}}
                     
-                    <div class="form-group">
+                    <div class="control-label col-md-offset-1 col-md-1">
                         <label for="classe">Classe</label>
+                    </div>
+                    <div class="form-group col-md-10 " >    
                         <?php 
                         $classes = \App\Classe::lists('nome', 'id');
                         //$classes = \App\Classe::all();
@@ -44,13 +46,14 @@
                         ?>
                         {{Form::select('classe_id', $classes, null)}}
                     </div>    
-                    <div class="form-group">
+                    <div class="control-label col-md-2">
                         <label for="numerodejogadores">Número de jogadores</label>
-                    
+                    </div>
+                    <div class="form-group col-md-3 " >   
                         <input type="number" name="numerodejogadores" class="form-control" placeholder="Número de jogadores">
-                        </div>
-                    <div>
-                        <br>
+                    </div>
+                    <div class="form-group col-md-12 " >                           <br>
+
                         <input type="hidden" name="torneio_id" value="{{$torneio->id}}">
                         <button class="btn btn-info">Adicionar</button>
                     </div>
