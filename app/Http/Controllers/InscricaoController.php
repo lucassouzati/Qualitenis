@@ -37,16 +37,31 @@ class InscricaoController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $torneio = \App\Torneio::find($request->get('torneio_id'));
+
+        
+    	$tenista = \App\Tenista::find($request->get('tenista_id'));
+    	$chaveamento = \App\Chaveamento::find($request->get('chaveamento_id'));
+		$torneio = \App\Torneio::find($request->get('torneio_id'));
+
+		//Verificar se classe do tenista é a mesma que do chaveamento, se não for, retorna erro
+    	if($tenista->classe->id <> $chaveamento->classe->id){
+    		\Session::flash('flash_message',[
+            'msg'=>"Chaveamento permitido apenas para tenistas de ". $chaveamento->classe->nome.".",
+            'class'=>"alert-danger"
+        	]);
+			return redirect()->route('torneio.ver', $torneio->id);    		
+    	}
+
+    	//Gerando prazo de pagamento de 3 dias antes da data do torneio
+        
         $data = new \DateTime($torneio->data);
 		$data->modify('-3 day');
-        //$prazodepagamento = $data->format('Y-m-d');
-       $dados = $request->all();
-       $dados = array_add($dados, 'prazodepagamento', $data->format('Y-m-d'));
-       $dados = array_add($dados, 'pago', 0);
-       $dados = array_add($dados, 'status', 'Aguardando Pagamento');
-       //dd($dados);
+       	$dados = $request->all();
+       	$dados = array_add($dados, 'prazodepagamento', $data->format('Y-m-d'));
+       	$dados = array_add($dados, 'pago', 0);
+       	$dados = array_add($dados, 'status', 'Aguardando Pagamento');
+       
+
        Inscricao::create($dados);
 
        \Session::flash('flash_message',[
