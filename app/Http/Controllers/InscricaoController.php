@@ -53,11 +53,12 @@ class InscricaoController extends Controller
     	}
 
     	//Gerando prazo de pagamento de 3 dias antes da data do torneio
-        
         $data = new \DateTime($torneio->data);
 		$data->modify('-3 day');
        	$dados = $request->all();
        	$dados = array_add($dados, 'prazodepagamento', $data->format('Y-m-d'));
+       	
+       	//Adicionando outras informações
        	$dados = array_add($dados, 'pago', 0);
        	$dados = array_add($dados, 'status', 'Aguardando Pagamento');
        
