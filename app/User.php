@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Permissao;
+use App\Papel;
 class User extends Authenticatable
 {
     /**
@@ -28,25 +29,30 @@ class User extends Authenticatable
         return $this->belongsTo('App\Academia');
     }
 
-    public function Papeis()
+    public function papels()
     {
         return $this->belongsToMany(\App\Papel::class);
     }
 
-    public function temPermissao($permissao)
+
+
+    //niveis de acessos
+    public function temPermissao(Permissao $permissao)
     {   
-        return $this->temPapeis($permissao->pepels);
+        return $this->temPapeis($permissao->papels);
     }
 
-    public function temPapeis($papeis)
+    public function temPapeis($papels)
     {
-        if( is_array($papeis) || is_object($papeis) ){
-           foreach ($papeis as $papel) {
-               $this->temPapeis($papel);
-           }
+        
+        if(is_array($papels) || is_object($papels)){
+            //dd($this->papels());
+
+          return !! $papels->intersect($this->papels)->count();
+
         }
 
-        return $this->papeis->contains('name', $papeis);
+        return $this->papels->contains('nome', $papels);
     }
 
     /**

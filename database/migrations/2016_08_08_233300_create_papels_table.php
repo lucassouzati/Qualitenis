@@ -38,7 +38,7 @@ class CreatePapelsTable extends Migration
      */
     public function down()
     {   
-         Schema::drop('papels_users');
+         Schema::drop('papel_user');
         Schema::drop('papels');
     }
 }

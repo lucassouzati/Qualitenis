@@ -18,7 +18,7 @@ class CreatePermissaosTable extends Migration
             $table->string('descricao');
             $table->timestamps();
         });
-
+         
           Schema::create('papel_permissao', function (Blueprint $table) {
             $table->increments('id');
 
@@ -29,6 +29,7 @@ class CreatePermissaosTable extends Migration
             $table->foreign('papel_id')->references('id')->on('papels')->onDelete('cascade');
             $table->timestamps();
         });
+
     }
 
     /**

@@ -29,18 +29,18 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies($gate);
         
         $permissoes = Permissao::with('papels')->get();
-        //dd($permissoes);
         foreach ($permissoes as $permissao) {
             $gate->define($permissao->nome, function(User $user) use ($permissao){
+                //dd($user);
                 return $user->temPermissao($permissao);
             });
         }
-
+        
         $gate->before(function(User $user){
             if ($user->temPapeis('admin')) {
                 return true;
             }
         });
-                
+        
     }
 }

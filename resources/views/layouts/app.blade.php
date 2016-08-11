@@ -79,7 +79,7 @@
                         <li><a href="{{ url('/tenista/adicionar') }}">Registrar</a></li>
                         
                     @else 
-                    @can('Funcionario')
+                    @can('Func')
                         
                     
                      <li><a href="{{ url('/register') }}">Registrar</a></li>
