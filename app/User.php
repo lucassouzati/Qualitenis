@@ -3,7 +3,8 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use App\Permissao;
+use App\Papel;
 class User extends Authenticatable
 {
     /**
@@ -26,6 +27,32 @@ class User extends Authenticatable
     public function academia()
     {
         return $this->belongsTo('App\Academia');
+    }
+
+    public function papels()
+    {
+        return $this->belongsToMany(\App\Papel::class);
+    }
+
+
+
+    //niveis de acessos
+    public function temPermissao(Permissao $permissao)
+    {   
+        return $this->temPapeis($permissao->papels);
+    }
+
+    public function temPapeis($papels)
+    {
+        
+        if(is_array($papels) || is_object($papels)){
+            //dd($this->papels());
+
+          return !! $papels->intersect($this->papels)->count();
+
+        }
+
+        return $this->papels->contains('nome', $papels);
     }
 
     /**

@@ -98,6 +98,10 @@ class AuthController extends Controller
 
         $user = new \App\User;
         $user->name = $request->input('name');
+
+
+        
+        
        
         $user->telefone = $request->input('telefone');
         $user->CPF = $request->input('CPF');
@@ -109,6 +113,9 @@ class AuthController extends Controller
         $user->password =  bcrypt($request->input('password'));
         $user->ativo = true;
         $user->save();
+        $user->papels()->attach($request->input('papel_id'));
+        
+
         
         return redirect()->route('auth.index');
 

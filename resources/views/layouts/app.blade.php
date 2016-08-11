@@ -79,7 +79,11 @@
                         <li><a href="{{ url('/tenista/adicionar') }}">Registrar</a></li>
                         
                     @else 
+                    @can('Func')
+                        
+                    
                      <li><a href="{{ url('/register') }}">Registrar</a></li>
+                     @endcan
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>

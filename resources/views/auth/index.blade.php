@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    @can('Func')
     <div class="row">
         <div class="col-md-12 ">
             <div class="panel panel-default">
@@ -13,6 +14,7 @@
                                 <th>#</th>
                                 <th>Nome</th>
                                 <th>Email</th>
+                                <th>Funções</th>
                                 <th>Cidade</th>
                                 <th>Academia</th>
                                 <th>CPF</th>
@@ -30,6 +32,15 @@
                                 <th scope="row">{{ $funcionario->id }}</th>
                                 <td>{{ $funcionario->name }}</td>
                                 <td>{{ $funcionario->email }}</td>
+
+                                <td>
+                                    <?php
+                                    foreach ($funcionario->papels as $papel) {
+                                        echo $papel->nome;
+                                     }
+                                     
+                                    ?></td>
+
                                 <td>{{ $funcionario->cidade->nome }}</td>
                                 <td>{{ $funcionario->academia->nome }}</td>
                                 <td>{{ $funcionario->CPF }}</td>
@@ -53,5 +64,6 @@
     </div>
 </div>
 </div>
+@endcan
 </div>
 @endsection

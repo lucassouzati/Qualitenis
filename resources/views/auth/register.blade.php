@@ -2,6 +2,8 @@
 
 @section('content')
 <div class="container">
+    @can('Func')
+    
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -19,6 +21,31 @@
                                 @if ($errors->has('name'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('name') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group {{ $errors->has('papel') ? 'has-error' : '' }}">
+                            <label for="papel_id" class="col-md-4 control-label">Função</label>
+                            <div class="col-md-6">
+                                <?php 
+                                
+                                $papeis = DB::table('papels')->get();
+                                $valido = sizeof($papeis);
+                                if ($valido > 0) {
+
+                                    echo '<select name="papel_id">';
+                                    foreach ($papeis as $papel) {
+                                        echo ('<option value="'.$papel->id.'">'.$papel->nome.'</option>');
+                                    }
+                                    echo '</select>';
+
+                                }
+                                ?>      
+
+                                @if($errors->has('cidade'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('cidade') }}</strong>
                                 </span>
                                 @endif
                             </div>
@@ -159,5 +186,6 @@
             </div>
         </div>
     </div>
+     @endcan
 </div>
 @endsection
