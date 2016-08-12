@@ -122,4 +122,14 @@ class TorneioController extends Controller
         ]);
     }
 
+    public function ver($id){   
+        $torneio = \App\Torneio::find($id);
+
+        //$inscricoes = $torneio->inscricoes()->where('tenista_id', \Auth::guard('tenista')->user()->id);
+        $inscricao = \App\Inscricao::where('tenista_id', \Auth::guard('tenista')->user()->id)->where('torneio_id', $torneio->id)->where('status', '<>', 'Cancelada')->first();
+
+        //dd($inscricoes);
+        return view('torneio.vertorneio', compact('torneio'), compact('inscricao'));
+    }
+
 }

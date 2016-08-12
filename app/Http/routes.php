@@ -34,6 +34,15 @@ Route::get('tenista/activation/{token}', 'TenistaController@activateTenista')->n
 Route::get('searchajax',array('as'=>'searchajax','uses'=>'AutoCompleteController@autoComplete'));
 
 
+Route::resource('inscricao', 'InscricaoController');
+//Route::get('/inscrever', ['uses'=>'InscricaoController@adicionar', 'as'=>'inscricao.lancar']);
+
+Route::get('/torneios/{id}', ['uses'=>'TorneioController@ver', 'as'=>'torneio.ver']);
+
+Route::put('/inscricao/cancela/{id}', ['uses'=>'InscricaoController@cancela', 'as'=>'inscricao.cancela']);
+
+
+
 Route::group(['middleware' => 'tenista'], function(){
 	
 	Route::group(['middleware' => 'auth:tenista'], function(){
