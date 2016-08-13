@@ -120,9 +120,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('/Classe/atualizar/{id}', ['uses'=>'ClasseController@atualizar', 'as'=>'Classe.atualizar']);
 
 
-
-
-
+	//Permisssao - Papel
+	Route::get('/Papel/permissoes/{id}', ['uses'=>'PapelController@permissoes', 'as'=>'Papel.permissoes']);
+	Route::put('/Papel/addPermissao/{papel_id}', ['uses'=>'PapelController@addPermissao', 'as'=>'Papel.addPermissao']);
 		//torneios
 	Route::group(['prefix' => 'torneio/{torneio}'], function(){
 

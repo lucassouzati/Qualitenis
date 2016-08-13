@@ -23,7 +23,7 @@
                              <a href="{{route('Classe.adicionar')}}" "email me">Classe</a>
                          </li>
                        @endcan
-                        @can('Func')
+                        @can('Funcionario_index')
                          <li>
                              <a href="{{route('auth.index')}}" "email me">Funcionarios</a>
                          </li>

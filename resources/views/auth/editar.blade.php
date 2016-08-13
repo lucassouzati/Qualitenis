@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    @can('Fanc')
+    @can('Funcionario_editar')
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">

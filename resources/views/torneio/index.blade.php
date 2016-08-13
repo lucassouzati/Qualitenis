@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    @can('Torneio_index')
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
@@ -69,5 +70,6 @@
             </div>
         </div>
     </div>
+    @endcan
 </div>
 @endsection

@@ -9,6 +9,7 @@ $(document).ready(function(){
 });
 </script>
 <div class="container">
+	@can('Torneio_adicionar')
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
@@ -151,6 +152,7 @@ $(document).ready(function(){
             </div>
         </div>
     </div>
+    @endcan
 </div>
 <script src="script_jquery.js" type="text/javascript"></script>
 @endsection
