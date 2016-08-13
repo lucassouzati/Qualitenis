@@ -2,12 +2,12 @@
 
 @section('content')
 <div class="container">
-    @can('Func')
+    @can('Funcionario_registrar')
     
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+                <div class="panel-heading">Registrar</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {{ csrf_field() }}
@@ -35,9 +35,12 @@
                                 if ($valido > 0) {
 
                                     echo '<select name="papel_id">';
+
                                     foreach ($papeis as $papel) {
+                                       
                                         echo ('<option value="'.$papel->id.'">'.$papel->nome.'</option>');
                                     }
+                                    
                                     echo '</select>';
 
                                 }

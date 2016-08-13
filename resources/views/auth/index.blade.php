@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    @can('Func')
+    @can('Funcionario_index')
     <div class="row">
         <div class="col-md-12 ">
             <div class="panel panel-default">
@@ -35,9 +35,12 @@
 
                                 <td>
                                     <?php
-                                    foreach ($funcionario->papels as $papel) {
-                                        echo $papel->nome;
-                                     }
+                                    foreach ($funcionario->papels as $papel) { 
+                                        ?>
+                                    <a href="{{ route('Papel.permissoes',$papel->id) }}">{{ $papel->nome }}</a>
+                                    <?php
+                                         
+                                    }
                                      
                                     ?></td>
 
@@ -45,8 +48,12 @@
                                 <td>{{ $funcionario->academia->nome }}</td>
                                 <td>{{ $funcionario->CPF }}</td>
                                 <td>
-                                 <a class="btn btn-default" href="{{route('Auth.editar',$funcionario->id)}}">Editar</a>
-                                 <a class="btn btn-default" href="{{route('Auth.desativar',$funcionario->id)}}">Desativar</a>
+                                @can('Funcionario_editar')
+                                    <a class="btn btn-default" href="{{route('Auth.editar',$funcionario->id)}}">Editar</a>
+                                @endcan
+                                @can('Funcionario_desativar')
+                                    <a class="btn btn-default" href="{{route('Auth.desativar',$funcionario->id)}}">Desativar</a>
+                                @endcan
                              </td>
                          </tr>
                      @endif

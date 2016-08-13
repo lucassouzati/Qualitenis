@@ -2,6 +2,7 @@
 
 @section('content')	
 <div class="container">
+  @can('Classe_adicionar')
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<div class="panel panel-default">
@@ -18,11 +19,14 @@
 							<button class="btn btn-info">Salvar</button>
 							<a href="#" class="btn btn-default">Cancelar</a>
 						</div>
+					</div>	
 					</form>
 
 				</div>
 			</div>
 		</div>
+		@endcan
 	</div>
+
 	<script src="script_jquery.js" type="text/javascript"></script>
 	@endsection

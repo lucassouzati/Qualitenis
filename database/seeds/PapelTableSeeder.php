@@ -25,7 +25,12 @@ class PapelTableSeeder extends Seeder
             'nome' => "Funcionario",
             'descricao' => "O Fucionario será responsavel por noticias e atualização de torneios",
             
-        ]
+        ],
+        [
+            'nome' => "Definida",
+            'descricao' => "Esta Função será para definir quais permissões especificas o usuario terá",
+            
+        ],
         ]);
        
        DB::table('papel_user')->insert(
