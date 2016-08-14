@@ -3,7 +3,10 @@
 @section('content')	
 
 <div class="container">
-    <div class="row form-horizontal">
+
+	@can('Torneio_adicionar')
+    <div class="row  form-horizontal">
+
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default ">
             <h3 class="page-header">Cadastro de Torneio</h3>
@@ -168,6 +171,7 @@
             </div>
         </div>
     </div>
+    @endcan
 </div>
 
 @endsection

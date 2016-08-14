@@ -2,7 +2,10 @@
 
 @section('content')
 <div class="container">
-    <div class="row form-horizontal">
+
+    @can('Torneio_editar')
+    <div class="row  form-horizontal">
+
         <div class="col-md-12">
             <div class="panel panel-default">
                 <ol class="breadcrumb panel-heading">
@@ -124,6 +127,7 @@
             </div>
         </div>
     </div>
+    @endcan
 </div>
 {{Html::script('js/jquery.maskedinput.js')}}
 {{Html::script('js/jquery.js')}}

@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+  @can('Classe_adicionar')
   <div class="row">
     <div class="col-md-12 ">
       <div class="panel panel-default">
@@ -16,14 +17,11 @@
               <br>
               <button class="btn btn-info">Adicionar</button>
             </div>
-
-
           </form>
-
-
         </div>
       </div>
     </div>
   </div>
+  @endcan
 </div>
 @endsection
