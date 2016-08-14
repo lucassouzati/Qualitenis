@@ -10,7 +10,7 @@
                 <div class="panel-body">
                     You are logged in!
                     <ul>
-                      @can('Academia')
+                      @can('Academia_index')
                          <li>
                              <a href="{{route('Academia.index')}}" "email me">Academias</a>
                          </li>
@@ -18,7 +18,7 @@
                        <li>
                            <a href="{{route('torneio.index')}}" "email me">Torneios</a>
                        </li>
-                       @can('Classe')
+                       @can('Classe_index')
                          <li>
                              <a href="{{route('Classe.adicionar')}}" "email me">Classe</a>
                          </li>

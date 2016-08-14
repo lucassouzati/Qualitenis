@@ -11,7 +11,7 @@ class PapelController extends Controller
     
      public function permissoes($id)
     {
-        $papel = \App\Papel::find($id);
+        $papel = \App\Papel::orderBy('nome', 'asc')->find($id);
         $papel_id = $id;
         $permissoes  = $papel->permissaos;
         $nome = $papel->nome;
