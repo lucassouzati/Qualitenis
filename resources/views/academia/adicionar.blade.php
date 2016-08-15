@@ -2,7 +2,8 @@
 
 @section('content')
 <div class="container">
-  @can('Academia')
+
+  @can('Academia_adicionar') 
   <div class="row">
     <div class="col-md-12 ">
       <div class="panel panel-default">

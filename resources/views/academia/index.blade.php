@@ -2,14 +2,14 @@
 
 @section('content')
 <div class="container">
-    @can('Academia')
+    @can('Academia_index')
     <div class="row">
         <div class="col-md-12 ">
             <div class="panel panel-default">
                 <div class="panel-body">
-                
-                    <a class="btn btn-default" href="{{route('Academia.adicionar')}}">Adicionar</a>
-                    {{--  <a class="btn btn-default" href="{{route('Academia.email')}}">Email</a> --}}
+                    @can('Academia_adicionar')
+                        <a class="btn btn-default" href="{{route('Academia.adicionar')}}">Adicionar</a>
+                    @endcan
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -31,7 +31,9 @@
                                 <td>{{ $academia->CNPJ }}</td>
                                 <td>{{ $academia->numQuadras }}</td>
                                 <td>
+                                @can('Academia_editar')  
                                    <a class="btn btn-default" href="{{route('Academia.editar',$academia->id)}}">Editar</a>
+                                @endcan
                                 </td>
                             </tr>
                             @endforeach

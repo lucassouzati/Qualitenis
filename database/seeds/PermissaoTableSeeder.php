@@ -17,6 +17,7 @@ class PermissaoTableSeeder extends Seeder
             ['nome' => "Funcionario_index","descricao" => "Permissao para visualizar funcionarios"],
             ['nome' => "Funcionario_desativar","descricao" => "Permissao para desativar funcionarios"],
             ['nome' => "Academia_registrar","descricao" => "Permissao para registrar um Academia"],
+            ['nome' => "Academia_adicionar","descricao" => "Permissao para registrar um Academia"],
             ['nome' => "Academia_editar","descricao" => "Permissao para alterar Academias"],
             ['nome' => "Academia_index","descricao" => "Permissao para visualizar Academias"],
             ['nome' => "Academia_desativar","descricao" => "Permissao para desativar Academias"],
@@ -77,24 +78,27 @@ class PermissaoTableSeeder extends Seeder
              ['permissao_id' => "16",
             "papel_id" => "2"
             ],
+             ['permissao_id' => "17",
+            "papel_id" => "2"
+            ],
            
 
             //Permissao de Funcionario
-            ['permissao_id' => "11",
-            "papel_id" => "3"
-            ],
             ['permissao_id' => "12",
             "papel_id" => "3"
             ],
-             ['permissao_id' => "13",
+            ['permissao_id' => "13",
             "papel_id" => "3"
             ],
-            ['permissao_id' => "14",
+             ['permissao_id' => "14",
             "papel_id" => "3"
             ],
             ['permissao_id' => "15",
             "papel_id" => "3"
             ],
-                       ]);
+            ['permissao_id' => "16",
+            "papel_id" => "3"
+            ],
+        ]);
     }
 }

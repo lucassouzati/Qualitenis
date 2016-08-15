@@ -23,8 +23,6 @@ class AcademiaRequest extends Request
             'CNPJ.max'=>'CNPJ deve ter até 255 caracteres',
             'CNPJ.required' => 'CNPJ é obrigatorio',
             'numQuadras.required'=>'O número de quadras deve ser informado',
-            'numQuadras.required'=>'O número de quadras deve ser informado',
-
 
         ];
     }
