@@ -4,3 +4,4 @@
 Homestead.yaml
 Homestead.json
 .env
+resources/views/tenista/adicionar.blade.php

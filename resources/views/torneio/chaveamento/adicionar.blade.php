@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
+    <div class="row form-horizontal">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <ol class="breadcrumb panel-heading">
@@ -14,8 +14,12 @@
                     <form action="{{route('chaveamento.salvar' , $torneio->id)}}" method="post">
                     {{csrf_field()}}
                     
-                    <div class="form-group {{ $errors->has('classe_id') ? ' has-error' : '' }}">
+
+                    <div class="control-label col-md-offset-1 col-md-1 {{ $errors->has('classe_id') ? ' has-error' : '' }}">
+
                         <label for="classe">Classe</label>
+                    </div>
+                    <div class="form-group col-md-10 " >    
                         <?php 
                         $classes = \App\Classe::lists('nome', 'id');
                         //$classes = \App\Classe::all();
@@ -49,9 +53,20 @@
                                 </span>
                                 @endif
                     </div>    
-                    <div class="form-group col-md-12 {{ $errors->has('numerodejogadores') ? ' has-error' : '' }}">
+<!-- <<<<<<< HEAD -->
+                    <!-- <div class="control-label col-md-2"> -->
+                        <!-- <label for="numerodejogadores">Número de jogadores</label> -->
+                    <!-- </div> -->
+                   <!--  <div class="form-group col-md-3 " >   
+                        <input type="number" name="numerodejogadores" class="form-control" placeholder="Número de jogadores">
+                    </div> -->
+                    <!-- <div class="form-group col-md-12 " >                           <br> -->
+
+<!-- ======= -->
+                    <div class="control-label col-md-2 {{ $errors->has('numerodejogadores') ? ' has-error' : '' }}">
                         <label class="col-md-3 control-label" for="numerodejogadores">Número de jogadores</label>
-                        <div class="col-md-2">                    
+                    </div>
+                    <div class="form-group col-md-3 " >                      
                         <input type="number" name="numerodejogadores" min="0" class="form-control">
                         @if ($errors->has('numerodejogadores'))
                                 <span class="help-block">
@@ -59,7 +74,7 @@
                                 </span>
                                 @endif
                         </div>
-                    </div>
+                    
                     
                     <div class="form-group col-md-12 {{ $errors->has('minutosestimadosdepartida') ? ' has-error' : '' }}">
                             <label class="col-md-3 control-label">Tempo Estimado de Partida (Minutos)</label>
@@ -113,6 +128,7 @@
                             </div>
                     </div>
                         <br>
+<!-- >>>>>>> refs/remotes/lucassouzati/master -->
                         <input type="hidden" name="torneio_id" value="{{$torneio->id}}">
                         <button class="btn btn-info">Adicionar</button>
                     </div>
