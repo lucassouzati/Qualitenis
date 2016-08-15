@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use App\Permissao;
+use \App\Permissao;
 use App\User;
 use Illuminate\Database\Schema\Blueprint;
 use DB;
@@ -30,11 +30,13 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(GateContract $gate)
     {
         $this->registerPolicies($gate);
-        
-       	Permissao::created(function($model){
-       		if (is_array($permissoes) || is_object($permissoes)) {
-               $permissoes = Permissao::with('papels')->get();
-            
+
+       	$user = new \App\User;
+       	/*
+   		if ($user->criada()) {
+   			
+           $permissoes = Permissao::with('papels')->get();
+        	dd($permissoes);
             foreach ($permissoes as $permissao) {
                 $gate->define($permissao->nome, function(User $user) use ($permissao){
                     //dd($user);
@@ -46,9 +48,19 @@ class AuthServiceProvider extends ServiceProvider
                 if ($user->temPapeis('admin')) {
                     return true;
                 }
-            });
-       }
+        	});
+        	
+    	}
+		*/
+	    
+     
+       
 
-       	});
+       	
+    }
+
+    public function register()
+    {
+    	
     }
 }
