@@ -55,19 +55,6 @@ class User extends Authenticatable
         return $this->papels->contains('nome', $papels);
     }
 
-    public function criada()
-    {   
-        
-        $permissoes = Permissao::with('papels')->get();
-        
-        if (is_array($permissoes) || is_object($permissoes)) {
-            return true;
-        }else{
-            return false;
-        }
-        
-    }
-
     /**
      * The attributes that should be hidden for arrays.
      *

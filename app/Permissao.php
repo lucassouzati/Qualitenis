@@ -12,5 +12,5 @@ class Permissao extends Model
     	return $this->belongsToMany(\App\Papel::class);
     }
 
-   	
+   
 }

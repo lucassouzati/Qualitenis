@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use \App\Permissao;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,7 +26,6 @@ class AppServiceProvider extends ServiceProvider
         //
          if ($this->app->environment() == 'local') {
         $this->app->register('Laracasts\Generators\GeneratorsServiceProvider');
-        }
-
+    }
     }
 }
