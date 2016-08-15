@@ -4,10 +4,8 @@
 @section('content')
 <div class="container">
     @can('Funcionario_registrar')
-    <script type="text/javascript" src="resources/views/layouts/_includes/validarCPF.js"></script>
-
-    <script>
-        function TestaCPF(strCPF) {
+    <script type="text/javascript">
+          function TestaCPF(strCPF) {
             var Soma;
             var Resto;
             Soma = 0;
@@ -39,10 +37,10 @@
                 alert("CPF Invalido! Preencher CPF valido.");
                 return false;
               }   
-
-            
         }
     </script>
+    
+   
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">

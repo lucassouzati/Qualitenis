@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use App\Permissao;
 use App\User;
 use Illuminate\Database\Schema\Blueprint;
+use DB;
 
 
 class AuthServiceProvider extends ServiceProvider
@@ -30,10 +31,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies($gate);
         
-        
-        $permissoes = Permissao::with('papels')->get();
-        if (is_array($permissoes) || is_object($permissoes)) {
-               
+       	Permissao::created(function($model){
+       		if (is_array($permissoes) || is_object($permissoes)) {
+               $permissoes = Permissao::with('papels')->get();
             
             foreach ($permissoes as $permissao) {
                 $gate->define($permissao->nome, function(User $user) use ($permissao){
@@ -48,6 +48,7 @@ class AuthServiceProvider extends ServiceProvider
                 }
             });
        }
-        
+
+       	});
     }
 }
