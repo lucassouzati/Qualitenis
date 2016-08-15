@@ -19,6 +19,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
+        \App\Permissao::class => App\Policies\PermissaoPolicy::class,
+
     ];
 
     /**
@@ -29,12 +31,17 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(GateContract $gate)
     {
+    	
         $this->registerPolicies($gate);
         
-       	Permissao::created(function($model){
+
+       	try {
+       		
+       	
+       		$permissoes = Permissao::with('papels')->get();
        		if (is_array($permissoes) || is_object($permissoes)) {
-               $permissoes = Permissao::with('papels')->get();
-            
+               
+            	
             foreach ($permissoes as $permissao) {
                 $gate->define($permissao->nome, function(User $user) use ($permissao){
                     //dd($user);
@@ -47,8 +54,14 @@ class AuthServiceProvider extends ServiceProvider
                     return true;
                 }
             });
-       }
+       
 
-       	});
+       		}
+       	} catch (Exception $e) {
+       		
+       	}finally{
+       		return false;
+       	}
+
     }
 }

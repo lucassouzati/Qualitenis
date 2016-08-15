@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="container">
-    @can('Funcionario_registrar')
+    {{-- @can('Funcionario_registrar') --}}
     <script type="text/javascript">
           function TestaCPF(strCPF) {
             var Soma;
@@ -229,6 +229,6 @@
             </div>
         </div>
     </div>
-     @endcan
+    {{--  @endcan  --}}
 </div>
 @endsection
