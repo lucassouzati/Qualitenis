@@ -1,9 +1,47 @@
 @extends('layouts.app')
 
+
 @section('content')
 <div class="container">
-    @can('Funcionario_registrar')
+    {{-- @can('Funcionario_registrar') --}}
+    <script type="text/javascript">
+          function TestaCPF(strCPF) {
+            var Soma;
+            var Resto;
+            Soma = 0;
+            if (strCPF == "00000000000") return false;
+            
+            for (i=1; i<=9; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
+               Resto = (Soma * 10) % 11;
+            
+            if ((Resto == 10) || (Resto == 11))  Resto = 0;
+            if (Resto != parseInt(strCPF.substring(9, 10)) ) return false;
+            
+            Soma = 0;
+            for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
+            Resto = (Soma * 10) % 11;
+            
+            if ((Resto == 10) || (Resto == 11))  Resto = 0;
+            if (Resto != parseInt(strCPF.substring(10, 11) ) ) return false;
+            return true;
+        }  
+
+        
+        function validarForm() {
+            
+              var CPF = document.getElementById('CPF').value; 
+              var valido = TestaCPF(CPF);
+              if (valido == true){
+               return true; 
+              }else{
+                alert("CPF Invalido! Preencher CPF valido.");
+                return false;
+              }   
+        }
+    </script>
     
+   
+
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -11,7 +49,7 @@
                 <div class="panel-heading">Registrar</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
+                    <form name="registrar" class="form-horizontal" role="form" method="POST" onsubmit="return validarForm()" action="{{ url('/register') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -55,12 +93,12 @@
                                 @endif
                             </div>
                         </div>
-
+                        {{-- CPF --}}
                         <div class="form-group{{ $errors->has('CPF') ? ' has-error' : '' }}">
                             <label for="CPF" class="col-md-4 control-label">CPF</label>
 
                             <div class="col-md-6">
-                                <input id="CPF" type="CPF" class="form-control" name="CPF" value="{{ old('CPF') }}">
+                                <input id="CPF" type="text" onfocusout="validarForm()" class="form-control" name="CPF" value="{{ old('CPF') }}">
 
                                 @if ($errors->has('CPF'))
                                 <span class="help-block">
@@ -127,7 +165,7 @@
                             <label for="telefone" class="col-md-4 control-label">Telefone</label>
 
                             <div class="col-md-6">
-                                <input id="telefone" type="telefone" class="form-control" name="telefone" value="{{ old('telefone') }}">
+                                <input id="telefone" type="number" class="form-control" name="telefone" value="{{ old('telefone') }}">
 
                                 @if ($errors->has('telefone'))
                                 <span class="help-block">
@@ -191,6 +229,6 @@
             </div>
         </div>
     </div>
-     @endcan
+    {{--  @endcan  --}}
 </div>
 @endsection

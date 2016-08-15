@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use App\Permissao;
 use App\User;
 use Illuminate\Database\Schema\Blueprint;
+use DB;
 
 
 class AuthServiceProvider extends ServiceProvider
@@ -18,6 +19,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
+        \App\Permissao::class => App\Policies\PermissaoPolicy::class,
+
     ];
 
     /**
@@ -28,13 +31,17 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(GateContract $gate)
     {
+    	
         $this->registerPolicies($gate);
         
-        
-        $permissoes = Permissao::with('papels')->get();
-        if (is_array($permissoes) || is_object($permissoes)) {
+
+       	try {
+       		
+       	
+       		$permissoes = Permissao::with('papels')->get();
+       		if (is_array($permissoes) || is_object($permissoes)) {
                
-            
+            	
             foreach ($permissoes as $permissao) {
                 $gate->define($permissao->nome, function(User $user) use ($permissao){
                     //dd($user);
@@ -47,7 +54,14 @@ class AuthServiceProvider extends ServiceProvider
                     return true;
                 }
             });
-       }
-        
+       
+
+       		}
+       	} catch (Exception $e) {
+       		
+       	}finally{
+       		return false;
+       	}
+
     }
 }

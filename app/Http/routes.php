@@ -94,6 +94,8 @@ Route::auth();
 
 Route::group(['middleware' => 'auth'], function () {
 
+	
+
 	//DESATIVAR FUNCIONARIO
 	Route::get('/Auth/desativar/{id}', ['uses'=>'Auth\AuthController@desativar', 'as'=>'Auth.desativar']);
 	//EDITAR FUNCIONARIO
