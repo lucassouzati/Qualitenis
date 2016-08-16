@@ -89,7 +89,81 @@
 						<select name="estado">
 			
 						</select>
+					</div>
 
+
+						{{-- ACADEMIA --}}
+						<div class="form-group col-md-12 {{ $errors->has('cidade') ? 'has-error' : '' }}">
+							<label for="academia_id">Academia</label>
+							
+								<?php 
+								
+								$academias = DB::table('academias')->get();
+								$valido = sizeof($academias);
+								if ($valido > 0) {
+									
+									echo '<select name="academia_id">';
+									foreach ($academias as $academia) {
+										echo ('<option value="'.$academia->id.'">'.$academia->nome.'</option>');
+									}
+									echo '</select>';
+
+								}else{
+									echo ('<label for="academia_id">: O administrador deve cadastrar Academia</label>');
+								}	
+
+								?>		
+							
+							@if($errors->has('cidade'))
+							<span class="help-block">
+								<strong>{{ $errors->first('cidade') }}</strong>
+							</span>
+							@endif
+						</div>
+						<div class="form-group col-md-12 {{ $errors->has('cidade') ? 'has-error' : '' }}">
+							<label for="Cidade">Cidade</label>
+							<select name="cidade_id">
+								<?php 
+								$estado = \App\Estado::find(19);
+								$cidades = $estado->cidades; 
+								foreach ($cidades as $cidade) {
+								# code...
+									echo ('<option value="'.$cidade->id.'">'.$cidade->nome.'</option>');
+								}	
+								?>		
+							</select>
+							@if($errors->has('cidade'))
+							<span class="help-block">
+								<strong>{{ $errors->first('cidade') }}</strong>
+							</span>
+							@endif
+						</div>
+						<div class="form-group col-md-12 " >
+							{{Form::label('classes', 'Classes')}}
+							{{Form::select('classe_id', ['1' => 'Classe A', '2' => 'Classe B', '3' => 'Classe C', '4' => 'Feminino'], '3')}}
+							<!--Form::select('cat[]', $cats, null, ['multiple' => true, 'class' => 'form-control margin']) !!}-->
+							@if($errors->has('classe'))
+							<span class="help-block">
+								<strong>{{ $errors->first('classe') }}</strong>
+							</span>
+							@endif
+						</div>	
+						<hr />
+
+						<div class="col-md-12">
+							<input type="hidden" name="statustenista_id" value="1">
+							<button class="btn btn-info">Adicionar</button>
+							<a href="#" class="btn btn-default">Cancelar</a>
+						</div>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="script_jquery.js" type="text/javascript"></script>
+<script src="jquery.js" type="text/javascript"></script>	
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("input.datadenascimento").mask("99/99/9999");

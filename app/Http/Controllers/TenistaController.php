@@ -158,7 +158,7 @@ class TenistaController extends Controller
             'nome' => 'required',
             'datadenascimento' => 'required|date_format:j/m/Y',
             
-            'telefone' => 'required|numeric',
+            'telefone' => 'required',
             'cidade_id' => 'required',
             'academia_id' => 'required',
             'sexo' => 'required'
@@ -195,7 +195,7 @@ class TenistaController extends Controller
             'class'=>"alert-success"
         ]);
 
-        return view('tenista.index');
+        return $this->index();
         
     }
 
@@ -209,7 +209,7 @@ class TenistaController extends Controller
             'password' => 'required|min:8|max:16',
             'datadenascimento' => 'required|date_format:j/m/Y',
             'email' => 'required|email|unique:tenistas',
-            'telefone' => 'required|numeric',
+            'telefone' => 'required',
             'cidade_id' => 'required',
             'academia_id' => 'required',
             'sexo' => 'required'
