@@ -171,32 +171,7 @@
 		$("input.cep").mask("99.999-999");
 	});
 </script>
-<div class="container">
-	<script type="text/javascript">
-		jQuery(function($){
-			$("#date").mask("99/99/9999",{placeholder:"mm/dd/yyyy"});  
-		});
-	</script>
-	<div class="row">
-		<div class="col-md-10 col-md-offset-1">
-			<div class="panel panel-default">
-				<h3 class="page-header">Novo Tenista</h3>
-				<form action="{{ route('tenista.salvar') }}" method="POST">
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("input.datadenascimento").mask("99/99/9999");
-		$("input.cpf").mask("999.999.999-99");
-		$("input.cep").mask("99.999-999");
-	});
-</script>
-<div class="container">
-	<script type="text/javascript">
-		jQuery(function($){
-			$("#date").mask("99/99/9999",{placeholder:"mm/dd/yyyy"});  
-		});
-	</script>
-	
-</div>
+
 
 {{Html::script('js/jquery.maskedinput.js')}}
 {{Html::script('js/jquery.js')}}
