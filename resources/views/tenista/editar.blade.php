@@ -47,28 +47,23 @@
                             @endif
 	</div>
 	<div class="form-group col-md-12">
-		<label for="Estado">Estado</label>
-		<select name="estado">
-			
-		</select>
-
-	</div>
-	<div class="form-group col-md-12">
-		<label for="Cidade">Cidade</label>
-		<select name="cidade_id">
-		<option  value="{{$tenista->cidade->id}}">{{$tenista->cidade->nome}}</option>
-		<?php 
-			$estado = \App\Estado::find(19);
-			$cidades = $estado->cidades; 
-			foreach ($cidades as $cidade) {
-				# code...
-				echo ('<option value="'.$cidade->id.'">'.$cidade->nome.'</option>');
-			}
-			
-
-		?>
-		</select>
-	</div>
+                        <label>Estado</label>
+                            
+                        
+                            {{Form::select('estado_id', $estados, null, ['id' => 'estado_id'])}}
+                        
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>Cidade</label>
+                            
+                        
+                        
+                            <select name="cidade_id" id="cidade_id">
+                                <option value="{{$tenista->cidade->id}}">{{$tenista->cidade->nome}}</option>}
+                                
+                            </select>
+                        
+                    </div>
 	<div class="{{ $errors->has('datadenascimento') ? 'has-error' : '' }} form-group col-md-12">
 		<label for="DatadeNascimento">Data de Nascimento</label>
 		<input type="date" name="datadenascimento" value="{{date_format(date_create_from_format('Y-m-d', $tenista->datadenascimento), 'd/m/Y')}}"></input>
@@ -119,4 +114,25 @@
 </div>
 {{Html::script('js/jquery.maskedinput.js')}}
 {{Html::script('js/jquery.js')}}
+<!-- InputMask -->
+<script src="{{asset('js/input-mask/jquery.inputmask.js')}}"></script>
+<script src="{{asset('js/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
+<script src="{{asset('js/input-mask/jquery.inputmask.extensions.js')}}"></script>
+<script>
+
+  /* Load positions into postion <selec> */
+  $( "#estado_id" ).change(function() 
+  {
+    $.getJSON("/estado/"+ $(this).val() +"/cidades", function(jsonData){
+        select = '<select name="cidade_id" class="form-control" required id="cidade_id" >';
+          $.each(jsonData, function(i,data)
+          {
+               select +='<option value="'+data.id+'">'+data.nome+'</option>';
+           });
+        select += '</select>';
+        $("#cidade_id").html(select);
+    });
+  });
+</script>
+
 @endsection

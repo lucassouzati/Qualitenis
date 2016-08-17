@@ -143,8 +143,9 @@ class TenistaController extends Controller
     //
     public function adicionar()
     {	
-    	
-    	return view('tenista.adicionar');
+    	$estados = \App\Estado::lists('nome', 'id');
+        $estados = array_add($estados, '', '');
+    	return view('tenista.adicionar', compact('estados'));
     }
 
 
@@ -250,7 +251,8 @@ class TenistaController extends Controller
 
        public function editar($id)
     {
-        $tenista = \App\Tenista::find($id);
+        $estados = \App\Estado::lists('nome', 'id');
+        $tenista = \App\Tenista::findOrFail($id)  ;
         if(!$tenista){
             \Session::flash('flash_message',[
                 'msg'=>"Não existe esse tenista cadastrado! Deseja cadastrar um novo tenista?",
@@ -259,7 +261,7 @@ class TenistaController extends Controller
             return redirect()->route('tenista.adicionar');
         }
 
-        return view('tenista.editar',compact('tenista'));
+        return view('tenista.editar',compact('tenista'), compact('estados'));
     }
 
     public function deletar($id)

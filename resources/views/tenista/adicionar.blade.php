@@ -85,12 +85,7 @@
                                 </span>
                             @endif
 					</div>
-					<div class="form-group col-md-12">
-						<label for="Estado" class="control-label col-md-offset-1 col-md-1">Estado</label>
-						<select name="estado">
-			
-						</select>
-					</div>
+					
 
 
 						{{-- ACADEMIA --}}
@@ -121,24 +116,31 @@
 							</span>
 							@endif
 						</div>
-						<div class="form-group col-md-12 {{ $errors->has('cidade') ? 'has-error' : '' }}">
-							<label for="Cidade" class="control-label col-md-offset-1 col-md-1">Cidade</label>
-							<select name="cidade_id">
-								<?php 
-								$estado = \App\Estado::find(19);
-								$cidades = $estado->cidades; 
-								foreach ($cidades as $cidade) {
-								# code...
-									echo ('<option value="'.$cidade->id.'">'.$cidade->nome.'</option>');
-								}	
-								?>		
-							</select>
-							@if($errors->has('cidade'))
-							<span class="help-block">
-								<strong>{{ $errors->first('cidade') }}</strong>
-							</span>
-							@endif
-						</div>
+						
+						<div class="row">
+					<div class="control-label col-md-offset-1 col-md-1">
+						{{Form::label('estado', 'Estado')}} 
+					</div>
+					<div class="form-group col-md-10 " >	
+						{{Form::select('estado_id', $estados, null, ['id' => 'estado_id'])}}
+					</div>
+				</div>
+				<div class="row">
+					<div class="control-label col-md-offset-1 col-md-1">
+						{{Form::label('cidade', 'Cidade')}}
+
+					</div>
+					<div class="form-group col-md-10 " >	
+						<select name="cidade_id" id="cidade_id" required>
+							
+						</select>*
+							@if($errors->has('cidade_id'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('cidade_id') }}</strong>
+                                </span>
+                            @endif
+					</div>
+				</div>
 						<div class="form-group col-md-12 " >
 							<div class="control-label col-md-offset-1 col-md-1">
 								{{Form::label('classes', 'Classes')}}
@@ -176,9 +178,29 @@
 		$("input.cep").mask("99.999-999");
 	});
 </script>
-
-
-
 <!--{{Html::script('js/jquery.js')}} -->
+<!-- InputMask -->
+<script src="{{asset('js/input-mask/jquery.inputmask.js')}}"></script>
+<script src="{{asset('js/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
+<script src="{{asset('js/input-mask/jquery.inputmask.extensions.js')}}"></script>
+<script>
+
+  /* Load positions into postion <selec> */
+  $( "#estado_id" ).change(function() 
+  {
+    $.getJSON("/estado/"+ $(this).val() +"/cidades", function(jsonData){
+        select = '<select name="cidade_id" class="form-control" required id="cidade_id" >';
+          $.each(jsonData, function(i,data)
+          {
+               select +='<option value="'+data.id+'">'+data.nome+'</option>';
+           });
+        select += '</select>';
+        $("#cidade_id").html(select);
+    });
+  });
+</script>
+
+
+
 
 @endsection
