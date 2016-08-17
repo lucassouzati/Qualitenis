@@ -178,7 +178,7 @@
 </script>
 
 
-{{Html::script('js/jquery.maskedinput.js')}}
-{{Html::script('js/jquery.js')}}
+
+<!--{{Html::script('js/jquery.js')}} -->
 
 @endsection
