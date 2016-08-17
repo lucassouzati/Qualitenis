@@ -154,7 +154,7 @@ $(function () {
         select = '<select name="cidade_id" class="form-control" required id="cidade_id" >';
           $.each(jsonData, function(i,data)
           {
-               select +='<option value="'+data.cidade_id+'">'+data.nome+'</option>';
+               select +='<option value="'+data.id+'">'+data.nome+'</option>';
            });
         select += '</select>';
         $("#cidade_id").html(select);

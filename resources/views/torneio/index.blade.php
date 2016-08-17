@@ -38,6 +38,7 @@
                                 
                                 <td>
                                     <a class="btn btn-default" href="{{route('torneio.detalhe', $torneio->id)}}">Detalhe</a>
+                                    @if($torneio->statustorneio->id == 1 || $torneio->statustorneio->id == 2)
                                     <form action="{{route('torneio.trocastatus', $torneio->id)}}" method="POST" class="btn">
                                         {{csrf_field()}}
                                         <input type="hidden" name="_method" value="put" placeholder="">
@@ -52,7 +53,7 @@
                                         @endif
                                         
                                     </form>
-                                    
+                                    @endif
                                 </td>
                             </tr>                            
 

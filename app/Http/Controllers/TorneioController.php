@@ -45,7 +45,8 @@ class TorneioController extends Controller
             'class'=>"alert-success"
         ]);
 
-        return redirect()->route('torneio.detalhe', compact('torneio'));        
+        //return redirect()->route('torneio.detalhe', compact('torneio'));        
+        return $this->detalhe($torneio->id);
         
     }
 
@@ -96,21 +97,44 @@ class TorneioController extends Controller
             'msg'=>"Torneio criado com Sucesso!",
             'class'=>"alert-success"
         ]);
-        return view('torneio.detalhe',compact('torneio'));
+        //return view('torneio.detalhe',compact('torneio'));
+        return $this->detalhe($torneio->id);
         //return redirect()->route('torneio.detalhe', compact('torneio'));
     }
 
     public function trocaStatus(Request $request, $id){
         $torneio = \App\Torneio::find($id);
+
+
+        //Conferindo se existe chaveamento com 0 jogadores. Caso exista, deve retornar erro e não permite que o torneio passe para status Ativo
+        if($request->input('statustorneio_id') == 2){
+            $chaveamentos = $torneio->chaveamentos()->get();
+
+            foreach ($chaveamentos as $chaveamento) {
+                
+                if($chaveamento->numerodejogadores == 0){
+                    \Session::flash('flash_message',[
+                        'msg'=>"Existem chaveamentos em aberto para este torneio. Acerte as regras para todos antes de ativá-lo.",
+                        'class'=>"alert-danger"
+                    ]);
+                    return redirect()->route('torneio.detalhe', $torneio->id);
+                }
+            }
+        }
+
         $torneio->statustorneio()->associate(\App\Statustorneio::find($request->input('statustorneio_id')));
         $torneio->update();
-        return redirect()->route('torneio.detalhe', compact('torneio')); 
+
+        //return redirect()->route('torneio.detalhe', compact('torneio')); 
+        return redirect()->route('torneio.detalhe', $torneio->id);
     }
 
     public function detalhe($id)
     {
         $torneio = \App\Torneio::find($id);
-        return view('torneio.detalhe',compact('torneio'));
+        $estados = \App\Estado::lists('nome', 'id');
+        $estados = array_add($estados, '', '');
+        return view('torneio.detalhe',compact('torneio'), compact('estados'));
 
     }
 
