@@ -10,30 +10,35 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default ">
             <h3 class="page-header">Cadastro de Torneio</h3>
-            	{{Form::open(array('route' => 'torneio.salvar'))}}
+	            	{{Form::open(array('route' => 'torneio.salvar'))}}
             	{{Form::token()}}
 
 
+				<div class="row">
+					<div class="control-label col-md-offset-1 col-md-1">
+						{{Form::label('estado', 'Estado')}} 
+					</div>
+					<div class="form-group col-md-10 " >	
+						{{Form::select('estado_id', $estados, null, ['id' => 'estado_id'])}}
+					</div>
+				</div>
 				<div class="row">
 					<div class="control-label col-md-offset-1 col-md-1">
 						{{Form::label('cidade', 'Cidade')}}
 
 					</div>
 					<div class="form-group col-md-10 " >	
-							<?php 
-								$estado = \App\Estado::find(19);
-								$cidades = $estado->cidades->lists('nome', 'id');
-								
-								//foreach ($cidades as $cidade) {
-								# code...
-								//echo ('<option value="'.$cidade->id.'">'.$cidade->nome.'</option>');
-								//{{Form::select('cidade_id[]', $cidades, null, ['multiple'=>'multiple'])}}	
-								//}	
-							?>	
-							{{Form::select('cidade_id', $cidades, null)}}*	
+						<select name="cidade_id" id="cidade_id" required>
 							
+						</select>*
+							@if($errors->has('cidade_id'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('cidade_id') }}</strong>
+                                </span>
+                            @endif
 					</div>
 				</div>
+				<!--
 				<div class="row">
 					<div class="control-label col-md-offset-1 col-md-1">
 						{{Form::label('data', 'Data')}}
@@ -47,12 +52,30 @@
                             @endif
 					</div>
 				</div>
+				-->
+				<div class="row">
+					
+                	<div class="control-label col-md-offset-1 col-md-1">
+						{{Form::label('data', 'Data')}}
+					</div>
+					<div class="form-group col-md-4 {{ $errors->has('data') ? 'has-error' : '' }}">
+		                <div class="input-group">
+		                  <input type="text" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask id="datemask" name="data" required="true">*
+		                  @if($errors->has('data'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('data') }}</strong>
+                                </span>
+                            @endif
+		                </div>
+	                <!-- /.input group -->
+              		</div>
+				</div>
 				<div class="row">
 					<div class="control-label col-md-offset-0 col-md-2">
-						{{Form::label('precodainscricao', 'Preço da inscrição')}}
+						{{Form::label('precodainscricao', 'Preço da inscrição (R$)')}}
 					</div>
-					<div class="form-group col-md-10 " >
-						{{Form::number('precodainscricao')}}*
+					<div class="form-group col-md-10 {{ $errors->has('precodainscricao') ? 'has-error' : '' }}" >
+						{{Form::number('precodainscricao', null, ['required'=>'true'])}}*
 						@if($errors->has('precodainscricao'))
                                 <span class="help-block">	
                                     <strong>{{ $errors->first('precodainscricao') }}</strong>
@@ -61,11 +84,11 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="control-label col-md-offset-1 col-md-1">
+					<div class="control-label col-md-2">
 						{{Form::label('informacoes', 'Informações')}}
-					</div>
-					<div class="form-group col-md-10 " >
-						{{Form::text('informacoes')}}*
+					</div>	
+					<div class="form-group col-md-10" >
+						<textarea name="informacoes" rows="3" class="col-md-8"></textarea>
 						@if($errors->has('informacoes'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('informacoes') }}</strong>
@@ -77,8 +100,8 @@
 					<div class="control-label col-md-offset-1 col-md-1">
 						{{Form::label('classes', 'Classes')}}
 					</div>
-					<div class="form-group col-md-10 " >
-						{{Form::select('classes[]', ['1' => 'Classe A', '2' => 'Classe B', '3' => 'Classe C', '4' => 'Feminino'], null, ['multiple' => 'multiple'])}}*
+					<div class="form-group col-md-10 {{ $errors->has('classes') ? 'has-error' : '' }}" >
+						{{Form::select('classes[]', ['1' => 'Classe A', '2' => 'Classe B', '3' => 'Classe C', '4' => 'Feminino'], null, ['multiple' => 'multiple', 'required'=>'true'])}}*
 						<!--Form::select('cat[]', $cats, null, ['multiple' => true, 'class' => 'form-control margin']) !!}-->
 						@if($errors->has('classes'))
                                 <span class="help-block">
@@ -96,7 +119,7 @@
 					<hr />
   					
     					<div class="col-md-offset-1 col-md-1">
-							{{Form::submit('Adicionar')}}
+							{{Form::submit('Adicionar', ['class' =>'btn btn-info btn-default'])}}
 						</div>
 						<div class="col-md-10">
 							<a href="{{route('torneio.index')}}" class="btn btn-default">Cancelar</a>
@@ -104,74 +127,38 @@
   					
 				</div>
 
-
-
             	{{Form::close()}}
-            	<!--
-				<form action="{{ route('torneio.salvar') }}" method="POST">
-				{{csrf_field()}}
-
-				<div class="row">
-					<div class="form-group col-md-12">
-					<?php /*
-						{{Form::label('"Cidade">Cidade</label>
-						<select name="cidade_id">
-							<?php 
-								/*$estado = \App\Estado::find(19);
-								$cidades = $estado->cidades; 
-								foreach ($cidades as $cidade) {
-								# code...
-								echo ('<option value="'.$cidade->id.'">'.$cidade->nome.'</option>');
-
-								}	
-							*/?>		
-						</select>
-					</div>
-					<div class="form-group col-md-12 " >
-						{{Form::label('"data">Data</label>
-						{{Form::text('data">
-					</div>
-
-					<div class="form-group col-md-6">
-						{{Form::label('"precodainscricao">Preço da inscrição</label>
-						<input type="number" name="prescodainscricao">
-					</div>
-					
-					<div class="form-group col-md-6">
-						{{Form::label('"numerodechaveamentos">Número de chaveamentos</label>
-						<input type="number" name="numberodechaveamentos">
-						<input type="hidden" name="statustenista_id" value="1">
-					</div>
-					<div class="form-group col-md-12 " >
-						{{Form::label('"informacoes">Informações</label>
-						<textarea type="text" name="informacoes"></textarea>
-					</div>
-					<div class="form-group col-md-12 " >
-						{{Form::label('"classes">Classes</label>
-						<select multiple="multiple" name="classes[]" id="classes">
-							<option value="1">Classe A</option>
-							<option value="2">Classe B</option>
-							<option value="3">Classe C</option>
-							<option value="4">Feminino</option>
-						</select>
-					</div>					
-					
-					<hr />
-  					
-    					<div class="col-md-12">
-							
-							<button class="btn btn-info">Adicionar</button>
-							<a href="#" class="btn btn-default">Cancelar</a>
-						</div>
-  					
-				</div>
-				</form>
-				*/
-				?>-->
+            	
+				
             </div>
         </div>
     </div>
     @endcan
 </div>
-
+<!-- bootstrap datepicker -->
+<script src="{{asset('js/datepicker/bootstrap-datepicker.js')}}"></script>
+<!-- InputMask -->
+<script src="{{asset('js/input-mask/jquery.inputmask.js')}}"></script>
+<script src="{{asset('js/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
+<script src="{{asset('js/input-mask/jquery.inputmask.extensions.js')}}"></script>
+<script>
+$(function () {
+	//Datemask dd/mm/yyyy
+    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+	
+});
+  /* Load positions into postion <selec> */
+  $( "#estado_id" ).change(function() 
+  {
+    $.getJSON("/estado/"+ $(this).val() +"/cidades", function(jsonData){
+        select = '<select name="cidade_id" class="form-control" required id="cidade_id" >';
+          $.each(jsonData, function(i,data)
+          {
+               select +='<option value="'+data.cidade_id+'">'+data.nome+'</option>';
+           });
+        select += '</select>';
+        $("#cidade_id").html(select);
+    });
+  });
+</script>
 @endsection

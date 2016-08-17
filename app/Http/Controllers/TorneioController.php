@@ -22,8 +22,9 @@ class TorneioController extends Controller
        public function adicionar()
     {	
 
-
-    	return view('torneio.adicionar');
+        $estados = \App\Estado::lists('nome', 'id');
+        $estados = array_add($estados, '', '');
+    	return view('torneio.adicionar', compact('estados'));
     }
 
 
@@ -115,6 +116,7 @@ class TorneioController extends Controller
 
     public function validar(Request $request){
          $this->validate($request, [
+            'cidade_id' => 'required',
             'precodainscricao' => 'required',
             'data' => 'required|date_format:j/m/Y',
             'classes' => 'required',

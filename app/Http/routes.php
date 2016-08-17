@@ -33,6 +33,8 @@ Route::get('tenista/activation/{token}', 'TenistaController@activateTenista')->n
 //Route::get('autocomplete',array('as'=>'autocomplete','uses'=>'AutoCompleteController@index'));
 Route::get('searchajax',array('as'=>'searchajax','uses'=>'AutoCompleteController@autoComplete'));
 
+Route::get('/estado/{id}/cidades', array('as'=>'listacidadesporestado','uses'=>'CidadeController@getCidadesPorEstado'));
+
 
 Route::resource('inscricao', 'InscricaoController');
 //Route::get('/inscrever', ['uses'=>'InscricaoController@adicionar', 'as'=>'inscricao.lancar']);
