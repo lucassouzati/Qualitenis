@@ -252,13 +252,21 @@ class TenistaController extends Controller
        public function editar($id)
     {
         $estados = \App\Estado::lists('nome', 'id');
-        $tenista = \App\Tenista::findOrFail($id)  ;
+        $tenista = \App\Tenista::findOrFail($id);
+
         if(!$tenista){
             \Session::flash('flash_message',[
                 'msg'=>"Não existe esse tenista cadastrado! Deseja cadastrar um novo tenista?",
                 'class'=>"alert-danger"
             ]);
             return redirect()->route('tenista.adicionar');
+        }
+        if(auth()->guard('tenista')->user()->id != $id){
+            \Session::flash('flash_message',[
+                'msg'=>"Não é permitido alterar informações de outro tenista.",
+                'class'=>"alert-danger"
+            ]);
+            return redirect()->route('tenista.index');   
         }
 
         return view('tenista.editar',compact('tenista'), compact('estados'));

@@ -49,7 +49,7 @@ Route::group(['middleware' => 'tenista'], function(){
 	
 	Route::group(['middleware' => 'auth:tenista'], function(){
 
-		Route::get('/tenista', 'TenistaController@index');
+		Route::get('/tenista', ['uses'=> 'TenistaController@index', 'as'=>'tenista.index']);
 
 		Route::put('/tenista/trocastatus/{id}', ['uses'=>'TenistaController@trocaStatus', 'as'=>'tenista.trocastatus']);
 		
