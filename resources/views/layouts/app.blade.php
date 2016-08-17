@@ -59,7 +59,17 @@
     <!-- Left Side Of Navbar -->
     <ul class="nav navbar-nav">
         <li><a href="{{ url('/tenista') }}">Área do Tenista</a></li>
-    </ul>               
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                {{ Auth::guard('tenista')-> user()->nome }} <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="{{ url('/tenista/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+            </ul>
+        </li>
+    </ul>  
 
 @elseif (Auth::guest())
     <!-- Left Side Of Navbar -->
@@ -77,7 +87,7 @@
                         
                         
 @else 
-@can('Func')
+    @can('Func')
     <!-- Left Side Of Navbar -->
     <ul class="nav navbar-nav">
         <li><a href="{{ url('/login') }}">Área Administrativa</a></li>
@@ -101,7 +111,9 @@
                                 Funcionarios <span class="caret"></span>
                             </a>
                              <ul class="dropdown-menu" role="menu">
+                            @can('Func')
                                 <li><a href="{{ url('/register') }}">Registrar</a></li>
+                            @endcan
                                 <li><a href="{{route('auth.index')}}">Lista</a></li>
                             </ul>
                          </li>
@@ -114,8 +126,8 @@
     <!-- <ul class="nav navbar-nav navbar-right">
         <li><a href="{{ url('/register') }}">Registrar</a></li>
     </ul> -->                    
-                    
-@endcan
+    @endcan              
+
     <!-- Right Side Of Navbar -->
     <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
