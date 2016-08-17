@@ -23,7 +23,7 @@
 				<div class="row">
 					<div class="form-group col-md-12 {{ $errors->has('nome') ? 'has-error' : '' }}">
 						<label for="nome" class="control-label col-md-offset-1 col-md-1">Nome</label>
-						<input type="text" name="nome" value="{{old('nome')}}">
+						<input type="text" name="nome" value="{{old('nome')}}">*
 						@if($errors->has('nome'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('nome') }}</strong>
@@ -32,7 +32,7 @@
 					</div>
 					<div class="form-group col-md-12 {{ $errors->has('login') ? 'has-error' : '' }}">
 						<label for="login" class="control-label col-md-offset-1 col-md-1">Login</label>
-						<input type="text" name="login">
+						<input type="text" name="login">*
 						@if($errors->has('login'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('login') }}</strong>
@@ -41,7 +41,16 @@
 					</div>
 					<div class="form-group col-md-12 {{ $errors->has('password') ? 'has-error' : '' }}">
 						<label for="password" class="control-label col-md-offset-1 col-md-1">Senha</label>
-						<input type="password" name="password">
+						<input type="password" name="password">*
+						@if($errors->has('password'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                </span>
+                            @endif
+					</div>
+						<div class="form-group col-md-12 {{ $errors->has('password') ? 'has-error' : '' }}">
+						<label for="password" class="control-label col-md-offset-1 col-md-1">Confirmar senha</label>
+						<input type="password" name="password_confirmation">*
 						@if($errors->has('password'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('password') }}</strong>
@@ -50,15 +59,16 @@
 					</div>
 					<div class="form-group col-md-12 {{ $errors->has('datadenascimento') ? 'has-error' : '' }}">
 						<label for="DatadeNascimento" class="control-label col-md-2">Data de Nascimento</label>
-						<input type="text" name="datadenascimento" id="date"/>
+						<input type="text" name="datadenascimento" id="date"/>*
 						@if($errors->has('datadenascimento'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('datadenascimento') }}</strong>
                                 </span>
                             @endif
 					</div>
-					<div class="form-group col-md-6 {{ $errors->has('sexo') ? 'has-error' : '' }}">
-					<label class="control-label col-md-offset-4"/>
+					<div class="form-group col-md-12 {{ $errors->has('sexo') ? 'has-error' : '' }}">
+					<label class="control-label col-md-offset-1 col-md-1">Sexo*</label>
+					<label class="col-md-offset-1"/>
 						<input type="radio" name="sexo" value="M">Masculino<br/>
 	  					<input type="radio" name="sexo" value="F">Feminino<br/>
 	  					@if($errors->has('sexo'))
@@ -69,7 +79,7 @@
 	  				</div>
 					<div class="form-group col-md-12 {{ $errors->has('email') ? 'has-error' : '' }}">
 						<label for="email" class="control-label col-md-offset-1 col-md-1">E-mail</label>
-						<input type="text" name="email">
+						<input type="text" name="email">*
 						@if($errors->has('email'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('email') }}</strong>
@@ -78,7 +88,7 @@
 					</div>
 					<div class="form-group col-md-12 {{ $errors->has('telefone') ? 'has-error' : '' }}">
 						<label for="telefone" class="control-label col-md-offset-1 col-md-1">Telefone</label>
-						<input type="text" name="telefone" id="phone">
+						<input type="text" name="telefone" id="phone">*
 						@if($errors->has('telefone'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('telefone') }}</strong>
@@ -108,7 +118,7 @@
 									echo ('<label for="academia_id">: O administrador deve cadastrar Academia</label>');
 								}	
 
-								?>		
+								?>*
 							
 							@if($errors->has('cidade'))
 							<span class="help-block">
@@ -146,7 +156,7 @@
 								{{Form::label('classes', 'Classes')}}
 							</div>
 							<div class="form-group col-md-10 " >	
-							{{Form::select('classe_id', ['1' => 'Classe A', '2' => 'Classe B', '3' => 'Classe C', '4' => 'Feminino'], '3')}}
+							{{Form::select('classe_id', ['1' => 'Classe A', '2' => 'Classe B', '3' => 'Classe C', '4' => 'Feminino'], '3')}}*
 							<!--Form::select('cat[]', $cats, null, ['multiple' => true, 'class' => 'form-control margin']) !!}-->
 							@if($errors->has('classe'))
 							<span class="help-block">

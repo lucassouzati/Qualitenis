@@ -207,7 +207,7 @@ class TenistaController extends Controller
             
             'nome' => 'required',
             'login' => 'required|unique:tenistas',
-            'password' => 'required|min:8|max:16',
+            'password' => 'required|confirmed|min:8|max:16',
             'datadenascimento' => 'required|date_format:j/m/Y',
             'email' => 'required|email|unique:tenistas',
             'telefone' => 'required',
