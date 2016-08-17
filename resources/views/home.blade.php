@@ -5,11 +5,12 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Menu/div>
+                <div class="panel-heading">Menu
 
                 <div class="panel-body">
                    Você está logado!
-                    <ul>
+                   
+                    <!-- <ul>
                       @can('Academia_index')
                          <li>
                              <a href="{{route('Academia.index')}}" "email me">Academias</a>
@@ -32,7 +33,7 @@
                            <a href="{{route('tenista.lista')}}" "email me">Tenistas</a>
                        </li>
 
-                    </ul>   
+                    </ul>   --> 
                     
                 </div>
             </div>
