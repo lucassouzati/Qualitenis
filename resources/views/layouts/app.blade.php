@@ -12,12 +12,14 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
 
     <!-- Styles -->
+    {{Html::script('js/jquery.js')}}    
+    {{Html::script('js/jquery.maskedinput.js')}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-    {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
+    {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}    
 
     <link href="http://demo.expertphp.in/css/jquery.ui.autocomplete.css" rel="stylesheet">
-    <script src="http://demo.expertphp.in/js/jquery.js"></script>
+<!--    <script src="http://demo.expertphp.in/js/jquery.js"></script>-->
     <script src="http://demo.expertphp.in/js/jquery-ui.min.js"></script>
 
     <style>
@@ -50,51 +52,95 @@
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/tenista') }}">Área do Tenista</a></li>
-                </ul>
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/login') }}">Área Administrativa</a></li>
-                </ul>
+            <!-- inicio -->
+                <!-- Left Side Of Navbar -->                
+<!-- Authentication Links -->                    
+@if (Auth::guard('tenista')->check()) 
+    <!-- Left Side Of Navbar -->
+    <ul class="nav navbar-nav">
+        <li><a href="{{ url('/tenista') }}">Área do Tenista</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                {{ Auth::guard('tenista')-> user()->nome }} <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="{{ url('/tenista/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+            </ul>
+        </li>
+    </ul>  
 
-                <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Authentication Links -->
+@elseif (Auth::guest())
+    <!-- Left Side Of Navbar -->
+    <ul class="nav navbar-nav">
+        <li><a href="{{ url('/tenista') }}">Área do Tenista</a></li>
+    </ul>
+    <ul class="nav navbar-nav">
+        <li><a href="{{ url('/login') }}">Área Administrativa</a></li>
+    </ul>
+    <!-- Right Side Of Navbar -->
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="{{ url('/tenista/login') }}">Entrar</a></li>
+        <li><a href="{{ url('/tenista/adicionar') }}">Registrar</a></li>
+    </ul>
+                        
+                        
+@else 
+    @can('Func')
+    <!-- Left Side Of Navbar -->
+    <ul class="nav navbar-nav">
+        <li><a href="{{ url('/login') }}">Área Administrativa</a></li>
 
-                    @if (Auth::guard('tenista')->check()) 
-                    <li class="dropdown">
+                      @can('Academia_index')
+                         <li>
+                             <a href="{{route('Academia.index')}}">Academias</a>
+                         </li>
+                      @endcan
+                       <li>
+                           <a href="{{route('torneio.index')}}">Torneios</a>
+                       </li>
+                       @can('Classe_index')
+                         <li>
+                             <a href="{{route('Classe.adicionar')}}">Classe</a>
+                         </li>
+                       @endcan
+                        @can('Funcionario_index')
+                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::guard('tenista')-> user()->nome }} <span class="caret"></span>
+                                Funcionarios <span class="caret"></span>
                             </a>
-
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/tenista/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                             <ul class="dropdown-menu" role="menu">
+                            @can('Func')
+                                <li><a href="{{ url('/register') }}">Registrar</a></li>
+                            @endcan
+                                <li><a href="{{route('auth.index')}}">Lista</a></li>
                             </ul>
-                    </li>
-                        
+                         </li>
+                        @endcan
+                       <li>
+                           <a href="{{route('tenista.lista')}}">Tenistas</a>
+                       </li>
+    </ul>
+    <!-- Right Side Of Navbar -->
+    <!-- <ul class="nav navbar-nav navbar-right">
+        <li><a href="{{ url('/register') }}">Registrar</a></li>
+    </ul> -->                    
+    @endcan              
 
-                    @elseif (Auth::guest())
-                        <li><a href="{{ url('/tenista/login') }}">Entrar</a></li>
-                        <li><a href="{{ url('/tenista/adicionar') }}">Registrar</a></li>
-                        
-                    @else 
-                    @can('Func')
-                        
-                    
-                     <li><a href="{{ url('/register') }}">Registrar</a></li>
-                     @endcan
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                            </a>
-
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                            </ul>
-                        </li>
-                    @endif
-                </ul>
+    <!-- Right Side Of Navbar -->
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                {{ Auth::user()->name }} <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+            </ul>
+        </li>
+    </ul>                        
+@endif
+            <!-- fim -->
             </div>
         </div>
     </nav>
@@ -122,10 +168,12 @@
     </script>
 
     
-    {{Html::script('js/jquery.maskedinput.js')}}
-    {{Html::script('js/jquery.js')}}
+    
 
     <!-- JavaScripts -->
+
+    <!-- Retirado pois estava dando conflito com a pesquisa ajax de tenista-->
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 </body>

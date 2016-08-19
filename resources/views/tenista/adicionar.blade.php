@@ -17,31 +17,40 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
             <h3 class="page-header">Novo Tenista</h3>
-				<form action="{{ route('tenista.salvar') }}" method="POST">
+				<form action="{{ route('tenista.salvar') }}" method="POST" class="form-horizontal">
 				
 						{{csrf_field()}}
 				<div class="row">
 					<div class="form-group col-md-12 {{ $errors->has('nome') ? 'has-error' : '' }}">
-						<label for="nome">Nome</label>
-						<input type="text" name="nome" value="{{old('nome')}}">
+						<label for="nome" class="control-label col-md-offset-1 col-md-1">Nome</label>
+						<input type="text" name="nome" value="{{old('nome')}}">*
 						@if($errors->has('nome'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('nome') }}</strong>
                                 </span>
                             @endif
 					</div>
-					<div class="form-group col-md-6 {{ $errors->has('login') ? 'has-error' : '' }}">
-						<label for="login">Login</label>
-						<input type="text" name="login">
+					<div class="form-group col-md-12 {{ $errors->has('login') ? 'has-error' : '' }}">
+						<label for="login" class="control-label col-md-offset-1 col-md-1">Login</label>
+						<input type="text" name="login">*
 						@if($errors->has('login'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('login') }}</strong>
                                 </span>
                             @endif
 					</div>
-					<div class="form-group col-md-6 {{ $errors->has('password') ? 'has-error' : '' }}">
-						<label for="password">Senha</label>
-						<input type="password" name="password">
+					<div class="form-group col-md-12 {{ $errors->has('password') ? 'has-error' : '' }}">
+						<label for="password" class="control-label col-md-offset-1 col-md-1">Senha</label>
+						<input type="password" name="password">*
+						@if($errors->has('password'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                </span>
+                            @endif
+					</div>
+						<div class="form-group col-md-12 {{ $errors->has('password') ? 'has-error' : '' }}">
+						<label for="password" class="control-label col-md-offset-1 col-md-1">Confirmar senha</label>
+						<input type="password" name="password_confirmation">*
 						@if($errors->has('password'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('password') }}</strong>
@@ -49,17 +58,19 @@
                             @endif
 					</div>
 					<div class="form-group col-md-12 {{ $errors->has('datadenascimento') ? 'has-error' : '' }}">
-						<label for="DatadeNascimento">Data de Nascimento</label>
-						<input type="text" name="datadenascimento" id="date"/>
+						<label for="DatadeNascimento" class="control-label col-md-2">Data de Nascimento</label>
+						<input type="text" name="datadenascimento" id="date"/>*
 						@if($errors->has('datadenascimento'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('datadenascimento') }}</strong>
                                 </span>
                             @endif
 					</div>
-					<div class="form-group col-md-6 {{ $errors->has('sexo') ? 'has-error' : '' }}">
-						<input type="radio" name="sexo" value="M">Masculino<br>
-	  					<input type="radio" name="sexo" value="F">Feminino<br>
+					<div class="form-group col-md-12 {{ $errors->has('sexo') ? 'has-error' : '' }}">
+					<label class="control-label col-md-offset-1 col-md-1">Sexo*</label>
+					<label class="col-md-offset-1"/>
+						<input type="radio" name="sexo" value="M">Masculino<br/>
+	  					<input type="radio" name="sexo" value="F">Feminino<br/>
 	  					@if($errors->has('sexo'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('sexo') }}</strong>
@@ -67,8 +78,8 @@
                             @endif
 	  				</div>
 					<div class="form-group col-md-12 {{ $errors->has('email') ? 'has-error' : '' }}">
-						<label for="email">E-mail</label>
-						<input type="text" name="email">
+						<label for="email" class="control-label col-md-offset-1 col-md-1">E-mail</label>
+						<input type="text" name="email">*
 						@if($errors->has('email'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('email') }}</strong>
@@ -76,25 +87,20 @@
                             @endif
 					</div>
 					<div class="form-group col-md-12 {{ $errors->has('telefone') ? 'has-error' : '' }}">
-						<label for="telefone">Telefone</label>
-						<input type="text" name="telefone" id="phone">
+						<label for="telefone" class="control-label col-md-offset-1 col-md-1">Telefone</label>
+						<input type="text" name="telefone" id="phone">*
 						@if($errors->has('telefone'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('telefone') }}</strong>
                                 </span>
                             @endif
 					</div>
-					<div class="form-group col-md-12">
-						<label for="Estado">Estado</label>
-						<select name="estado">
-			
-						</select>
-					</div>
+					
 
 
 						{{-- ACADEMIA --}}
 						<div class="form-group col-md-12 {{ $errors->has('cidade') ? 'has-error' : '' }}">
-							<label for="academia_id">Academia</label>
+							<label for="academia_id" class="control-label col-md-offset-1 col-md-1">Academia</label>
 							
 								<?php 
 								
@@ -112,7 +118,7 @@
 									echo ('<label for="academia_id">: O administrador deve cadastrar Academia</label>');
 								}	
 
-								?>		
+								?>*
 							
 							@if($errors->has('cidade'))
 							<span class="help-block">
@@ -120,37 +126,48 @@
 							</span>
 							@endif
 						</div>
-						<div class="form-group col-md-12 {{ $errors->has('cidade') ? 'has-error' : '' }}">
-							<label for="Cidade">Cidade</label>
-							<select name="cidade_id">
-								<?php 
-								$estado = \App\Estado::find(19);
-								$cidades = $estado->cidades; 
-								foreach ($cidades as $cidade) {
-								# code...
-									echo ('<option value="'.$cidade->id.'">'.$cidade->nome.'</option>');
-								}	
-								?>		
-							</select>
-							@if($errors->has('cidade'))
-							<span class="help-block">
-								<strong>{{ $errors->first('cidade') }}</strong>
-							</span>
-							@endif
-						</div>
+						
+						<div class="row">
+					<div class="control-label col-md-offset-1 col-md-1">
+						{{Form::label('estado', 'Estado')}} 
+					</div>
+					<div class="form-group col-md-10 " >	
+						{{Form::select('estado_id', $estados, null, ['id' => 'estado_id'])}}
+					</div>
+				</div>
+				<div class="row">
+					<div class="control-label col-md-offset-1 col-md-1">
+						{{Form::label('cidade', 'Cidade')}}
+
+					</div>
+					<div class="form-group col-md-10 " >	
+						<select name="cidade_id" id="cidade_id" required>
+							
+						</select>*
+							@if($errors->has('cidade_id'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('cidade_id') }}</strong>
+                                </span>
+                            @endif
+					</div>
+				</div>
 						<div class="form-group col-md-12 " >
-							{{Form::label('classes', 'Classes')}}
-							{{Form::select('classe_id', ['1' => 'Classe A', '2' => 'Classe B', '3' => 'Classe C', '4' => 'Feminino'], '3')}}
+							<div class="control-label col-md-offset-1 col-md-1">
+								{{Form::label('classes', 'Classes')}}
+							</div>
+							<div class="form-group col-md-10 " >	
+							{{Form::select('classe_id', ['1' => 'Classe A', '2' => 'Classe B', '3' => 'Classe C', '4' => 'Feminino'], '3')}}*
 							<!--Form::select('cat[]', $cats, null, ['multiple' => true, 'class' => 'form-control margin']) !!}-->
 							@if($errors->has('classe'))
 							<span class="help-block">
 								<strong>{{ $errors->first('classe') }}</strong>
 							</span>
+							</div>
 							@endif
 						</div>	
 						<hr />
 
-						<div class="col-md-12">
+						<div class="col-md-offset-1 col-md-11 ">
 							<input type="hidden" name="statustenista_id" value="1">
 							<button class="btn btn-info">Adicionar</button>
 							<a href="#" class="btn btn-default">Cancelar</a>
@@ -171,34 +188,29 @@
 		$("input.cep").mask("99.999-999");
 	});
 </script>
-<div class="container">
-	<script type="text/javascript">
-		jQuery(function($){
-			$("#date").mask("99/99/9999",{placeholder:"mm/dd/yyyy"});  
-		});
-	</script>
-	<div class="row">
-		<div class="col-md-10 col-md-offset-1">
-			<div class="panel panel-default">
-				<h3 class="page-header">Novo Tenista</h3>
-				<form action="{{ route('tenista.salvar') }}" method="POST">
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("input.datadenascimento").mask("99/99/9999");
-		$("input.cpf").mask("999.999.999-99");
-		$("input.cep").mask("99.999-999");
-	});
-</script>
-<div class="container">
-	<script type="text/javascript">
-		jQuery(function($){
-			$("#date").mask("99/99/9999",{placeholder:"mm/dd/yyyy"});  
-		});
-	</script>
-	
-</div>
+<!--{{Html::script('js/jquery.js')}} -->
+<!-- InputMask -->
+<script src="{{asset('js/input-mask/jquery.inputmask.js')}}"></script>
+<script src="{{asset('js/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
+<script src="{{asset('js/input-mask/jquery.inputmask.extensions.js')}}"></script>
+<script>
 
-{{Html::script('js/jquery.maskedinput.js')}}
-{{Html::script('js/jquery.js')}}
+  /* Load positions into postion <selec> */
+  $( "#estado_id" ).change(function() 
+  {
+    $.getJSON("/estado/"+ $(this).val() +"/cidades", function(jsonData){
+        select = '<select name="cidade_id" class="form-control" required id="cidade_id" >';
+          $.each(jsonData, function(i,data)
+          {
+               select +='<option value="'+data.id+'">'+data.nome+'</option>';
+           });
+        select += '</select>';
+        $("#cidade_id").html(select);
+    });
+  });
+</script>
+
+
+
 
 @endsection
