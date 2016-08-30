@@ -61,11 +61,14 @@ class InscricaoController extends Controller
        	//Adicionando outras informações
        	$dados = array_add($dados, 'pago', 0);
        	$dados = array_add($dados, 'status', 'Aguardando Pagamento');
-       
 
-       Inscricao::create($dados);
+        Inscricao::create($dados);
 
-       \Session::flash('flash_message',[
+        //Descontando número de vagas do chaveamento
+        $chaveamento->vagas--;
+        $chaveamenot->update();
+
+        \Session::flash('flash_message',[
             'msg'=>"Inscrição realizada com sucesso! Para confirmá-la, realize o pagamento do valor com um administrador.",
             'class'=>"alert-success"
         ]);
@@ -130,6 +133,11 @@ class InscricaoController extends Controller
     	$inscricao = \App\Inscricao::find($id);
     	$inscricao->status = 'Cancelada';
     	$inscricao->update();
+        $chaveamento = $inscricao->chaveamento;
+
+        //Aumento número de vagas
+        $chaveamento->vagas++;
+        $chaveamento->update();
 
     	\Session::flash('flash_message',[
             'msg'=>"Inscrição cancelada com sucesso! Você ainda pode se inscrever no torneio.",
