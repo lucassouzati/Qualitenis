@@ -14,9 +14,19 @@ class InscricaoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($torneio_id, $chaveamento_id = null)
     {
         //
+        if($chaveamento_id != null)
+        {
+            $inscricoes = Inscricao::where('chaveamento_id', $chaveamento_id)->paginate(30);
+        }
+        else
+        {
+            $inscricoes = Inscricao::where('torneio_id', $torneio_id)->paginate(30);
+        }
+
+        return view('torneio.inscricoes.index', compact('inscricoes'));
     }
 
     /**
@@ -44,6 +54,7 @@ class InscricaoController extends Controller
 		$torneio = \App\Torneio::find($request->get('torneio_id'));
 
 		//Verificar se classe do tenista é a mesma que do chaveamento, se não for, retorna erro
+        /*
     	if($tenista->classe->id <> $chaveamento->classe->id){
     		\Session::flash('flash_message',[
             'msg'=>"Chaveamento permitido apenas para tenistas de ". $chaveamento->classe->nome.".",
@@ -51,6 +62,8 @@ class InscricaoController extends Controller
         	]);
 			return redirect()->route('torneio.ver', $torneio->id);    		
     	}
+        */
+        //ignorando validação de classe - 30/08/2016
 
     	//Gerando prazo de pagamento de 3 dias antes da data do torneio
         $data = new \DateTime($torneio->data);
@@ -66,7 +79,7 @@ class InscricaoController extends Controller
 
         //Descontando número de vagas do chaveamento
         $chaveamento->vagas--;
-        $chaveamenot->update();
+        $chaveamento->update();
 
         \Session::flash('flash_message',[
             'msg'=>"Inscrição realizada com sucesso! Para confirmá-la, realize o pagamento do valor com um administrador.",
@@ -145,5 +158,27 @@ class InscricaoController extends Controller
         ]);
 
     	return redirect()->route('torneio.ver', $inscricao->torneio->id);
+    }
+
+    public function trocaStatus(Request $request, $id){
+        $inscricao = \App\Inscricao::find($id);
+        $inscricao->status = $request->get('status');
+        $inscricao->update();
+        
+
+        if($request->get('status') == 'Cancelada'){
+            $chaveamento = $inscricao->chaveamento;
+            $chaveamento->vagas++;
+            $chaveamento->update();    
+        }
+        //Aumento número de vagas
+        
+
+        \Session::flash('flash_message',[
+            'msg'=>"Inscrição alterada com sucesso!",
+            'class'=>"alert-success"
+        ]);
+
+        return redirect()->route('inscricao.index', ['torneio' => $inscricao->torneio->id]);
     }
 }

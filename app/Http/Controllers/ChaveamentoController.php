@@ -61,6 +61,7 @@ class ChaveamentoController extends Controller
       $torneio->numerodechaveamentos--;
       $torneio->update();
 
+      \App\Inscricao::where('chaveamento_id', $chaveamento->id)->delete();
       $chaveamento->delete();
 
         \Session::flash('flash_message',[
