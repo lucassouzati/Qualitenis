@@ -202,5 +202,10 @@ class AuthController extends Controller
 
     }
 
+    public function logout(){
+        auth()->guard()->logout();
+        \Session::flush();
+        return redirect('/login');
+    }
    
 }

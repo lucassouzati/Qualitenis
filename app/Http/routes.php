@@ -33,6 +33,8 @@ Route::get('tenista/activation/{token}', 'TenistaController@activateTenista')->n
 //Route::get('autocomplete',array('as'=>'autocomplete','uses'=>'AutoCompleteController@index'));
 Route::get('searchajax',array('as'=>'searchajax','uses'=>'AutoCompleteController@autoComplete'));
 
+Route::get('/estado/{id}/cidades', array('as'=>'listacidadesporestado','uses'=>'CidadeController@getCidadesPorEstado'));
+
 
 Route::resource('inscricao', 'InscricaoController');
 //Route::get('/inscrever', ['uses'=>'InscricaoController@adicionar', 'as'=>'inscricao.lancar']);
@@ -47,7 +49,7 @@ Route::group(['middleware' => 'tenista'], function(){
 	
 	Route::group(['middleware' => 'auth:tenista'], function(){
 
-		Route::get('/tenista', 'TenistaController@index');
+		Route::get('/tenista', ['uses'=> 'TenistaController@index', 'as'=>'tenista.index']);
 
 		Route::put('/tenista/trocastatus/{id}', ['uses'=>'TenistaController@trocaStatus', 'as'=>'tenista.trocastatus']);
 		

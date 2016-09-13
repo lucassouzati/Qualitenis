@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\ActivationService;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 use Auth;
 
@@ -13,17 +14,20 @@ class TenistaController extends Controller
 {
     //
 
-
+    use AuthenticatesAndRegistersUsers;
 
     /*
     Configuração de ativação por e-mail ok. Ainda não sei porque o método guestMiddleware() não funciona com esse controller. Devo estudar a fundo melhor esses métodos do middleware. 
 
     */
+
+    protected $redirectTo = '/tenista';
+
     protected $activationService;
 
     public function __construct(ActivationService $activationService)
     {
-        //$this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
         $this->activationService = $activationService;
     }
 
@@ -143,8 +147,9 @@ class TenistaController extends Controller
     //
     public function adicionar()
     {	
-    	
-    	return view('tenista.adicionar');
+    	$estados = \App\Estado::lists('nome', 'id');
+        $estados = array_add($estados, '', '');
+    	return view('tenista.adicionar', compact('estados'));
     }
 
 
@@ -158,7 +163,7 @@ class TenistaController extends Controller
             'nome' => 'required',
             'datadenascimento' => 'required|date_format:j/m/Y',
             
-            'telefone' => 'required|numeric',
+            'telefone' => 'required',
             'cidade_id' => 'required',
             'academia_id' => 'required',
             'sexo' => 'required'
@@ -195,7 +200,7 @@ class TenistaController extends Controller
             'class'=>"alert-success"
         ]);
 
-        return view('tenista.index');
+        return $this->index();
         
     }
 
@@ -206,10 +211,10 @@ class TenistaController extends Controller
             
             'nome' => 'required',
             'login' => 'required|unique:tenistas',
-            'password' => 'required|min:8|max:16',
+            'password' => 'required|confirmed|min:8|max:16',
             'datadenascimento' => 'required|date_format:j/m/Y',
             'email' => 'required|email|unique:tenistas',
-            'telefone' => 'required|numeric',
+            'telefone' => 'required',
             'cidade_id' => 'required',
             'academia_id' => 'required',
             'sexo' => 'required'
@@ -250,7 +255,9 @@ class TenistaController extends Controller
 
        public function editar($id)
     {
-        $tenista = \App\Tenista::find($id);
+        $estados = \App\Estado::lists('nome', 'id');
+        $tenista = \App\Tenista::findOrFail($id);
+
         if(!$tenista){
             \Session::flash('flash_message',[
                 'msg'=>"Não existe esse tenista cadastrado! Deseja cadastrar um novo tenista?",
@@ -258,8 +265,15 @@ class TenistaController extends Controller
             ]);
             return redirect()->route('tenista.adicionar');
         }
+        if(auth()->guard('tenista')->user()->id != $id){
+            \Session::flash('flash_message',[
+                'msg'=>"Não é permitido alterar informações de outro tenista.",
+                'class'=>"alert-danger"
+            ]);
+            return redirect()->route('tenista.index');   
+        }
 
-        return view('tenista.editar',compact('tenista'));
+        return view('tenista.editar',compact('tenista'), compact('estados'));
     }
 
     public function deletar($id)
