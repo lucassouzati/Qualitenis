@@ -27,7 +27,7 @@ class TenistaController extends Controller
 
     public function __construct(ActivationService $activationService)
     {
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        //$this->middleware($this->guestMiddleware(), ['except' => 'logout']);
         $this->activationService = $activationService;
     }
 
@@ -292,7 +292,9 @@ class TenistaController extends Controller
 
      public function lista()
     {   
+
         $tenistas = \App\Tenista::paginate(10);
+
         return view('tenista.lista', compact('tenistas'));
     }
      
