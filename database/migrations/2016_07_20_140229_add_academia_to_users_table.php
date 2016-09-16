@@ -13,7 +13,7 @@ class AddAcademiaToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-             $table->integer('academia_id')->unsigned();
+            $table->integer('academia_id')->unsigned();
             $table->foreign('academia_id')->references('id')->on('academias');
         });
     }

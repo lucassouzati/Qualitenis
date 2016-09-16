@@ -24,7 +24,9 @@ class ChaveamentoController extends Controller
     public function salvar(Request $request){
        
       $this->validar($request);
-      $chaveamento = \App\Chaveamento::create($request->all());
+      //vagas é igual ao número de jogadores
+      $dados = array_add($request->all(), 'vagas', $request->get('numerodejogadores'));
+      $chaveamento = \App\Chaveamento::create($dados);
 
       $torneio = \App\Torneio::find($chaveamento->torneio->id);
       $torneio->numerodechaveamentos++;
@@ -36,7 +38,11 @@ class ChaveamentoController extends Controller
    public function atualizar(Request $request, $torneio_id,   $id) 	{
       $this->validar($request);
 
+
+      //$inscricoes = \App\Inscricao::where('chaveamento_id', $id);
    		$chaveamento = \App\Chaveamento::find($id);
+
+      $inscricoes = $chaveamento->inscricoes;
       $chaveamento->dupla = $request->get('dupla');
       $chaveamento->numerodejogadores = $request->get('numerodejogadores');
       $chaveamento->minutosestimadosdepartida = $request->get('minutosestimadosdepartida');
@@ -59,6 +65,7 @@ class ChaveamentoController extends Controller
       $torneio->numerodechaveamentos--;
       $torneio->update();
 
+      \App\Inscricao::where('chaveamento_id', $chaveamento->id)->delete();
       $chaveamento->delete();
 
         \Session::flash('flash_message',[

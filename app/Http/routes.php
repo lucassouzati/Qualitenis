@@ -42,6 +42,7 @@ Route::resource('inscricao', 'InscricaoController');
 Route::get('/torneios/{id}', ['uses'=>'TorneioController@ver', 'as'=>'torneio.ver']);
 
 Route::put('/inscricao/cancela/{id}', ['uses'=>'InscricaoController@cancela', 'as'=>'inscricao.cancela']);
+Route::put('/inscricao/trocastatus/{id}', ['uses'=>'InscricaoController@trocaStatus', 'as'=>'inscricao.trocastatus']);
 
 
 
@@ -138,6 +139,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 		Route::get('/chaveamento/detalhe/{id}', ['uses'=>'ChaveamentoController@editar', 'as'=>'chaveamento.detalhe']);
 		Route::post('/chaveamento/atualizar/{id}', ['uses'=>'ChaveamentoController@atualizar', 'as'=>'chaveamento.atualizar']);	
+
+		Route::get('/inscricao/{id?}', ['uses'=>'InscricaoController@index', 'as'=>'inscricao.index']);
 	});
 
 
@@ -155,6 +158,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 	//adminsitrador trocando status do tenista
+
 
 	Route::get('/tenista/lista', ['uses'=>'TenistaController@lista', 'as'=>'tenista.lista']);
 	Route::get('/tenista/detalhe/{id}', ['uses'=>'TenistaController@detalhe', 'as'=>'tenista.detalhe']);

@@ -52,6 +52,7 @@
 
                 @endif
                 
+                <a href="{{route('inscricao.index', ['torneio' => $torneio->id, 'id' => ''])}}" title="" class="btn btn-info">Gerenciar Inscrições</a>
                                         
                 @if($torneio->statustorneio->id == 1)
                 <form action="{{route('torneio.atualizar', $torneio->id)}}" method="POST">
@@ -155,6 +156,7 @@
                                 <th>#</th>
                                 <th>Chaveamento</th>
                                 <th>Jogadores</th>                                
+                                <th>Vagas</th>                                
                                 <th>Ação</th>
                             </tr>
                         </thead>
@@ -164,11 +166,12 @@
                                 <th scope="row">{{ $chaveamento->id }}</th>
                                 <td>{{ $chaveamento->classe->nome }}</td>
                                 <td>{{ $chaveamento->numerodejogadores }}</td>                                
+                                <td>{{ $chaveamento->vagas }}</td>                                
                                 <td>
                                     <a class="btn btn-default" href="{{ $torneio->statustorneio->id == 1 ? route('torneio.chaveamento.editar', ['torneio' => $torneio->id, 'chaveamento' => $chaveamento->id]) : '#' }}" 
                                     {{ $torneio->statustorneio->id == 1 ? '' : 'disabled="true"' }}>Editar</a>
                                     @if($torneio->statustorneio->id == 1)
-                                    <a class="btn btn-danger" href="javascript:(confirm('Deletar esse registro?') ? window.location.href='{{ route('chaveamento.deletar', ['torneio' => $torneio->id, 'chaveamento' => $chaveamento->id]) }}' : false)" {{ $torneio->statustorneio->id == 1 ? '' : 'disabled="true"' }}>Deletar</a>
+                                    <a class="btn btn-danger" href="javascript:(confirm('Deletar esse chaveamento? Todas inscrições realizadas nele também serão excluídas') ? window.location.href='{{ route('chaveamento.deletar', ['torneio' => $torneio->id, 'chaveamento' => $chaveamento->id]) }}' : false)" {{ $torneio->statustorneio->id == 1 ? '' : 'disabled="true"' }}>Deletar</a>
                                     @else
                                     <a class="btn btn-danger" href="#" disabled="true">Deletar</a>
                                     @endif
