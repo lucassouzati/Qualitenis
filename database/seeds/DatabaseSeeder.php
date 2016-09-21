@@ -27,5 +27,10 @@ class DatabaseSeeder extends Seeder
         
         $this->call(PapelTableSeeder::class);
         $this->call(PermissaoTableSeeder::class);
+        
+
+        $this->call(TorneiosTableSeeder::class);
+        $this->call(ChaveamentosTableSeeder::class);
+        $this->call(InscricoesTableSeeder::class);
     }
 }

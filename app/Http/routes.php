@@ -141,6 +141,12 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::post('/chaveamento/atualizar/{id}', ['uses'=>'ChaveamentoController@atualizar', 'as'=>'chaveamento.atualizar']);	
 
 		Route::get('/inscricao/{id?}', ['uses'=>'InscricaoController@index', 'as'=>'inscricao.index']);
+
+		Route::group(['prefix' => 'chaveamento/{chaveamento}'], function(){
+				Route::get('/partidas/', ['uses'=>'PartidasController@index', 'as'=>'interesse.index']);
+				Route::get('/partidas/create', ['uses'=>'PartidasController@create', 'as'=>'partidas.create']);
+				Route::post('/partidas', ['uses'=>'PartidasController@store', 'as'=>'partidas.store']);
+			});
 	});
 
 
