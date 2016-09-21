@@ -26,5 +26,24 @@ class Partida extends Model
      *
      * @var array
      */
-    protected $fillable = ['data', 'jogador1', 'jogador2', 'setjogador1', 'setjogador2', 'vencedor', 'status', 'nivel', 'chaveamento_id'];
+    protected $fillable = ['data', 'jogador1_id', 'jogador2_id', 'setjogador1', 'setjogador2', 'vencedor', 'status', 'nivel', 'chaveamento_id'];
+
+
+
+    public function jogador1(){
+        return $this->belongsTo('App\Tenista');
+    }
+
+    public function jogador2(){
+        return $this->belongsTo('App\Tenista');
+    }
+
+    public function chaveamento(){
+        return $this->belongsTo('App\Chaveamento');
+    }
+
+    public static function getPossbileStatuses(){
+        $status = \DB::select(DB::raw('SHOW COLUMNS FROM partida WHERE Field = "type"'))[0]->Type;
+        dd($status);
+    }
 }

@@ -18,4 +18,13 @@ class Chaveamento extends Model
     {
         return $this->belongsTo('App\Classe');
     }
+
+    public function inscricoes()
+    {
+        return $this->hasMany('App\Inscricao');
+    }
+    public function partidas()
+    {
+        return $this->hasMany('App\Partida');
+    }
 }

@@ -146,6 +146,7 @@ Route::group(['middleware' => 'auth'], function () {
 				Route::get('/partidas/', ['uses'=>'PartidasController@index', 'as'=>'interesse.index']);
 				Route::get('/partidas/create', ['uses'=>'PartidasController@create', 'as'=>'partidas.create']);
 				Route::post('/partidas', ['uses'=>'PartidasController@store', 'as'=>'partidas.store']);
+				Route::get('/partidas/{id}', ['uses'=>'PartidasController@detalhe', 'as'=>'partidas.detalhe']);
 			});
 	});
 
