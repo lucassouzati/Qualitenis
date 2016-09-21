@@ -20,6 +20,16 @@ Route::get('/home', function(){
 	return view('home');
 });
 
+Route::get('/noticias', function(){
+	return view('noticias/noticias');
+});
+
+
+//Noticias
+Route::post('noticias/noticias', ['uses'=>'NoticiaController@salvar', 'as'=>'Noticia.salvar']);
+Route::get('/noticias/exibir', ['uses'=>'NoticiaController@exibir', 'as'=>'Noticias.exibir']);
+
+
 //tenista
 //Route::get('/tenista', ['uses'=>'TenistaController@index', 'as'=>'tenista.index']);
 Route::get('/tenista/adicionar', ['uses'=>'TenistaController@adicionar', 'as'=>'tenista.adicionar']);
@@ -47,16 +57,16 @@ Route::put('/inscricao/trocastatus/{id}', ['uses'=>'InscricaoController@trocaSta
 
 
 Route::group(['middleware' => 'tenista'], function(){
-	
+
 	Route::group(['middleware' => 'auth:tenista'], function(){
 
 		Route::get('/tenista', ['uses'=> 'TenistaController@index', 'as'=>'tenista.index']);
 
 		Route::put('/tenista/trocastatus/{id}', ['uses'=>'TenistaController@trocaStatus', 'as'=>'tenista.trocastatus']);
-		
+
 		Route::get('/tenista/editar/{id}', ['uses'=>'TenistaController@editar', 'as'=>'tenista.editar']);
 	});
-	
+
 	Route::get('/tenista/login', ['uses'=> 'TenistaController@login', 'as' => 'tenista.index']);
 	Route::get('/tenista/login', ['uses'=> 'TenistaController@login', 'as' => 'tenista.login']);
 	Route::post('/tenista/login', 'TenistaController@postLogin');
@@ -97,7 +107,7 @@ Route::auth();
 
 Route::group(['middleware' => 'auth'], function () {
 
-	
+
 
 	//DESATIVAR FUNCIONARIO
 	Route::get('/Auth/desativar/{id}', ['uses'=>'Auth\AuthController@desativar', 'as'=>'Auth.desativar']);
@@ -138,7 +148,7 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::get('/chaveamento/deletar/{id}', ['uses'=>'ChaveamentoController@deletar', 'as'=>'chaveamento.deletar']);
 
 		Route::get('/chaveamento/detalhe/{id}', ['uses'=>'ChaveamentoController@editar', 'as'=>'chaveamento.detalhe']);
-		Route::post('/chaveamento/atualizar/{id}', ['uses'=>'ChaveamentoController@atualizar', 'as'=>'chaveamento.atualizar']);	
+		Route::post('/chaveamento/atualizar/{id}', ['uses'=>'ChaveamentoController@atualizar', 'as'=>'chaveamento.atualizar']);
 
 		Route::get('/inscricao/{id?}', ['uses'=>'InscricaoController@index', 'as'=>'inscricao.index']);
 
