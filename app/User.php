@@ -13,7 +13,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name','CPF', 'email', 'password','telefone', 
+        'name','CPF', 'email', 'password','telefone',
     ];
 
     public function telefones()
@@ -33,18 +33,21 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(\App\Papel::class);
     }
-
+    public function noticias()
+   {
+     return $this->hasMany('App\Noticia');
+   }
 
 
     //niveis de acessos
     public function temPermissao(Permissao $permissao)
-    {   
+    {
         return $this->temPapeis($permissao->papels);
     }
 
     public function temPapeis($papels)
     {
-        
+
         if(is_array($papels) || is_object($papels)){
             //dd($this->papels());
 
