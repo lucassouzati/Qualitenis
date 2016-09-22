@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+<script src="{{asset('/plugins/jquery-bracket/dist/jquery.bracket.min.js')}}"></script>
+
+ <link rel="stylesheet" href="{{asset('/plugins/jquery-bracket/dist/jquery.bracket.min.css')}}">
 <div class="container">
     @can('partida_index')
     <div class="row">
@@ -14,9 +17,7 @@
                     </ol>
 
                     <div class="panel-body">
-                        <p>
-                            <a class="btn btn-info" href="#">Adicionar</a>
-                        </p>
+                        
                         
                         <table class="table table-bordered">
                             <thead>
@@ -60,6 +61,34 @@
                     </div>
                 </div>
 
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                <div class="panel">
+                    
+                
+                    <div id="minimal">
+                      <h3>Minimal</h3>
+                      <script type="text/javascript">
+                      var minimalData = {
+                          teams : [
+                            ["Team 1", "Team 2"], /* first matchup */
+                            ["Team 3", "Team 4"]  /* second matchup */
+                          ],
+                          results : [
+                            [[1,2], [3,4]],       /* first round */
+                            [[4,6], [2,1]]        /* second round */
+                          ]
+                        }
+
+                      $(function() {
+                          $('#minimal .demo').bracket({
+                            init: minimalData /* data to initialize the bracket with */ })
+                        })
+                      </script>
+                    </div>
+                </div>
+            </div>
             </div>
             <div class="row">
                 <div class="panel panel-default">
@@ -163,4 +192,18 @@
     @endcan
 </div>
 
+
+
+<script type="text/javascript">
+$(function() {
+    var big = $('#big div.demo')
+    big.scrollLeft(big.width())
+
+    $('pre.html').addClass('brush: html;')
+    $('pre.js').addClass('brush: js;')
+    SyntaxHighlighter.defaults['gutter'] = false
+    SyntaxHighlighter.defaults['auto-links'] = false
+    SyntaxHighlighter.all('code')
+  })
+</script>
 @endsection

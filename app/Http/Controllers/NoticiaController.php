@@ -13,8 +13,9 @@ class NoticiaController extends Controller
     {
        $noticias = \App\Noticia::paginate(15);
 
-       return view('Noticias.exibir',compact('noticias'));
+       return view('noticias.exibir',compact('noticias'));
     }
+
   public function salvar(Request $request)
   {
     if($request->user()){
