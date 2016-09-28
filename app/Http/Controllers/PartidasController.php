@@ -34,8 +34,13 @@ class PartidasController extends Controller
         $chaveamento = Chaveamento::find($chaveamento_id);
         $inscricoes = $chaveamento->inscricoes;
         //dd($inscricoes);
-        $partidas =  $chaveamento->partidas;
-
+        $partidas =  $chaveamento->partidas()->nivel(1)->get();
+        $partidasnivel2 =  $chaveamento->partidas()->nivel(2)->get();
+        $partidasnivel3 =  $chaveamento->partidas()->nivel(3)->get();
+        $partidasnivel4 =  $chaveamento->partidas()->nivel(4)->get();
+        $partidasnivel5 =  $chaveamento->partidas()->nivel(5)->get();
+        $partidasdefinidas =  $chaveamento->partidas()->definidas();
+        //dd($partidas);
 
 
 
@@ -50,7 +55,7 @@ class PartidasController extends Controller
          }
         //dd($enum);
 
-        return view('torneio.chaveamento.partidas.adicionar', compact('torneio', 'chaveamento', 'inscricoes', 'partidas', 'enum'));
+        return view('torneio.chaveamento.partidas.adicionar', compact('torneio', 'chaveamento', 'inscricoes', 'partidas', 'enum', 'partidasdefinidas'));
     }
 
     /**
@@ -62,15 +67,10 @@ class PartidasController extends Controller
     public function store($torneio_id, $chaveamento_id, Request $request)
     {
         //
-
+        
         $this->validate($request, [
-            
-            'setjogador1' => 'required',
-            'setjogador2' => 'required',
             'status' => 'required',
             'data' => 'required|date_format:j/m/Y',
-            
-            
         ]);
 
 
@@ -129,9 +129,33 @@ class PartidasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $torneio_id, $chaveamento_id, $id)
     {
-        //
+        $partida = Partida::find($id);
+        
+
+        $this->validate($request, [
+            'partida_id' => 'required',
+            'data' => 'required|date_format:j/m/Y',
+            'jogador1_id' => 'required',
+            'jogador2_id' => 'required',
+            'status' => 'required',
+            ]);
+
+        
+        //dd($partida->update($request->all()));
+        $dados = $request->all();
+        $date = date_create_from_format('j/m/Y', $request->input('data'));
+        $dados = array_set($dados, 'data', date_format($date, 'Y-m-d'));
+
+        $partida->update($dados);
+        
+        \Session::flash('flash_message',[
+            'msg'=>"Partida atualizada com sucesso!",
+            'class'=>"alert-success"
+        ]);
+
+        return back();
     }
 
     /**
@@ -152,5 +176,29 @@ class PartidasController extends Controller
         return view('torneio.chaveamento.partidas.detalhe', compact('partida'));
     }
 
-     
+     public function retornaPartidaAjax(Request $request) {
+        $query = $request->get('id','');
+        
+        $partida = Partida::find($query);
+        
+        if($partida != null){
+
+        $retorno[]=array('data'=> $partida->data, 
+                            'id'=>$partida->id, 
+                            'jogador1_id' => $partida->jogador1_id,
+                            'jogador2_id' => $partida->jogador2_id,
+                            'setjogador2' => $partida->setjogador2,
+                            'setjogador1' => $partida->setjogador1,
+                            'status' => $partida->status,
+
+                            );
+             return $retorno;
+         }
+        else
+            return ['value'=>'No Result Found','id'=>''];
+
+
+        
+        
+    }
 }

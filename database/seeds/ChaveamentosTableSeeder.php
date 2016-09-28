@@ -18,6 +18,8 @@ class ChaveamentosTableSeeder extends Seeder
         	'classe_id' => 3,
         	'vagas' => 0,
         ]);
+
+        \App\Partida::geraPartidas(1, 8);
         
     }
 }

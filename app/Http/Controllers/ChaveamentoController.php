@@ -26,7 +26,7 @@ class ChaveamentoController extends Controller
       $this->validar($request);
       //vagas é igual ao número de jogadores
       $dados = array_add($request->all(), 'vagas', $request->get('numerodejogadores'));
-      $chaveamento = \App\Chaveamento::create($dados);
+      $chaveamento = \App\Chaveamento::create($dados);  
 
       $torneio = \App\Torneio::find($chaveamento->torneio->id);
       $torneio->numerodechaveamentos++;

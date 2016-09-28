@@ -29,5 +29,23 @@ class AutoCompleteController extends Controller
         else
             return ['value'=>'No Result Found','id'=>''];
     }
+
+    public function retornaPartidaAjax(Request $request) {
+        $query = $request->get('id','');
+        
+        $partida=Tenista::find($query);
+        
+
+        $retorno[]=array('data'=> $partida->data, 'id'=>$partida->idid)
+
+        $retorno=array();
+        foreach ($tenistas as $tenista) {
+                $retorno[]=array('url'=>route('tenista.detalhe',$tenista->id), 'value'=> $tenista->nome,'id'=>$tenista->id);
+        }
+        if(count($retorno))
+             return $retorno;
+        else
+            return ['value'=>'No Result Found','id'=>''];
+    }
     
 }

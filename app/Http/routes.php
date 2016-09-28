@@ -42,6 +42,7 @@ Route::get('tenista/activation/{token}', 'TenistaController@activateTenista')->n
 //pesquisa ajax pra tenista
 //Route::get('autocomplete',array('as'=>'autocomplete','uses'=>'AutoCompleteController@index'));
 Route::get('searchajax',array('as'=>'searchajax','uses'=>'AutoCompleteController@autoComplete'));
+Route::get('retornaPartidaAjax',array('as'=>'retornaPartidaAjax','uses'=>'PartidasController@retornaPartidaAjax'));
 
 Route::get('/estado/{id}/cidades', array('as'=>'listacidadesporestado','uses'=>'CidadeController@getCidadesPorEstado'));
 
@@ -156,6 +157,7 @@ Route::group(['middleware' => 'auth'], function () {
 				Route::get('/partidas/', ['uses'=>'PartidasController@index', 'as'=>'interesse.index']);
 				Route::get('/partidas/create', ['uses'=>'PartidasController@create', 'as'=>'partidas.create']);
 				Route::post('/partidas', ['uses'=>'PartidasController@store', 'as'=>'partidas.store']);
+				Route::put('/partidas/{id}/update', ['uses'=>'PartidasController@update', 'as'=>'partidas.update']);
 				Route::get('/partidas/{id}', ['uses'=>'PartidasController@detalhe', 'as'=>'partidas.detalhe']);
 			});
 	});
