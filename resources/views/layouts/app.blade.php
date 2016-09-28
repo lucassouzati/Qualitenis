@@ -52,95 +52,99 @@
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
-            <!-- inicio -->
+                <!-- inicio -->
                 <!-- Left Side Of Navbar -->                
-<!-- Authentication Links -->                    
-@if (Auth::guard('tenista')->check()) 
-    <!-- Left Side Of Navbar -->
-    <ul class="nav navbar-nav">
-        <li><a href="{{ url('/tenista') }}">Área do Tenista</a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                {{ Auth::guard('tenista')-> user()->nome }} <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="{{ url('/tenista/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-            </ul>
-        </li>
-    </ul>  
-
-@elseif (Auth::guest())
-    <!-- Left Side Of Navbar -->
-    <ul class="nav navbar-nav">
-        <li><a href="{{ url('/tenista') }}">Área do Tenista</a></li>
-    </ul>
-    <ul class="nav navbar-nav">
-        <li><a href="{{ url('/login') }}">Área Administrativa</a></li>
-    </ul>
-    <!-- Right Side Of Navbar -->
-    <ul class="nav navbar-nav navbar-right">
-        <li><a href="{{ url('/tenista/login') }}">Entrar</a></li>
-        <li><a href="{{ url('/tenista/adicionar') }}">Registrar</a></li>
-    </ul>
-                        
-                        
-@else 
-    @can('Func')
-    <!-- Left Side Of Navbar -->
-    <ul class="nav navbar-nav">
-        <li><a href="{{ url('/login') }}">Área Administrativa</a></li>
-
-                      @can('Academia_index')
-                         <li>
-                             <a href="{{route('Academia.index')}}">Academias</a>
-                         </li>
-                      @endcan
-                       <li>
-                           <a href="{{route('torneio.index')}}">Torneios</a>
-                       </li>
-                       @can('Classe_index')
-                         <li>
-                             <a href="{{route('Classe.adicionar')}}">Classe</a>
-                         </li>
-                       @endcan
-                        @can('Funcionario_index')
-                         <li class="dropdown">
+                <!-- Authentication Links -->                    
+                @if (Auth::guard('tenista')->check()) 
+                    <!-- Left Side Of Navbar -->
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{ url('/tenista') }}">Área do Tenista</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                Funcionarios <span class="caret"></span>
+                                {{ Auth::guard('tenista')-> user()->nome }} <span class="caret"></span>
                             </a>
-                             <ul class="dropdown-menu" role="menu">
-                            @can('Func')
-                                <li><a href="{{ url('/register') }}">Registrar</a></li>
-                            @endcan
-                                <li><a href="{{route('auth.index')}}">Lista</a></li>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/tenista/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>
-                         </li>
-                        @endcan
-                       <li>
-                           <a href="{{route('tenista.lista')}}">Tenistas</a>
-                       </li>
-    </ul>
-    <!-- Right Side Of Navbar -->
-    <!-- <ul class="nav navbar-nav navbar-right">
-        <li><a href="{{ url('/register') }}">Registrar</a></li>
-    </ul> -->                    
-    @endcan              
+                        </li>
+                    </ul>  
 
-    <!-- Right Side Of Navbar -->
-    <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                {{ Auth::user()->name }} <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-            </ul>
-        </li>
-    </ul>                        
-@endif
-            <!-- fim -->
+                @elseif (Auth::guest())
+                    <!-- Left Side Of Navbar -->
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{ url('/tenista') }}">Área do Tenista</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{ url('/login') }}">Área Administrativa</a></li>
+                    </ul>
+                    <!-- Right Side Of Navbar -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{{ url('/tenista/login') }}">Entrar</a></li>
+                        <li><a href="{{ url('/tenista/adicionar') }}">Registrar</a></li>
+                    </ul>
+                                        
+                                        
+                @else 
+                    @can('Func')
+                    <!-- Left Side Of Navbar -->
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{ url('/login') }}">Área Administrativa</a></li>
+
+                          @can('Academia_index')
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    Academias <span class="caret"></span>
+                                </a>
+                                 <ul class="dropdown-menu" role="menu">
+                                @can('Func')
+                                    <li><a href="{{route('Academia.adicionar')}}">Registrar</a></li>
+                                @endcan
+                                    <li><a href="{{route('Academia.index')}}">Lista</a></li>
+                                </ul>
+                             </li>
+                          @endcan
+                           <li>
+                               <a href="{{route('torneio.index')}}">Torneios</a>
+                           </li>
+                            @can('Funcionario_index')
+                             <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                    Funcionarios <span class="caret"></span>
+                                </a>
+                                 <ul class="dropdown-menu" role="menu">
+                                @can('Func')
+                                    <li><a href="{{ url('/register') }}">Registrar</a></li>
+                                @endcan
+                                    <li><a href="{{route('auth.index')}}">Lista</a></li>
+                                </ul>
+                             </li>
+                            @endcan
+                           <li>
+                               <a href="{{route('tenista.lista')}}">Tenistas</a>
+                           </li>
+
+                    </ul>
+                    <!-- Right Side Of Navbar -->
+                    <!-- <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{{ url('/register') }}">Registrar</a></li>
+                    </ul> -->                    
+                    @endcan              
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>                        
+                @endif
+                <!-- fim -->
             </div>
         </div>
     </nav>
