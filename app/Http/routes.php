@@ -28,6 +28,7 @@ Route::get('/noticias', function(){
 //Noticias
 Route::post('noticias/noticias', ['uses'=>'NoticiaController@salvar', 'as'=>'Noticia.salvar']);
 Route::get('/noticias/exibir', ['uses'=>'NoticiaController@exibir', 'as'=>'Noticias.exibir']);
+Route::get('/noticias/exibir/{id}', ['uses'=>'NoticiaController@selecionar', 'as'=>'Noticia.selecionar']);
 
 
 //tenista
