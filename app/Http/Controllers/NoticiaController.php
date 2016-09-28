@@ -9,12 +9,19 @@ use App\Http\Requests;
 class NoticiaController extends Controller
 {
 
-  public function exibir()
-    {
-       $noticias = \App\Noticia::paginate(15);
+  public function exibir(){
+     $noticias = \App\Noticia::paginate(15);
 
-       return view('noticias.exibir',compact('noticias'));
-    }
+     return view('Noticias.exibir',compact('noticias'));
+  }
+
+  public function selecionar($id){
+     $noticias = \App\Noticia::paginate(15);
+     $noticia_escolhida = \App\Noticia::find($id);
+
+     return view('Noticias.exibir',compact('noticias','noticia_escolhida'));
+  }
+
 
   public function salvar(Request $request)
   {
@@ -32,4 +39,5 @@ class NoticiaController extends Controller
     }
     return redirect('/noticias');
   }
+
 }
